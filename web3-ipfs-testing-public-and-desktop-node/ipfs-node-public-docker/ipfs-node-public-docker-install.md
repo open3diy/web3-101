@@ -31,7 +31,6 @@ Igualmente tuve que tener en cuenta muchas cosas que finalmente están en [Refer
 - Rutas de espacio en disco requeridas por `IFPS` en el host:
     - ipfs_staging: `/home/jesus/docker-ipfs-files/ipfs_staging`.
     - ipfs_data: `/home/jesus/docker-ipfs-files/ipfs_data`.
-- Login de usuario operador (realizará los pasos): `jesus`.
 
 ## Pre-requisitos
 
@@ -178,7 +177,7 @@ id docker-ipfs
 Ejecutar el comando:
 
 ```bash
-docker run --restart always \
+docker run --restart unless-stopped \
   -d --name ipfs_host \
   --user 1002:1002 \
   -v /home/jesus/docker-ipfs-files/ipfs_staging:/export \
@@ -191,7 +190,7 @@ docker run --restart always \
 
 Explicación:
 
-* `--restart always`: Reinicia automáticamente el contenedor si se detiene.
+* `--restart unless-stopped`: Docker reinicia el contenedor después de un reinicio del sistema o fallo, pero no lo hará si lo detuviste manualmente con comandos como docker stop.
 * `--user docker-ipfs`: Por seguridad y para aplicar la cuota de espacio en disco, iniciar el contenedor para un usuario concreto creado para este contenedor.
 * `-d`: Ejecuta el contenedor en modo "desconectado" (background).
 * `--name ipfs_host`: Asigna el nombre ipfs_host al contenedor para identificarlo.
@@ -261,11 +260,20 @@ docker logs -f ipfs_host
     El servidor de gateway HTTP está escuchando en todas las interfaces de red (0.0.0.0), esto es correcto porque está IPFS en un contenedor, no estás exponiendo nada al exterior.
     Además indica que es el puerto 8080, pero no es donde queriamos, luego lo cambiaremos al puerto 8081.
 
-  
 Copiar el valor de `PeerID`, lo usaremos para que otros nodos puedan agregarlo como peer. En este ejemplo, sería el valor `12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke`:
 
 ```plaintest
 PeerID: 12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke
+```
+
+### Cambiar puerto por defecto del gateway
+
+El gateway JTTP de IPFS se expone por defecto en el puerto 8080, pero es un puerto típico para servicios, asi que lo cambio por 8081, al [iniciar el contenedor](#crear-e-iniciar-el-contenedor-de-forma-persistente) y en la configuración.
+
+Editar la configuración de `IPFS` en `/home/jesus/docker-ipfs-files/ipfs_data/config` y buscar en `Addresses` la entrada `Gateway` y cambiarla:
+
+```json
+"Gateway": "/ip4/0.0.0.0/tcp/8081",
 ```
 
 ### Anunciar la multiaddr pública al exterior
@@ -273,9 +281,7 @@ PeerID: 12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke
 Como nos indica el issue [Cluster peers in Docker or behind NATs do not advertise their public IP addresses](https://github.com/ipfs-cluster/ipfs-cluster/issues/949), anunciaremos nuestra multiaddr pública para que otros peers puedan acceder, porque al estar en docker no son anunciadas automaticamente.
 - **Nota**: al [iniciar el contenedor](#crear-e-iniciar-el-contenedor-de-forma-persistente) indicamos los puertos, pero es cierto que si hubieramos iniciamos con la opción `--network host` nos habriamos ahorrado todo esto, pero por seguridad, he preferido aplicar esta solución.
 
-Para todo esto, procederemos a corregir la configuración de `IPFS` editando el archivo de configuración `config`.
-
-Editar la configuración de `IPFS` en `/home/jesus/docker-ipfs-files/ipfs_data/config` y buscar en `Addresses` la lista de `AppendAnnounce` (que inicialmente está vacío).
+Para todo esto, editar la configuración de `IPFS` en `/home/jesus/docker-ipfs-files/ipfs_data/config` y buscar en `Addresses` la lista de `AppendAnnounce` (que inicialmente está vacío).
 
 Partiendo del ejemplo donde tenemos el dominio público `vps-a1bdd53d.vps.ovh.net`, debenos agregar esta lista, quedando finalmente como:
 
@@ -352,7 +358,7 @@ Por si queda alguna duda, debería quedar así finalmente con todos los cambios 
       "/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/webrtc-direct/",
       "/dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001/p2p/12D3KooWKeidFGYpUquQMXhnvNbPgeSaPfzkszuj4ApQcf8UrsQx/p2p-circuit"
     ],
-    "Gateway": "/ip4/0.0.0.0/tcp/8080",
+    "Gateway": "/ip4/0.0.0.0/tcp/8081",
     "NoAnnounce": [],
     "Swarm": [
       "/ip4/0.0.0.0/tcp/4001",
@@ -387,6 +393,8 @@ Por si queda alguna duda, debería quedar así finalmente con todos los cambios 
 }
 ```
 
+Reiniciar el contenedor:
+
 ```bash
 docker restart ipfs_host
 ```
@@ -414,10 +422,9 @@ docker logs ipfs_host
     Run 'ipfs id' to inspect announced and discovered multiaddrs of this node.
     RPC API server listening on /ip4/0.0.0.0/tcp/5001
     WebUI: http://127.0.0.1:5001/webui
-    Gateway server listening on /ip4/0.0.0.0/tcp/8080
+    Gateway server listening on /ip4/0.0.0.0/tcp/8081
     Daemon is ready
     ```
-
 
 Verificar direcciones de escucha y módulos cargados:
 
@@ -512,9 +519,9 @@ docker exec -it ipfs_host ipfs id
         "/libp2p/circuit/relay/0.2.0/stop",
         ```
 
-### Administrar el nodo remoto en nuestro equipo de sobrenesa con SSH
+### Administrar el nodo remoto en nuestro equipo con SSH
 
-Por comodidad, para administrar el nodo VPS remoto desde nuestro equipo de sobremesa, podemos re-dirigir en una conexion SSH el puerto 5001.
+Por comodidad, para administrar el nodo VPS remoto desde nuestro equipo de habitudal, podemos re-dirigir en una conexion SSH el puerto 5001.
 
 > Tener activo SSH no sería lo más seguro para un nodo de producción, pero inicialmente y para este nodo de pruebas, para revisar que todo funciona correctamente, es la opción más rápida. Luego podremos desactivar SSH si queremos.
 
@@ -523,11 +530,11 @@ Abre un túnel SSH desde un terminal del cliente:
 ```bash
 ssh -L 5001:127.0.0.1:5001 usuario@ip_del_vps
 ```
-> Remplaza `usaurio` e `ip_del_vps` por los valores correspondientes a tu conexión `ssh`.
+> Remplaza `usaurio` e `ip_del_vps` por los valores correspondientes a tu conexión SSH.
 
 Accede a la WebUI desde tu navegador local, escribe la direccion: `http://127.0.0.1:5001/webui`.
 
-> Para cerrar escribe `logout` en la conexión remota abierta en terminal.
+En el terminal donde iniciaste, para cerrar escribe `logout` en la conexión remota.
 
 
 ## Referencias

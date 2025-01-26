@@ -37,7 +37,7 @@ sudo apt upgrade -y
 
 ### Permitir a los nodos establecer conexiones directas y autonat
 
-Es importante permitir al nodo realizar conexiones directas cuando se ofrece el servicio relay, para eso la configuracion [`EnableHolePunching`](https://github.com/ipfs/kubo/blob/master/docs/config.md#swarmenableholepunching) indicada a `True` es fundamental. No se indica como paso porque por defecto ya está habilitado, pero por favor, revisa en la configuración que no lo tengas a `False`.
+Es importante permitir al nodo realizar conexiones directas cuando se requiere el servicio relay, para eso la configuracion [`EnableHolePunching`](https://github.com/ipfs/kubo/blob/master/docs/config.md#swarmenableholepunching) indicada a `True` es fundamental. No se indica como paso porque por defecto ya está habilitado, pero por favor, revisa en la configuración que no lo tengas a `False`.
 
 Igualmente, [`Autonat`](https://github.com/ipfs/kubo/blob/master/docs/config.md#autonatservicemode) debe estar establecido a `enabled`, siendo ya la configuración por defecto, motivo por el que no se indica como paso, pero revisa por favor que no lo tengas a `disabled`.
 
@@ -47,10 +47,10 @@ Siempre tener como referencia [la referencia configuración `IPFS`](https://gith
 
 #### No aparece en terminal el comando `ipfs`
 
-En ubuntu al instalar el `.deb`, el `CLI` no está facil de encontrar, está en `/opt/'IPFS Desktop'/resources/app.asar.unpacked/node_modules/kubo/kubo`
+En ubuntu al instalar el `.deb`, el `CLI` no es facil encontrar el comando `ipfs`, está en `/opt/'IPFS Desktop'/resources/app.asar.unpacked/node_modules/kubo/kubo`
 > Es una ruta complicada de escribir, está en comillas simples el nombre de la ruta: `'IPFS Desktop'`
     
-Lo mejor es agregar la ruta al `PATH`:
+Lo mejor es agregar esa la ruta al `PATH`:
     
 ```
 echo 'export PATH=$PATH:/opt/"IPFS Desktop"/resources/app.asar.unpacked/node_modules/kubo/kubo' >> ~/.bashrc
@@ -210,7 +210,7 @@ ipfs id | grep vps-a1bdd53d.vps.ovh.net
     "/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/webrtc-direct/certhash/uEiBZroH3W7SYUiXG8Jbro3s7ui_9yNF_9-2FDGhZX19Dsw/p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ"
     ```
 
-Agrega un documento de prueba, hazle pin y haz una prueba rápida de que aparece en el gateway público que tienes agregado como nodo persistente: pendiente...
+Agrega un documento de prueba, hacer pin y realizar una prueba rápida de que aparece en el gateway público que tienes agregado como nodo persistente: pendiente...
 
 ## Referencias
 
