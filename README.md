@@ -1,4 +1,4 @@
-# Web3 - IPFS
+# Web3 - IPFS - 101
 
 ## Contexto
 
@@ -30,7 +30,6 @@ IPFS (InterPlanetary File System) es una tecnología descentralizada diseñada p
 
 La solución consiste en una serie de prácticas que se enumeran a continuación:
 - [Probar un nudo ipfs público y local - `#web3-ipfs-testing-public-and-desktop-node`](web3-ipfs-testing-public-and-desktop-node/README.md).
-
 
 ## Referencias
 

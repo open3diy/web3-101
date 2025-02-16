@@ -1,4 +1,4 @@
-# Web3 - IPFS - Probando un Nodo Público y de Escritorio
+# Web3 - IPFS - 101 - Probando un Nodo Público y de Escritorio
 
 Esta es la solucion nombrada como `#web3-ipfs-testing-public-and-desktop-node`.
 

@@ -1,6 +1,6 @@
 # Conifiguración inicial de un servidor de red
 
-Esta es la solucion nombrada como `#initial-netServer-configuration`.
+Esta es la solucion nombrada como `#netServer-initial-configuration`.
 
 ## Contexto
 
@@ -53,7 +53,7 @@ sudo usermod -aG infrastructure jesus
 Crear la carpeta de configuración principal para las aplicaciones `/etc/appserver`, para logs en `/var/log` (si no existe) y servir contenido en `/srv`:
 
 ```bash
-sudo mkdir /etc/appserver /var/log /srv
+sudo mkdir -p /etc/appserver /var/log /srv
 ```
 
 Cambiar el grupo propietario de las carpetas `/etc/appserver` y `/srv`:
@@ -117,14 +117,15 @@ touch /etc/appserver/app1/init.config
 Dar permiso concretos con `setfacl` a la carpeta para que pueda navegar y permiso al archivo de configuración:
 
 ```bash
-sudo setfacl -m u:app1:X /etc/appserver/app1
+sudo setfacl -m u:app1:rX /etc/appserver/app1
 sudo setfacl -m u:app1:r /etc/appserver/app1/init.config
 ```
 
 En el caso que queramos dar permisos mínimos, pero queremos el usuario tenga permiso en toda la carpeta para leer de forma heredada, por ejemplo, si es contenido estático como contenido HTML que vamos creando, podemos usar:
 
 ```bash
-sudo setfacl -d -m d:u:app1:rX /srv/www
+sudo setfacl -m d:u:app1:rX /srv/www     # permiso al directorio para navegar solamente
+sudo setfacl -d -m d:u:app1:r /srv/www  # permiso por defecto de lectura a cada nuevo archivo
 ```
 
 **El propietario es la propia aplicación**
@@ -183,9 +184,19 @@ timedatectl status
 * **salida:**
 
     ```plaintext
-        Time zone: UTC (UTC, +0000)
-        NTP service: active
+    Time zone: UTC (UTC, +0000)
+    NTP service: active
     ```
+
+## Instalar herramientas para la correcta configuración
+
+Instalar `yq` para comprobar sintaxis yaml que usaremos en los pasos:
+
+```bash
+sudo wget -qO /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64"
+sudo chmod +x /usr/local/bin/yq
+```
+
 
 ## Pasos `Hardening` del servidor de red
 

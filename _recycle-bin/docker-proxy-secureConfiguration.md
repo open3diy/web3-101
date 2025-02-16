@@ -20,7 +20,6 @@ Por este motivo `docker-proxy` está descartado por ser un gran abujero de segur
 
 Pero los pasos que quedaron, con errores porque no termine de revisarlo, aquí están..
 
-
 ## Pasos
 
 ### Configuración previa de `docker proxy`

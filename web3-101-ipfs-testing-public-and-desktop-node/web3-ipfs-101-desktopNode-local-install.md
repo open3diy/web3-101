@@ -1,6 +1,6 @@
-# Web3 - IPFS - Probando un Nodo Público y de Escritorio - Instalación en docker local IPFS Desktop
+# Web3 - IPFS-101 - Probando un Nodo Público y de Escritorio - Instalación de IPFS Desktop en local
 
-Esta es la solucion nombrada como `#ipfs-node-desktop-local-install`.
+Esta es la solucion nombrada como `#web3-ipfs-101-desktopNode-local-install`.
 
 ## Contexto
 
@@ -19,10 +19,6 @@ Igualmente tuve que tener en cuenta cosas que finalmente están en [Referencias]
 
 - En PC de sobremesa.
 - En [Ubuntu 24.04 LTS](https://ubuntu.com/blog/tag/ubuntu-24-04-lts).
-
-## Pre-requisitos
-
-- [Instalación de IPFS Desktop App](https://docs.ipfs.tech/install/ipfs-desktop/#install-with-deb) como es indicado en la guía para Ubuntu en una instalación `.deb`.
 
 ### Problemas conocidos que debes saber antes
 
@@ -62,6 +58,14 @@ Probar en terminal que ya tenemos acceso a los comandos `ipfs`:
 ```
 ipfs --version
 ```
+
+#### Lo mejor ante problemas es salir y entrar
+
+Lo cierto es que muchas veces, al ver que no conecta correctamante al nodo persistente (como veremos más adelante), lo mejor es apagar IPFS Desktop y voler a entrar, no solo reiniciar.
+
+## Pre-requisitos
+
+- [Instalación de IPFS Desktop App](https://docs.ipfs.tech/install/ipfs-desktop/#install-with-deb) como es indicado en la guía para Ubuntu en una instalación `.deb`.
 
 ## Pasos
 
@@ -145,7 +149,7 @@ ipfs id | grep p2p-circuit
 * **salida:**
 
     ```plaintext
-    "/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
     "/ip4/84.155.126.229/tcp/4004/p2p/12D3KooWNbJU9dn1dmubZhuWXiqQodZic22cJCcp5H7Jwm6qJj84/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
     "/ip4/84.155.126.229/udp/4004/quic-v1/p2p/12D3KooWNbJU9dn1dmubZhuWXiqQodZic22cJCcp5H7Jwm6qJj84/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
     "/ip4/84.155.126.229/udp/4004/quic-v1/webtransport/certhash/uEiDXtXYR3C537HYkb-kCHu-7g7SQjKfbdKXhp7JkfvDfAA/certhash/uEiAOush0h1Zx-b202Zp9o7Cuhl5kzSzECt2ZJA1UZ1LV-w/p2p/12D3KooWNbJU9dn1dmubZhuWXiqQodZic22cJCcp5H7Jwm6qJj84/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
@@ -170,14 +174,14 @@ Este nodo persistente, que es un relay, te ayudará a poder acceder a tú conten
 Verificar que el nodo está disponible para conectarse:
 
 ```bash
-ipfs swarm connect /dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001/p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke
+ipfs swarm connect /dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 ```
 
 * **salida:**
 
     ```plaintext
-    p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke
-    connect 12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke success
+    p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
+    connect 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex success
     ```
 
 En la configuración en `~/.ipfs/config` o abrir la propia app, en apartado `Configuración`, agregar en `Peering`:
@@ -189,28 +193,51 @@ En la configuración en `~/.ipfs/config` o abrir la propia app, en apartado `Con
 				"Addrs": [
 					"/dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001"
 				],
-				"ID": "12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke"
+				"ID": "12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex"
 			}
 		]
 	},
 ```
 
-Reiniciar la aplicación y pasado un tiempo, tener algo de paciencia, verificar que el nodo persistente `vps-a1bdd53d.vps.ovh.net` nos anuncia como relay. Para ello lanzar en terminal:
+Reiniciar la aplicación, tener algo de paciencia, verificar que está conectado al nodo por la IP:
 
 ```bash
-ipfs id | grep vps-a1bdd53d.vps.ovh.net
+ipfs swarm peers | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 ```
 
 * **salida:**
 
     ```plaintext
-    "/dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001/p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-    "/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/quic-v1/p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-    "/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/quic-v1/webtransport/certhash/uEiDQvcHyRFvpUhI-_ld7qJcy_LRU0WvoI-ELKH76eLXWMQ/certhash/uEiB8B-v5wmewNjVgNFrMIOICgxV2aFig4vws3xKhRauYXA/p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-    "/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/webrtc-direct/certhash/uEiBZroH3W7SYUiXG8Jbro3s7ui_9yNF_9-2FDGhZX19Dsw/p2p/12D3KooWAKx8GuxQchXZazkxDZnjr2sb3StjSNsyyhUvTr9Md5ke/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ"
+    /ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
     ```
 
-Agrega un documento de prueba, hacer pin y realizar una prueba rápida de que aparece en el gateway público que tienes agregado como nodo persistente: pendiente...
+> Aunque conectamos por DNS a `vps-a1bdd53d.vps.ovh.net`, siempre lo tranforma a la IP de `57.129.131.125`.
+
+Comprobar luego que nos anuncia como relay:
+
+```bash
+ipfs id | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
+```
+
+* **salida:**
+
+    ```plaintext
+    "/dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+	"/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+	"/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/quic-v1/webtransport/certhash/uEiD7qSzudDQme09i0vjsIwzSrAMdU7sFvoEvVVlgWaJP5g/certhash/uEiA2Edv0pkrKpVoqrAM6XvOFIdgf8pcH3EBS8V939U8g4A/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+	"/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/webrtc-direct/certhash/uEiAsCA7PGleuvDGH3mT6L2shLLDHO1cEQLzyfl_zOW-OgA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+	"/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ"
+    ```
+
+### Configuración en IPFS Desktop y prueba
+
+En IPFS Desktop ir a "Configuración", última pestaña del panel izquiero, y en "Select a fallback Path Gateway for generating shareable links for CIDs that exceed the 63-character DNS limit.", donde pone la URL `https://ipfs.io`, probar a poner `
+
+Agrega un documento de prueba, hazle PIN para fijarlo y realizar una prueba rápida de que aparece en el gateway público que tienes agregado como nodo persistente: pendiente...
+
+
+ipfs ping 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
+
 
 ## Referencias
 
