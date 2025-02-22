@@ -18,9 +18,11 @@ El servicio ofrece:
 
 ## Solución
 
-La solución es la instalación de IPFS con docker teniendo como referencia la documentación [install IPFS Kubo inside Docker](https://docs.ipfs.tech/install/run-ipfs-inside-docker/), pero con configuraciones especificas tras varias pruebas y consultas en la documentación de [referencia de IPFS](https://github.com/ipfs/kubo/blob/master/docs/config.md).
+La solución es la instalación de IPFS con docker teniendo como referencia la documentación [install IPFS Kubo inside Docker](https://docs.ipfs.tech/install/run-ipfs-inside-docker/), pero con configuraciones especificas tras varias pruebas y consultas que verás finalmente en las [referencias](#referencias).
 
-Igualmente tuve que tener en cuenta muchas cosas que finalmente están en [Referencias](#referencias).
+Si estas pensando en crear un servicio público en producción, te recomiendo encarecidamente ir a [PFS Infrastructure](https://github.com/ipfs/infra/blob/master/README.md). Esta solución está pensanda para hacer pruebas en lo que considero mí laboratorio de aprendizaje, como habia intentado explicar en [mí propósito](../README.md#propósito).
+
+> Esta solución es completamente funcional si la quieres seguir e instalar como nodo IPFS porque te resulta más fácil, pero no considero que inicialmente sea tan segura o depurada como [PFS Infrastructure](https://github.com/ipfs/infra/blob/master/README.md).
 
 ## Configuración
 
@@ -384,6 +386,26 @@ Luego en `Swarm` (casi al final) en `RelayService`, agregar `Enabled` a `true`:
     },
 ```
 
+### Configurar el nodo como gateway
+
+Para crear el nodo como gateway público, editar la configuración de `IPFS` en `/etc/appserver/ipfs/config` y buscar en `Gateway` la lista de `PublicGateways`, agregar el dominio principal:
+
+```yaml
+"Gateway": {
+   Etc...
+    "PublicGateways": {
+      "web3-101.open3diy.org": {
+        "UseSubdomains": true,
+        "Paths": ["/ipfs", "/ipns"]
+        }
+      },
+    Etc..
+  },
+```
+
+En este ejemplo, `web3-101.open3diy.org` es el dominio base para `ipfs.web3-101.open3diy.org` e `ipns.web3-101.open3diy.org`, pero al configurarlo, debemos agregarlo así.
+
+
 ### Revisar limitaciones de disco y ancho de bada
 
 Por defecto el espacio maximo entre caché, temporales, metadatos o contenido agreagado como PIN, tiene como máximo `10GB` como se indica en el archivo `/etc/appserver/ipfs/config` en `Datastore` en entrada `StorageMax`:
@@ -432,6 +454,24 @@ Por si queda alguna duda, `/etc/appserver/ipfs/config` debería quedar así fina
   },
   "AutoNAT": {},
   etc...
+  },
+    "Gateway": {
+    "DeserializedResponses": null,
+    "DisableHTMLErrors": null,
+    "ExposeRoutingAPI": null,
+    "HTTPHeaders": {},
+    "NoDNSLink": false,
+    "NoFetch": false,
+    "PublicGateways": {
+      "web3-101.open3diy.org": {
+        "UseSubdomains": true,
+        "Paths": ["/ipfs", "/ipns"]
+        }
+      },
+    "RootRedirect": ""
+  },
+  etc..
+  },
   "Swarm": {
     "AddrFilters": null,
     "ConnMgr": {},
@@ -598,119 +638,6 @@ Aprobecha a subir un documento, haz PIN y copia el CID porque nos vendrá vien p
 En el terminal donde iniciaste, para cerrar escribe `logout` en la conexión remota.
 
 
-### Configuración de Nginx para validación de Let's Encrypt
-
-En `/etc/appserver/nginx/conf.d/default.conf`, configuramos Nginx para permitir que Certbot resuelva los desafíos webroot del nuevo dominio `ipfs.web3-101.open3diy.org`, agregamos un nuevo bloque `server` a los que ya esten:
-
-```nginx
-server {
-    listen 80;
-    listen [::]:80;
-    server_name ipfs.web3-101.open3diy.org;
-
-    # Para leer archivos de desafio
-    location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
-    }
-
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
-```
-
-Verificar que la configuración es válida en el contenedo:
-
-```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -t
-```
-
-* **salida:**
-
-  ```plaintext
-  nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-  nginx: configuration file /etc/nginx/nginx.conf test is successful
-  ```
-
-Recarga configuracion nginx sin reiniciar el contenedor:
-
-```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -s reload
-```
-
-Revisar logs:
-
-```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml logs reverse-proxy
-```
-
-* **salida:**
-
-  ```plaintext
-  reverse-proxy  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-  reverse-proxy  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
-  reverse-proxy  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-  reverse-proxy  | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
-  reverse-proxy  | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
-  reverse-proxy  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
-  reverse-proxy  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
-  reverse-proxy  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
-  reverse-proxy  | /docker-entrypoint.sh: Configuration complete; ready for start up
-  ```
-
-Verificar que se podria guardar el desafio, primero creando un archivo de prueba:
-
-```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot sh -c "echo 'test' > /var/www/certbot/.well-known/acme-challenge/testfile"
-```
-
-Verificar que sería resolver el desafio:
-
-```bash
-curl -I http://ipfs.web3-101.open3diy.org/.well-known/acme-challenge/testfile
-```
-
-* **salida:**
-
-  ```plaintext
-  HTTP/1.1 200 OK
-  Etc..
-  ```
-
-Configurar certbot con webroot el sitio:
-> Esto solo lo haremos una vez por cada dominio o subdominio que se tenga que resolver.
-
-```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot certonly --webroot -w /var/www/certbot -d ipfs.web3-101.open3diy.org --email demovoidgan@gmail.com --agree-tos --non-interactive --force-renewal --debug
-```
-
-> En este ejemplo `ipfs.web3-101.open3diy.org` es el dominio propio, con el email relacionado `demovoidgan@gmail.com`. Por favor, revisa esto para tú caso...
-
-* **salida:**
-
-  ```plaintext
-  Saving debug log to /var/log/letsencrypt/letsencrypt.log
-  Requesting a certificate for ipfs.web3-101.open3diy.org
-
-  Successfully received certificate.
-  Certificate is saved at: /etc/letsencrypt/live/ipfs.web3-101.open3diy.org/fullchain.pem
-  Key is saved at:         /etc/letsencrypt/live/ipfs.web3-101.open3diy.org/privkey.pem
-  This certificate expires on 2025-05-17.
-  These files will be updated when the certificate renews.
-  ```
-
-Revisar logs:
-
-```bash
-less -G /var/log/certbot/letsencrypt.log
-```
-
-Esto genera los certificados en `/etc/letsencrypt/live/ipfs.web3-101.open3diy.org/`, revisarlo:
-
-```bash
-sudo ls -all /etc/appserver/certbot/conf/live/ipfs.web3-101.open3diy.org
-```
-
 ### Crear configuración de Ngins para IPFS
 
 Crear archivo de configuración en `/etc/appserver/nginx/conf.d/ipfs.conf`:
@@ -719,30 +646,29 @@ Crear archivo de configuración en `/etc/appserver/nginx/conf.d/ipfs.conf`:
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name ipfs.web3-101.open3diy.org;
-
+    server_name *.ipfs.web3-101.open3diy.org *.ipns.web3-101.open3diy.org;
+    
     ssl_certificate /etc/letsencrypt/live/ipfs.web3-101.open3diy.org/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/ipfs.web3-101.open3diy.org/privkey.pem;
 
-    location /ipfs/ {
-        proxy_pass http://ipfs-host:8080;
+    # HSTS
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+
+    add_header 'Access-Control-Allow-Origin' '*' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+    add_header 'Access-Control-Allow-Headers' 'X-Requested-With, Range, Content-Range, X-Chunked-Output, X-Stream-Output' always;
+    add_header 'Access-Control-Expose-Headers' 'Content-Range, X-Chunked-Output, X-Stream-Output' always;
+    
+    location / {
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $remote_addr;
-        proxy_set_header X-Forwarded-Proto https;
-
-        # Asegura que los encabezados del backend se pasen al cliente
-        proxy_pass_request_headers on;
-    }
-
-    location /ipns/ {
+        proxy_read_timeout 1800s;
         proxy_pass http://ipfs-host:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        proxy_set_header X-Forwarded-Proto https;
     }
+
 }
 ```
-> Recuerda revisar `ipfs.web3-101.open3diy.org` indicando el dominio que corresponda a tú caso.
+> Recuerda revisar donde aparezca `web3-101.open3diy.org` indicando el dominio que corresponda a tú caso.
 
 Verificar que la configuración es válida en el contenedo:
 
@@ -770,7 +696,7 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml logs reverse-proxy
 
 > Misma salida anterior con `reverse-proxy  | /docker-entrypoint.sh: Configuration complete; ready for start up`.
 
-Prueba el servicio de gateway con la URL `https://ipfs.web3-101.open3diy.org/ipfs/QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND`
+Prueba el servicio de gateway con la URL `https://ipfs.web3-101.open3diy.org/ipfs/QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND` y como subdominio `https://QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND.ipfs.web3-101.open3diy.org`.
 
 > El valor `QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND` es el CID que creamos anteriormente o uno cualquiera que podamos explorar.
 
@@ -793,6 +719,11 @@ less +G /var/log/nginx/access.log
 - [libp2p relay](https://docs.libp2p.io/concepts/nat/circuit-relay/).
 - [Issue cluster peers in Docker or behind NATs do not advertise their public IP addresses ](https://github.com/ipfs-cluster/ipfs-cluster/issues/949),
 - [IPFS](https://ipfs.tech/).
+- [IPFS Infrastructure nginx](https://github.com/ipfs/infra/blob/master/ipfs/gateway/nginx.conf).
+- [PFS Infrastructure](https://github.com/ipfs/infra/blob/master/README.md).
 - `chatgpt.com`.
 
-https://github.com/ipfs/infra/blob/master/ipfs/gateway/nginx.conf
+https://docs.ipfs.tech/concepts/ipfs-gateway/#resolution-styles
+https://blog.ipfs.tech/
+
+

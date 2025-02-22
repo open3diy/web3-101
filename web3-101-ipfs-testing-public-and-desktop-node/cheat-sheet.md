@@ -63,5 +63,32 @@ Accediendo a URLs de prueba: `https://web3-101.open3diy.org/test`
 
 Accediendo a URLs para probar IPFS:
 - CID de prueba: `https://ipfs.web3-101.open3diy.org/ipfs/QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND`
-- CID de prueba en sub-dominio: `https://mfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND.ipfs.web3-101.open3diy.org`
+- CID de prueba en sub-dominio: `https://QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND.ipfs.web3-101.open3diy.org`
 - WebUi de prueba: `https://ipfs.web3-101.open3diy.org/webui`
+
+curl -I https://QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND.ipfs.web3-101.open3diy.org
+
+
+https://ipfs.web3-101.open3diy.org/ipfs/bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi
+https://ipfs.web3-101.open3diy.org/ipfs/QmbsnvRzzyxExqDNhZQcin5CrJJDcuP5GTmsxZ4HuvKiFv
+https://dweb.link/ipfs/QmU1iddVtBKF96CEkazc7hPNeCczreKbg9uk7BK5g6Xod3
+https://QmU1iddVtBKF96CEkazc7hPNeCczreKbg9uk7BK5g6Xod3.dweb.link
+
+https://bafybeiccfclkdtucu6y4yc5cpr6y3yuinr67svmii46v5cfcrkp47ihehy.ipfs.dweb.link/
+https://bafybeiccfclkdtucu6y4yc5cpr6y3yuinr67svmii46v5cfcrkp47ihehy.ipfs.web3-101.open3diy.org
+
+https://bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi.ipfs.dweb.link/
+https://bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi.ipfs.web3-101.open3diy.org/
+
+puede que este CIDv0 QmU1iddVtBKF96CEkazc7hPNeCczreKbg9uk7BK5g6Xod3 sea este en V1 bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi?
+
+
+https://ipfs.web3-101.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m#x-ipfs-companion-no-redirect
+
+docker-compose -f /etc/appserver/docker/docker-compose.yml exec ipfs-host ipfs config show | jq .Gateway
+
+~/.config/IPFS Desktop/settings.json
+
+https://bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi.ipfs.infura-ipfs.io
+https://infura-ipfs.io
+

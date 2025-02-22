@@ -164,17 +164,17 @@ Con esto ya sería todo suficiente, ahora puedes agregar tú contenido y lo vera
 
 Si todo te funciona correctamente, ya puedes acabar aquí, pero sino, sigue leyendo porque esto te podrá ayudar...
 
-### Agregar como nodo persistente `vps-a1bdd53d.vps.ovh.net`
+### Agregar como nodo persistente `ipfs.open3diy.org`
 
 Este nodo persistente, que es un relay, te ayudará a poder acceder a tú contenido desde el exterior.
-> **Nota**: este nodo `vps-a1bdd53d.vps.ovh.net` lo hemos creado según los pasos de [`#ipfs-node-public-docker-install` Instalación de IPFS en docker en un VPS público](../ipfs-node-public-docker/ipfs-node-public-docker-install.md).
+> **Nota**: este nodo `ipfs.open3diy.org` lo hemos creado según los pasos de [`#ipfs-node-public-docker-install` Instalación de IPFS en docker en un VPS público](../ipfs-node-public-docker/ipfs-node-public-docker-install.md).
 
 **Pasos**:
 
 Verificar que el nodo está disponible para conectarse:
 
 ```bash
-ipfs swarm connect /dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
+ipfs swarm connect /dnsaddr/ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 ```
 
 * **salida:**
@@ -191,7 +191,7 @@ En la configuración en `~/.ipfs/config` o abrir la propia app, en apartado `Con
 		"Peers": [
 			{
 				"Addrs": [
-					"/dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001"
+					"/dnsaddr/ipfs.open3diy.org/tcp/4001"
 				],
 				"ID": "12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex"
 			}
@@ -211,7 +211,7 @@ ipfs swarm peers | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
     /ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
     ```
 
-> Aunque conectamos por DNS a `vps-a1bdd53d.vps.ovh.net`, siempre lo tranforma a la IP de `57.129.131.125`.
+> Aunque conectamos por DNS a `ipfs.open3diy.org`, siempre lo tranforma a la IP de `57.129.131.125`.
 
 Comprobar luego que nos anuncia como relay:
 
@@ -222,10 +222,10 @@ ipfs id | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 * **salida:**
 
     ```plaintext
-    "/dnsaddr/vps-a1bdd53d.vps.ovh.net/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/quic-v1/webtransport/certhash/uEiD7qSzudDQme09i0vjsIwzSrAMdU7sFvoEvVVlgWaJP5g/certhash/uEiA2Edv0pkrKpVoqrAM6XvOFIdgf8pcH3EBS8V939U8g4A/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"/dnsaddr/vps-a1bdd53d.vps.ovh.net/udp/4001/webrtc-direct/certhash/uEiAsCA7PGleuvDGH3mT6L2shLLDHO1cEQLzyfl_zOW-OgA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/dnsaddr/ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+	"/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+	"/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiD7qSzudDQme09i0vjsIwzSrAMdU7sFvoEvVVlgWaJP5g/certhash/uEiA2Edv0pkrKpVoqrAM6XvOFIdgf8pcH3EBS8V939U8g4A/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+	"/dnsaddr/ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiAsCA7PGleuvDGH3mT6L2shLLDHO1cEQLzyfl_zOW-OgA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
 	"/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ"
     ```
 
@@ -248,3 +248,9 @@ ipfs ping 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 - [libp2p relay](https://docs.libp2p.io/concepts/nat/circuit-relay/).
 - [IPFS](https://ipfs.tech/).
 - `chatgpt.com`.
+
+
+ipfs config --json CIDBase "base32"
+ipfs config --json CIDBase "base58btc"
+
+reiniciar servicio

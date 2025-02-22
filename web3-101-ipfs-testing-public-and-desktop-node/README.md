@@ -21,6 +21,10 @@ Gracias a esto, hemos llegado a:
 - **Aprender a preparar un servidor VPS**: preparé el servidor para que sea lo suficientemente seguro, ya que soy consciente que al ser público estará expuesto.
 - **Apoyar a otros**: Al crear un nodo público IPFS, también he querido permitir a que cualquier poder usarlo para sus primeras pruebas, quizás tenía el mismo problema, y este servicio le ayudará.
 
+#### Aviso a los delincuentes
+
+No se emocionen, aunque sabrán el ID del nodo, es mí nodo de laboratorio, si lo tumban... mala suerte para mí :( y desde luego que no encontraran la frase semilla de mis wallet de bitcoin :)
+
 ## Solución
 
 La solución para esta practica fue crear dos nodos: un nodo local `IPFS Desktop` en el que haré las pruebas pertinentes y luego un nodo público en un VPS que permitirá que dicho nodo local pueda ser consultado desde internet.
@@ -42,7 +46,6 @@ Lo llamaremos `#ipfs-node-public-docker`, es un nodo en un VPS, igualmente con `
 ### Preparar el servidor VPS `#ipfs-node-public-docker`:
 
 En el nodo publico, que es un VPS, con nombre `#ipfs-node-public-docker`, se preparará inicialmente, realizando los pasos:
-
 
 
 ### Instalar y configurar en `#ipfs-node-public-docker` IPFS con docker:
