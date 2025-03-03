@@ -1,10 +1,10 @@
-> ℹ️ Esta es la plantilla para completar soluciones. A patir de aquí, es un caso de ejemplo de plantilla, usalo como guía.
+ℹ️ Esta es la plantilla para completar soluciones. A patir de aquí, es un caso de ejemplo de plantilla, usalo como guía.
 
-> Cuando veas ℹ️ no es de la plantilla, son aclaraciones.
+Cuando veas ℹ️ no es de la plantilla, son aclaraciones.
 
-> Cuando veas [Por completar] es para poner en concreto lo que corresponda.
+Cuando veas [Por completar] es para poner en concreto lo que corresponda.
 
-> Por favor, revisa que los enlaces directos sean correctos, es normal que se rompan.
+Por favor, revisa que los enlaces directos sean correctos, es normal que se rompan.
 
 # Instalación de [Por completar]
 
@@ -67,7 +67,7 @@ Comprobar usuario:
 id
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     uid=1001(jesus) gid=1001(jesus) groups=1001(jesus),27(sudo),100(users),988(docker),1003(infrastructure)
@@ -76,6 +76,5 @@ id
 ## Referencias
 
 > ℹ️ Enumerar referencias y enlaces a ellas.
-
 
 [Etc...]

@@ -4,13 +4,13 @@ Esta es la solucion errada, nombrada como `#docker-userns-remap-configuration`.
 
 ## Contexto
 
-Este es un paso de configuración de [Web3 - Instalación inicial de `docker` y su configuración inicial](../misc/docker-install-configuration.md).
+Este es un paso de configuración de [Web3 - Instalación inicial de `docker` y su configuración inicial](../../misc/netServer-docker-install-configuration.md).
 
 ## Propósito
 
 [userns-remap](https://docs.docker.com/engine/security/userns-remap/) es una configuración que mejora la seguridad al remapear los IDs de usuario y grupo dentro de los contenedores (como root, UID 0) a IDs no privilegiados en el host. Esto asegura que los contenedores no tengan permisos de root en el sistema subyacente, incluso si son comprometidos.
 
-En este paso se intenta crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [conifiguración inicial de un servidor de red](../misc/initial-netServer-configuration.md).
+En este paso se intenta crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [conifiguración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
 
 El problema y motivo de descartarlo, es que no permite granularidad, sólo un usuario puede ser usado para todos los contenedores y lo que puede ver uno lo ven todos, así que al considerarlo un problema de seguridad lo descarto.
 
@@ -89,7 +89,7 @@ Reinicia servicio docker para aplicar cambios:
 sudo systemctl restart docker
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     Warning: The unit file, source configuration file or drop-ins of docker.service changed on disk. Run 'systemctl daemon-reload' to reload units.
@@ -107,7 +107,7 @@ Creará el usuario `dockremap`, comprobarlo:
 id dockremap
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     uid=111(dockremap) gid=113(dockremap) groups=113(dockremap)
@@ -121,7 +121,7 @@ Lo comprobamos para el ID:
 sudo tail /etc/subuid | grep dockremap
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     dockremap:493216:65536
@@ -133,7 +133,7 @@ Y para el GID:
 sudo tail /etc/subgid | grep dockremap
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     dockremap:493216:65536

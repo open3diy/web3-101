@@ -29,7 +29,7 @@ sudo apt upgrade -y
 
 ### Crear configuración del servidor
 
-El usuario que realizará todos los pasos estará en un grupo llamdo `infrastructure` y en principio necesita tener permiso de `sudo` para crear cuentas de usuario o asignar permisos. 
+El usuario que realizará todos los pasos estará en un grupo llamdo `infrastructure` y necesita tener permiso de `sudo` para crear cuentas de usuario o asignar permisos.
 > En todos los ejemplos de este tutorial se llamará `jesus`.
 
 Instalar `acl` Access Control list, para afinar los permisos:
@@ -81,9 +81,12 @@ sudo setfacl -d -m o::--- /etc/appserver /srv     # Otros: sin permisos
 
 #### Suposición de casos de permisos
 
-**El propietario es la infraestructura**
+**El propietario es la infraestructura**.
 
-Cuando es configuración inicial de un servicio, los propietarios son los del grupo `infrastructure` y debemos crear el usuario que inicia el servicio, al que damos permisos minimos. Viendolo en un ejemplo:
+Cuando debemos crear configuración de un servicio, dicha configuración es propietario el grupo `infrastructure`.
+Además, debemos crear el usuario que iniciará el servicio para darle los permisos mínimos.
+
+Viendolo en un ejemplo para un servicio llamado `app1`:
 
 Crear configuración:
 
@@ -128,7 +131,7 @@ sudo setfacl -m d:u:app1:rX /srv/www     # permiso al directorio para navegar so
 sudo setfacl -d -m d:u:app1:r /srv/www  # permiso por defecto de lectura a cada nuevo archivo
 ```
 
-**El propietario es la propia aplicación**
+**El propietario es la propia aplicación**.
 
 Cuando es la propia aplicación la que necesita albergar en el host información variable como logs, o guardar su estado por si la aplicación se renicia, o cualquier otro contenido que en realidad concierte a la aplicación, crearemos un usuario al que le asignaremos como propietario, permitiendo al grupo `infrastructure` ver el contenido. Viendolo con un ejemplo, suponiendo que es la carpeta de logs:
 
@@ -181,7 +184,7 @@ Verificar finalmente
 timedatectl status
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     Time zone: UTC (UTC, +0000)
@@ -197,37 +200,34 @@ sudo wget -qO /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/latest
 sudo chmod +x /usr/local/bin/yq
 ```
 
-
 ## Pasos `Hardening` del servidor de red
 
-> Un aspecto muy mejorable en estos tutoriales DIY, pero que esperemos que vayan mejorando con el tiempo.
-
-El hardening es un conjunto de buenas prácticas, configuraciones, y medidas específicas diseñadas para reducir las vulnerabilidades de un sistema o servidor y protegerlo contra ataques. 
+El hardening es un conjunto de buenas prácticas, configuraciones, y medidas específicas diseñadas para reducir las vulnerabilidades de un sistema o servidor y protegerlo contra ataques.
 
 Es más que una simple checklist: es un proceso continuo y adaptativo que consta de:
+
 - Hardening como proceso operativo:
-    - Análisis inicial: Identificar servicios, configuraciones, y aplicaciones en el servidor que puedan ser vulnerables.
-    - Implementación de medidas: Aplicar configuraciones de seguridad, deshabilitar servicios innecesarios y endurecer accesos.
-    - Monitoreo continuo: Revisar regularmente logs y configuraciones para detectar nuevas vulnerabilidades o necesidades de ajuste.
+  - Análisis inicial: Identificar servicios, configuraciones, y aplicaciones en el servidor que puedan ser vulnerables.
+  - Implementación de medidas: Aplicar configuraciones de seguridad, deshabilitar servicios innecesarios y endurecer accesos.
+  - Monitoreo continuo: Revisar regularmente logs y configuraciones para detectar nuevas vulnerabilidades o necesidades de ajuste.
 - Hardening como checklist, destacando:
-    - Configuración de firewall.
-    - Protección de puertos y servicios.
-    - Actualizaciones regulares.
-    - Políticas de contraseñas.
-    - Seguridad de acceso remoto (como SSH).
+  - Configuración de firewall.
+  - Protección de puertos y servicios.
+  - Actualizaciones regulares.
+  - Políticas de contraseñas.
+  - Seguridad de acceso remoto (como SSH).
 - Hardening como buenas prácticas:
-    - Recomendaciones de organizaciones como CIS (Center for Internet Security) o OWASP.
-    - Experiencia operativa y análisis de amenazas comunes.
-    - Aplicación de políticas de mínimo privilegio y principios de seguridad por diseño.
+  - Recomendaciones de organizaciones como CIS (Center for Internet Security) o OWASP.
+  - Experiencia operativa y análisis de amenazas comunes.
+  - Aplicación de políticas de mínimo privilegio y principios de seguridad por diseño.
 
 Estas medidas de seguridad se aplicarán mediante las siguientes iteraciones:
-- [iteración #1](./initial-netServer-hardening/hardering-iteration-1.md).
-- [iteración #2](./initial-netServer-hardening/hardering-iteration-2.md).
 
+- [iteración #1](./netServer-hardening/hardering-iteration-1.md).
+- [iteración #2](./netServer-hardening/hardering-iteration-2.md).
 
 ## Referencias
 
 - [curso web3Mba - seguridad](https://www.web3mba.io/).
 - [Ubuntu-Server-Hardening](https://gist.github.com/cybergitt/caf4451ad3f231735d97a1a42a1e88db).
 - `chatgpt.com`.
-

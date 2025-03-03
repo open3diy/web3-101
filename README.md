@@ -1,47 +1,47 @@
-# Web3 - IPFS - 101
+# Web3 - 101
 
 ## Contexto
 
 Este es un tutorial dentro de [Open3DIY.org](https://github.com/open3diy/org/blob/main/README.md).
 
-Este proyecto tiene un enfoque educativo, dirigido a explorar el potencial de IPFS en contextos reales y superar barreras técnicas comunes. 
+Este proyecto tiene un enfoque educativo, dirigido a explorar el potencial de la Web3 en contextos reales y superar barreras técnicas comunes.
 
-IPFS (InterPlanetary File System) es una tecnología descentralizada diseñada para almacenar y compartir datos de manera eficiente, sin depender de servidores centrales. Este enfoque tiene aplicaciones en Web3, respaldando sistemas como redes de contenido distribuidas, almacenamiento descentralizado y dApps. 
+Web3 representa la evolución de internet hacia un modelo descentralizado basado en tecnologías como blockchain, contratos inteligentes y redes peer-to-peer. Su propósito es devolver a los usuarios el control sobre sus datos y transacciones sin intermediarios centralizados. Esto tiene aplicaciones en identidades digitales, economías descentralizadas, almacenamiento distribuido y dApps.
 
-### Características principales de IPFS
+### Características principales de Web3
 
-- **Descentralización**: Los datos se almacenan en una red distribuida en lugar de servidores centralizados.
-- **Eficiencia**: Utiliza direcciones basadas en contenido, garantizando que el mismo archivo no se almacene más de una vez.
-- **Resiliencia**: Los archivos permanecen accesibles incluso si nodos individuales fallan.
-- **Compatibilidad con Web3**: Se integra fácilmente con aplicaciones descentralizadas (dApps).
+- **Descentralización**: Sustituye intermediarios por redes distribuidas y blockchain.
+- **Propiedad de los datos**: Los usuarios tienen control total sobre su identidad y activos digitales.
+- **Interoperabilidad**: Facilita la conexión entre diversas plataformas y protocolos descentralizados.
+- **Automatización**: Mediante contratos inteligentes, permite la ejecución automática de acuerdos sin intervención humana.
 
 ### Aplicaciones prácticas
 
-- **Sistemas de archivos distribuidos**: Construcción de soluciones de almacenamiento accesibles globalmente.
-- **Integración con aplicaciones**: Evaluación de cómo se puede usar IPFS como backend en soluciones descentralizadas.
-- **dApps**: Uso de IPFS para almacenar datos como imágenes, metadatos o contratos inteligentes.
-- **Contenido resistente a censura**: Publicación de información que no puede ser eliminada ni alterada.
+- **Finanzas descentralizadas (DeFi)**: Creación de mercados sin bancos ni instituciones tradicionales.
+- **Identidad digital**: Gestión de credenciales personales sin depender de servicios centralizados.
+- **dApps**: Aplicaciones sin servidores que operan directamente en blockchain.
+- **Propiedad digital**: Tokenización de activos, NFTs y economías descentralizadas.
 
 ## Propósito
 
-**Mi propósito aquí** es experimentar con IPFS como una solución dentro del ecosistema Web3.  
+**Mi propósito aquí** es experimentar con Web3 como un modelo descentralizado para la próxima generación de internet.  
 
 ## Solución
 
 La solución consiste en una serie de prácticas que se enumeran a continuación:
-- [Probar un nudo ipfs público y local - `#web3-ipfs-testing-public-and-desktop-node`](web3-ipfs-testing-public-and-desktop-node/README.md).
+
+- [Probar IPFS como la principal solución descentralizada para compartir contenido](./IPFS/README.md).
 
 ## Referencias
 
 Para más información, visita los siguientes recursos:
 
-- [IPFS Documentation](https://docs.ipfs.tech/) - Guía oficial para instalar, configurar y utilizar IPFS.
-- [Explorador de red IPFS](https://explore.ipld.io/)
-- [Cómo empezar con Filecoin](https://filecoin.io/)
+- [Ethereum Documentation](https://ethereum.org/en/developers/) - Guía oficial sobre blockchain y contratos inteligentes.
+- [Explorador de la red Ethereum](https://etherscan.io/)
+- [Cómo empezar con dApps](https://docs.alchemy.com/)
 
 ## Notas Adicionales
 
-IPFS es una pieza fundamental para construir la Web3 y redefine cómo interactuamos con datos.
+Web3 es una pieza fundamental para la evolución de internet y redefine cómo interactuamos con la tecnología y la economía digital.
 
 Este proyecto está en constante evolución, y los resultados documentados aquí reflejan un proceso de aprendizaje activo.
-

@@ -4,7 +4,7 @@ Esta es la solucion nombrada como `#netServer-reverseProxy-traefik-install`.
 
 ## Contexto
 
-Este es un tutorial de [Web3 - IPFS](../README.md).
+Este es un tutorial de [Web3 - 101 - IPFS](../../IPFS/README.md).
 
 ## Propósito
 
@@ -13,6 +13,8 @@ Estos son los pasos de configuración e instalación de un proxy inverso para po
 Se descarta la solución porque no tiene funciones para enrutar para IPFS.
 
 En IPFS el valor del CID puede viajar como subdominio, no en la ruta, traefik no trae funciones al respecto :/
+
+> Desechar esta solución y repetirlo todo con nginx, fue la mejor opcion, pero todo el tiempo invertido dolio..
 
 ## Solución
 
@@ -36,7 +38,7 @@ sudo apt upgrade -y
 
 > Hacer casos a los avisos, no ignorarlos o luego todo será peor.
 
-### Algunos comandos cuando hay problemas...
+### Algunos comandos cuando hay problemas
 
 Si tienes dudas y quieres forzar que se apliquen cambios en la configuración, puedes usar:
 
@@ -86,7 +88,7 @@ sudo ufw allow http
 sudo ufw allow http
 ```
 
-### Configuración
+### Configuración inicial
 
 Crea usuarios que será usados por docker para traefik y busybox:
 
@@ -101,7 +103,7 @@ Obtener los id del usuario para configurar luego `docker-traefik` y `docker-busy
 id docker-traefik docker-busybox
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   uid=1008(docker-traefik) gid=1010(docker-traefik) groups=1010(docker-traefik)
@@ -195,7 +197,7 @@ sudo setfacl -d -m u:docker-busybox:r /srv/www/test
 ```
 
 Crear página simple de prueba para `busybox` en `/srv/www/index.html`:
-                                                 
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -215,7 +217,7 @@ Comprueba los permisos finales:
 getfacl /etc/appserver/traefik/
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   user:docker-traefik:--x
@@ -228,31 +230,29 @@ getfacl /etc/appserver/traefik/
 getfacl /etc/appserver/traefik/traefik.yml
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   user::rw-
   user:docker-traefik:r--
   ```
 
-
 ```bash
 getfacl /etc/appserver/traefik/dynamic/test-web.yml
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   user:docker-traefik:r--
   other::---
   ```
 
-
 ```bash
 sudo ls -ll /etc/appserver/traefik/resolver/
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   -rw-rw---- 1 docker-traefik docker-traefik 0 Jan 28 20:08 vps-a1bdd53d.vps.ovh.net.json
@@ -262,7 +262,7 @@ sudo ls -ll /etc/appserver/traefik/resolver/
 getfacl /srv/www/test
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   user:docker-busybox:--x
@@ -273,7 +273,7 @@ getfacl /srv/www/test
 getfacl /srv/www/test/index.html 
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   user:docker-busybox:r--
@@ -382,9 +382,6 @@ services:
     restart: unless-stopped
 ```
 
-Explicacion:
-
-
 
 ### Iniciar cambios
 
@@ -403,11 +400,12 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml up -d
 ```
 
 Verificar procesos en ejecución:
+
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml ps
 ```
 
-* **salida:**
+- **salida:**
 
   ```plaintext
   NAME            IMAGE            COMMAND                  SERVICE         CREATED          STATUS         PORTS
@@ -424,7 +422,6 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml logs test-web
 
 > Ninguna salida veremos si no hay errores
 
-
 Revisar logs de traefik:
 
 ```bash
@@ -438,7 +435,6 @@ Revisar si está enrutando correctamente en traefik a test-web:
 ```bash
 docker exec -it reverse-proxy traefik routes
 ```
-
 
 ### Prueba final
 
@@ -457,4 +453,3 @@ less /var/log/traefik/traefik-access.log
 - [Instalación de traefik de atareao](https://atareao.es/tutorial/traefik/instalacion-de-traefik/).
 - [Enable snaps on Ubuntu and install Traefik](https://snapcraft.io/install/traefik/ubuntu).
 - `chatgpt.com`.
-- https://github.com/Tecnativa/docker-socket-proxy/issues/58

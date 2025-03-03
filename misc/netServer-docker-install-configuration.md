@@ -1,10 +1,10 @@
-# Instalación inicial de `docker` y su configuración inicial en un servidor de red
+# Instalación y configuración inicial de `docker` en un servidor de red
 
 Esta es la solucion nombrada como `#netServer-docker-install-configuration`.
 
 ## Contexto
 
-Este es un tutorial de [Web3 - IPFS](../README.md).
+Este es un tutorial de [Web3 - 101](../README.md).
 
 ## Propósito
 
@@ -57,7 +57,7 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml down --remove-orphans
 
 ## Pre-requisitos
 
-- [Configuración inicial del servidor de red](./initial-netServer-configuration.md).
+- [Configuración inicial del servidor de red](./netServer-initial-configuration.md).
 - [Instalación de docker](https://voidnull.es/instalacion-de-docker-en-ubuntu-24-04/).
 
 ## Pasos
@@ -160,7 +160,7 @@ docker events --filter event=start --filter event=stop --format '{{.ID}} {{.Acto
 done
 ```
 
-**Hacerlo persistente con systemd**
+**Hacerlo persistente con systemd**.
 
 Crear el archivo de servicio:
 
@@ -216,9 +216,9 @@ Para ejecutar `docker-compose` los comandos puedes encontrarlos en la [referenci
 - `docker-compose down --remove-orphans`: Igualmente detiene y elimina pero incluso los que no están en el archivo `docker-compose-yml` en uso.
 - `docker-compose pull`: Descarga (o actualiza) las imágenes necesarias desde el repositorio remoto (Docker Hub o privado) sin levantar los contenedores.
 - `docker-compose up -d`: Construye, inicia y monta los contenedores definidos en `docker-compose.yml` que han cambiado, con parámetro `-d` (detached) que ejecuta los contenedores en segundo plano.
-    - Opciones útiles:
-        - `--build`: Fuerza la reconstrucción de las imágenes locales antes de iniciar.
-        - `--force-recreate`: Elimina y vuelve a crear los contenedores, aunque no haya cambios en ellos.
+  - Opciones útiles:
+    - `--build`: Fuerza la reconstrucción de las imágenes locales antes de iniciar.
+    - `--force-recreate`: Elimina y vuelve a crear los contenedores, aunque no haya cambios en ellos.
 - `docker-compose ps`: Lista los contenedores gestionados por el archivo actual.
 - `docker-compose logs`: Muestra los logs de los contenedores.
 - `docker-compose logs -f`: Sigue los logs en tiempo real.
@@ -227,8 +227,7 @@ Para ejecutar `docker-compose` los comandos puedes encontrarlos en la [referenci
 - `docker-compose stop`: Detiene los contenedores sin eliminarlos.
 - `docker-compose rm`: Elimina los contenedores detenidos.
 
-
-### Algunos comandos cuando hay problemas...
+### Algunos comandos cuando hay problemas
 
 Entrar en el contenedor:
 
@@ -251,5 +250,6 @@ docker ps -aq | xargs -r docker rm -f
 ## Referencias
 
 - [`dokcer-componse`]([https://docs.docker.com/compose/).
-- [docker events][https://docs.docker.com/reference/cli/docker/system/events/].
+- [voidnull.es - instalación de docker](https://voidnull.es/instalacion-de-docker-en-ubuntu-24-04/).
+- [docker events](https://docs.docker.com/reference/cli/docker/system/events/).
 - `chatgpt.com`.

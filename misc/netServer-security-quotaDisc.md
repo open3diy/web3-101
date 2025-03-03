@@ -1,18 +1,18 @@
-# Configuración en un servidor de red de cuotas de disco por uaurio
+# Configuración en un servidor de red de cuotas de disco por usuario
 
 Esta es la solucion nombrada como `#netServer-security-quotaDisc`.
 
 ## Contexto
 
-Este es un tutorial que forma parte de [Web3 - IPFS - Probando un Nodo Público y de Escritorio](../README.md)
+Este es un tutorial que forma parte de [Web3 - 101](../README.md)
 
-Al crear un servidor público, que estará en un VPS, por seguridad se puede crear una cuota maxima de espacio en disco para el servicio que estoy instalando.
-
-Esta solución está descartada porque es innecesario, debido a que IPFS ya tiene un mecanismo para limitar el espacio en disco maximo, pero es una solución completamente operativa, no descarta incluirla como solución.
+Al crear un servidor público, que estará en un VPS, por seguridad se puede crear una cuota maxima de espacio en disco para el usuario que ejecutará un servicio.
 
 ## Proposito
 
-Estoy instalando en un VPS un nodo IPFS en docker y quiero crear en el `host` las carpetas de archivos necesarias, pero protegiendo el sistema con una cuota de tamaño máximo de `11GB` por si algún problema tuviera.
+Limitar al usuario de ejecución de un contenedor en docker el espacio en disco, debido a que puede acceder a directorios del `host` y ante ataque, el espacio del `host` estaría expuesto.
+
+Este tutorial parte del ejemplo de configuración del servicio de IPFS en docker, limitandolo a `11GB`.
 
 ## Solución
 
@@ -52,6 +52,7 @@ modprobe: ERROR: could not insert 'quota_v1': Invalid argument
 ```
 
 Para `Ubuntu 24` instalar el `Hardware Enablement Stack (HWE)` para la versión de Ubuntu (24.04) solucionó el problema:
+
 ```bash
 sudo apt install --install-recommends linux-generic-hwe-24.04
 sudo reboot
@@ -71,12 +72,14 @@ sudo apt install quota quotatool
 Si está en un servidor virtual basado en la nube, es posible que su instalación predeterminada de `Ubuntu Linux` no tenga los módulos de kernel. Pasos para comprobar:
 
 Buscar módulos `quota_v1` y `quota_v2`.
+
 ```bash
 find /lib/modules/ -type f -name '*quota_v*.ko*'
 ```
+
 > Nota, no te preocupes si no están, sigue leyendo...
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     /lib/modules/6.8.0-51-generic/kernel/fs/quota/quota_v2.ko.zst
@@ -97,7 +100,7 @@ sudo apt install linux-image-extra-virtual
 
 **Si estas usando un VPS sigue estos pasos**, de lo contrario, sigue el siguiente paso.
 
-Edita `/etc/fstab` y agrega las opciones `usrquota` y `grpquota` para la partición con etiqueta `cloudimg-rootfs `. Por ejemplo:
+Edita `/etc/fstab` y agrega las opciones `usrquota` y `grpquota` para la partición con etiqueta `cloudimg-rootfs`. Por ejemplo:
 
 ```plaintext
 /dev/sda1  /home  ext4  defaults,usrquota,grpquota  0  2
@@ -132,7 +135,7 @@ Edita `/etc/fstab` y agrega las opciones `usrquota` y `grpquota` para la partici
 sudo mount -o remount /
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     mount: (hint) your fstab has been modified, but systemd still uses
@@ -151,7 +154,7 @@ Puedes verificar que se usaron las nuevas opciones:
 cat /proc/mounts | grep ' / '
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     /dev/sda1 / ext4 rw,relatime,discard,quota,usrquota,grpquota,errors=remount-ro,commit=30 0 0
@@ -186,14 +189,14 @@ Activar módulo de cuotas:
 sudo quotaon -v /
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     /dev/vda1 [/]: group quotas turned on
     /dev/vda1 [/]: user quotas turned on
     ```
 
-**Resultado anterior no esperado**
+**Resultado anterior no esperado**.
 
 Si en su lugar ves:
 
@@ -223,7 +226,7 @@ Reactiva las cuotas:
 sudo quotaon -v /
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     quotaon: Your kernel probably supports ext4 quota feature but you are using external quota files. Please switch your filesystem to use ext4 quota feature as external quota files on ext4 are deprecated.
@@ -243,7 +246,6 @@ sudo useradd -m docker-ipfs
 
 Ejecuta la configuración para indicar en este caso `11 GB`:
 
-
 ```bash
 sudo setquota -u docker-ipfs 11264000 11264000 0 0 /
 ```
@@ -254,14 +256,13 @@ Veifica las cuotas del usuario `docker-ipfs`:
 sudo quota -u docker-ipfs
 ```
 
-* **salida:**
-    
+- **salida:**
+
     ```plaintext
     Disk quotas for user docker-ipfs (uid 1002): 
-     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace
-      /dev/sda1   60972  11264000 11264000             236       0       0        
+        Filesystem  blocks   quota   limit   grace   files   quota   limit   grace
+        /dev/sda1   60972  11264000 11264000             236       0       0        
     ```
-
 
 ### Crear y configurar la carpeta del usuario `docker-ipfs`
 
@@ -290,7 +291,7 @@ Comprueba los permisos finales:
 ls -ld /home/jesus/docker-ipfs-files
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     drwxr-xr-x 2 docker-ipfs docker-ipfs 4096 Dec 18 12:39 /home/jesus/docker-ipfs-files
@@ -303,7 +304,8 @@ Comprobar estado quotas
 ```bash
 sudo quotaon -p /
 ```
-* **salida:**
+
+- **salida:**
 
     ```plaintext
     group quota on / (/dev/sda1) is on
@@ -317,7 +319,7 @@ Consultar cuotas usuario:
 sudo quota docker-ipfs
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     Disk quotas for user docker-ipfs (uid 1002): 
@@ -351,7 +353,7 @@ Intenta crear otro archivo de 1GB:
 fallocate -l 1G test1G
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     fallocate: fallocate failed: Disk quota exceeded
@@ -360,7 +362,6 @@ fallocate -l 1G test1G
 > Esto es la prueba exitiosa de la cuota.
 
 Puedes borrar ahora los archivos de test con `rm test*`
-
 
 ### Configurar Docker para usar el usuario `docker-ipfs`
 
@@ -372,7 +373,7 @@ Obtener uid y guid del usuario:
 id docker-ipfs
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     uid=1002(docker-ipfs) gid=1002(docker-ipfs) groups=1002(docker-ipfs)
@@ -386,9 +387,5 @@ docker run --user 1002:1002 -v /home/jesus/docker-ipfs-files:/data ipfs/go-ipfs
 
 ## Referencias
 
-* [Cómo establecer cuotas del sistema de archivos en Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-set-filesystem-quotas-on-ubuntu-20-04).
-* `chatgpt.com`.
-
-## Notas Adicionales
-
-Este proyecto está en constante evolución, y los resultados documentados aquí reflejan un proceso de aprendizaje continuo.
+- [Cómo establecer cuotas del sistema de archivos en Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-set-filesystem-quotas-on-ubuntu-20-04).
+- `chatgpt.com`.

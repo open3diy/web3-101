@@ -4,22 +4,20 @@ Esta es la solucion nombrada como `#web3-ipfs-101-publicNode-docker-traefik_and_
 
 ## Contexto
 
-Este es un solución no forma parte de [Web3 - IPFS - 101 - Probando un Nodo Público y de Escritorio - Instalación en docker](../web3-101-ipfs-testing-public-and-desktop-node/web3-ipfs-101-publicNode-docker-install.md)
+Este es un solución anteriomente formaba parte de [Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio](../../IPFS/ipfs-testing-public-and-desktop-node/public-ipfs-node-install.md)
 
 ## Propósito
 
-Dentro de la solución, al instalar IPFS, tuve que descargar traefik porque no soporta usar subdominios para enrutarlo al servicio de IPDS.
+Dentro de la solución, al instalar IPFS, tuve que descartar traefik porque no soporta usar subdominios.
 
-Ademas realizando pruebas, publique el API de docker al exterior para usarlo  desde internet. 
-> Obviamente no puedes publicarlo sin controlar el acceso, esto era una prueba.
+Estos son los pasos que tenía el tutorial, que ahora ya no tienen sentido porque se usa nginx.
 
-No está incluido en la solución, pero aquí están los pasos realizados.
+Ademas realizando pruebas, publique el API de docker al exterior para usarlo desde internet y tambień describo esos pasos, que también ha sido descartado del tutorial final.
 
 ## Configuración
 
 - En servidor VPS.
 - En [Ubuntu 24.04 LTS](https://ubuntu.com/blog/tag/ubuntu-24-04-lts).
-
 
 ## Pasos
 

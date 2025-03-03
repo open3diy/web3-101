@@ -1,11 +1,11 @@
 
-# Control de ancho de banda de red docker en el servidor de red 
+# Control de ancho de banda en contenedor docker
 
 Esta es la solucion nombrada como `#netServer-docker-network-bandwidth`.
 
 ## Contexto
 
-Este es un tutorial de [Web3 - IPFS](../README.md) aplicable a cualquier solución, pero se explica como ejemplo para el tutorial [Web3 - IPFS - 101 - Probando un Nodo Público y de Escritorio - Instalación en docker](../web3-101-ipfs-testing-public-and-desktop-node/web3-ipfs-101-publicNode-docker-install.md)
+Este es un tutorial de [Web3 - 101](../README.md) aplicable a cualquier contenedor, pero que usa como ejemplo la [configuración del contenedor de IPFS](../IPFS/ipfs-testing-public-and-desktop-node/publicNode-docker-install.md)
 
 ## Proposito
 
@@ -17,14 +17,13 @@ El límite de velocidad de bajada y subida configurado es: `50Mbps`.
 
 ## Solución
 
-Usaremos el script de inicio y parada de un contenedor indicado en [instalación y configuración de docker](../../misc/docker-install-configuration.md).
+Usaremos el script de inicio y parada de un contenedor indicado en [instalación y configuración de docker](./netServer-docker-install-configuration.md).
 
 En el script de up y down, usaremos el comando [nsenter](https://man7.org/linux/man-pages/man1/nsenter.1.html) para el contenedor afectado.
 
 Nsenter, es una herramienta de Linux que permite entrar en los espacios de nombres (namespaces) de un proceso en ejecución. Se usa comúnmente para inspeccionar o modificar entornos de contenedores y otros procesos aislados.
 
 Con este comando nsenter accedemos al espacio de red del contenedor para ejecutar [tc](https://man7.org/linux/man-pages/man8/tc.8.html), que añade una disciplina de cola (qdisc) con el algoritmo tbf (Token Bucket Filter) para limitar la velocidad de transmisión.
-
 
 ## Configuración
 
@@ -44,8 +43,8 @@ sudo apt upgrade -y
 
 ## Pre-requisitos
 
-- [Configuración inicial del servidor de red](../../misc/initial-netServer-configuration.md).
-- [Instalación y configuración de docker](../../misc/docker-install-configuration.md).
+- [Configuración inicial del servidor de red](./netServer-initial-configuration.md).
+- [Instalación y configuración de docker](./netServer-docker-install-configuration.md).
 
 ## Pasos
 
@@ -77,7 +76,8 @@ fi
 ```
 
 Explicación:
-- `IPFS_HOST_ID`; obtenemos el PID del contenedor nombrado como `ipfs-host`.
+
+- `IPFS_HOST_ID`: obtenemos el PID del contenedor nombrado como `ipfs-host`.
 - `nsenter -t $IPFS_HOST_ID`: permite entrar en el espacio de nombres de un proceso.
 - `tc`: (Traffic Control) es la herramienta para configurar la gestión de tráfico en Linux.
 - `qdisc add dev eth0 root`: agrega una nueva disciplina de cola (qdisc) en eth0 del contenedor en la raíz de la jerarquía de colas.
@@ -90,6 +90,6 @@ Explicación:
 
 - [nsenter](https://man7.org/linux/man-pages/man1/nsenter.1.html).
 - [tc - trafic control / qdisc](https://man7.org/linux/man-pages/man8/tc.8.html).
-- [tbf - Token Bucket Filter) ](https://man7.org/linux/man-pages/man8/tc-tbf.8.html).
-> tbf (Token Bucket Filter) es una disciplina de cola (qdisc) dentro de tc, diseñada para controlar la velocidad de salida de paquetes.
+- [tbf - Token Bucket Filter](https://man7.org/linux/man-pages/man8/tc-tbf.8.html).
+    > tbf (Token Bucket Filter) es una disciplina de cola (qdisc) dentro de tc, diseñada para controlar la velocidad de salida de paquetes.
 - `chatgpt.com`.

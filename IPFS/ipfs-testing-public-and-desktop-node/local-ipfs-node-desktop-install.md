@@ -1,6 +1,6 @@
-# Web3 - IPFS-101 - Probando un Nodo Público y de Escritorio - Instalación de IPFS Desktop en local
+# Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio - Instalación de IPFS Desktop en local
 
-Esta es la solucion nombrada como `#web3-ipfs-101-desktopNode-local-install`.
+Esta es la solucion nombrada como `#local-ipfs-node-desktop-install`.
 
 ## Contexto
 
@@ -44,20 +44,37 @@ Siempre tener como referencia [la referencia configuración `IPFS`](https://gith
 #### No aparece en terminal el comando `ipfs`
 
 En ubuntu al instalar el `.deb`, el `CLI` no es facil encontrar el comando `ipfs`, está en `/opt/'IPFS Desktop'/resources/app.asar.unpacked/node_modules/kubo/kubo`
+
 > Es una ruta complicada de escribir, está en comillas simples el nombre de la ruta: `'IPFS Desktop'`
-    
+
 Lo mejor es agregar esa la ruta al `PATH`:
-    
-```
+
+```bash
 echo 'export PATH=$PATH:/opt/"IPFS Desktop"/resources/app.asar.unpacked/node_modules/kubo/kubo' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 Probar en terminal que ya tenemos acceso a los comandos `ipfs`:
 
-```
+```bash
 ipfs --version
 ```
+
+#### Generar CID en versión `v1`
+
+Por defecto, en IPFS Desktop, al subir un archivo, el CID que visualizas está en versión 0, que es en base 32
+
+```bash
+ipfs config --json CIDBase "base32"
+```
+
+Si quieres re-establecer a `v0`:
+
+```bash
+ipfs config --json CIDBase "base58btc"
+```
+
+En cada cambio, reiniciar la aplicación.
 
 #### Lo mejor ante problemas es salir y entrar
 
@@ -91,46 +108,46 @@ Verificar inicialmente que los protocolos necesarios se han cargado, verificando
 ipfs id
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
-	"ID": "12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"PublicKey": "CAESIB0W2qXS7LhOqnm3ufpjGYJHE4BNg17k3dOghDtxsqGw",
-	"Addresses": [
-		Etc...
-	],
-	"AgentVersion": "kubo/0.32.1/desktop",
-	"Protocols": [
-		"/ipfs/bitswap",
-		"/ipfs/bitswap/1.0.0",
-		"/ipfs/bitswap/1.1.0",
-		"/ipfs/bitswap/1.2.0",
-		"/ipfs/id/1.0.0",
-		"/ipfs/id/push/1.0.0",
-		"/ipfs/lan/kad/1.0.0",
-		"/ipfs/ping/1.0.0",
-		"/libp2p/autonat/2/dial-back",
-		"/libp2p/autonat/2/dial-request",
-		"/libp2p/circuit/relay/0.2.0/stop",
-		"/x/"
-	]
-    ```
-
-    Es importante verificar la salida en los siguientes puntos:
-
-    - Revisar que está los `Protocols` necesarios para `Autonat`:
-
-        ```plaintest
-        "/libp2p/autonat/1.0.0",
+    "ID": "12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "PublicKey": "CAESIB0W2qXS7LhOqnm3ufpjGYJHE4BNg17k3dOghDtxsqGw",
+    "Addresses": [
+        Etc...
+    ],
+    "AgentVersion": "kubo/0.32.1/desktop",
+        "Protocols": [
+        "/ipfs/bitswap",
+        "/ipfs/bitswap/1.0.0",
+        "/ipfs/bitswap/1.1.0",
+        "/ipfs/bitswap/1.2.0",
+        "/ipfs/id/1.0.0",
+        "/ipfs/id/push/1.0.0",
+        "/ipfs/lan/kad/1.0.0",
+        "/ipfs/ping/1.0.0",
         "/libp2p/autonat/2/dial-back",
         "/libp2p/autonat/2/dial-request",
-        ```
-    
-    - Revisar que están los `Protocols` necesarios para relay como cliente:
+        "/libp2p/circuit/relay/0.2.0/stop",
+    "/x/"
+    ]
+    ```
 
-        ```plaintest
-        "/libp2p/circuit/relay/0.2.0/stop"
-        ```
+Es importante verificar la salida en los siguientes puntos:
+
+- Revisar que está los `Protocols` necesarios para `Autonat`:
+
+    ```plaintest
+    "/libp2p/autonat/1.0.0",
+    "/libp2p/autonat/2/dial-back",
+    "/libp2p/autonat/2/dial-request",
+    ```
+
+- Revisar que están los `Protocols` necesarios para relay como cliente:
+
+    ```plaintest
+    "/libp2p/circuit/relay/0.2.0/stop"
+    ```
 
 #### Pruebas de correcto funcionamiento
 
@@ -146,7 +163,7 @@ Abrir la aplicación y pasado un tiempo, tener algo de paciencia porque no es in
 ipfs id | grep p2p-circuit
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     "/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
@@ -158,16 +175,17 @@ ipfs id | grep p2p-circuit
     "/ip6/2003:d5:af00:c300:be24:11ff:fea7:4830/udp/4004/quic-v1/webtransport/certhash/uEiDXtXYR3C537HYkb-kCHu-7g7SQjKfbdKXhp7JkfvDfAA/certhash/uEiAOush0h1Zx-b202Zp9o7Cuhl5kzSzECt2ZJA1UZ1LV-w/p2p/12D3KooWNbJU9dn1dmubZhuWXiqQodZic22cJCcp5H7Jwm6qJj84/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
     ```
 
-En este ejemplo, vemos que varios peers te dan servicio como IPv4 `57.129.131.125`, `84.155.126.229`, IPv6, etc..
+En este ejemplo, vemos que varios peers te dan servicio como `84.155.126.229`, IPv6, etc..
 
 Con esto ya sería todo suficiente, ahora puedes agregar tú contenido y lo veras en el gateway pública de IPFS...
 
 Si todo te funciona correctamente, ya puedes acabar aquí, pero sino, sigue leyendo porque esto te podrá ayudar...
 
-### Agregar como nodo persistente `ipfs.open3diy.org`
+### Agregar como nodo persistente de `open3diy.org`
 
 Este nodo persistente, que es un relay, te ayudará a poder acceder a tú contenido desde el exterior.
-> **Nota**: este nodo `ipfs.open3diy.org` lo hemos creado según los pasos de [`#ipfs-node-public-docker-install` Instalación de IPFS en docker en un VPS público](../ipfs-node-public-docker/ipfs-node-public-docker-install.md).
+
+> **Nota**: este nodo `ipfs.open3diy.org` lo hemos creado según los pasos de [`#ipfs-node-public-docker-install` Instalación de IPFS en docker en un VPS público](./web3-ipfs-101-publicNode-docker-install.md).
 
 **Pasos**:
 
@@ -177,7 +195,7 @@ Verificar que el nodo está disponible para conectarse:
 ipfs swarm connect /dnsaddr/ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
@@ -187,16 +205,16 @@ ipfs swarm connect /dnsaddr/ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLs
 En la configuración en `~/.ipfs/config` o abrir la propia app, en apartado `Configuración`, agregar en `Peering`:
 
 ```json
-	"Peering": {
-		"Peers": [
-			{
-				"Addrs": [
-					"/dnsaddr/ipfs.open3diy.org/tcp/4001"
-				],
-				"ID": "12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex"
-			}
-		]
-	},
+    "Peering": {
+        "Peers": [
+            {
+                "Addrs": [
+                    "/dnsaddr/ipfs.open3diy.org/tcp/4001"
+                ],
+                "ID": "12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex"
+            }
+        ]
+    },
 ```
 
 Reiniciar la aplicación, tener algo de paciencia, verificar que está conectado al nodo por la IP:
@@ -205,7 +223,7 @@ Reiniciar la aplicación, tener algo de paciencia, verificar que está conectado
 ipfs swarm peers | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     /ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
@@ -219,25 +237,27 @@ Comprobar luego que nos anuncia como relay:
 ipfs id | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     "/dnsaddr/ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiD7qSzudDQme09i0vjsIwzSrAMdU7sFvoEvVVlgWaJP5g/certhash/uEiA2Edv0pkrKpVoqrAM6XvOFIdgf8pcH3EBS8V939U8g4A/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"/dnsaddr/ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiAsCA7PGleuvDGH3mT6L2shLLDHO1cEQLzyfl_zOW-OgA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-	"/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ"
+    "/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiD7qSzudDQme09i0vjsIwzSrAMdU7sFvoEvVVlgWaJP5g/certhash/uEiA2Edv0pkrKpVoqrAM6XvOFIdgf8pcH3EBS8V939U8g4A/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/dnsaddr/ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiAsCA7PGleuvDGH3mT6L2shLLDHO1cEQLzyfl_zOW-OgA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ"
     ```
 
 ### Configuración en IPFS Desktop y prueba
 
-En IPFS Desktop ir a "Configuración", última pestaña del panel izquiero, y en "Select a fallback Path Gateway for generating shareable links for CIDs that exceed the 63-character DNS limit.", donde pone la URL `https://ipfs.io`, probar a poner `
+En IPFS Desktop ir a "Configuración", última pestaña del panel izquiero.
 
-Agrega un documento de prueba, hazle PIN para fijarlo y realizar una prueba rápida de que aparece en el gateway público que tienes agregado como nodo persistente: pendiente...
+En "Select a default Subdomain Gateway for generating shareable links.", donde pone la URL <https://dweb.link>, probar a poner <https://dweb.link> y luego guardar con la opción `Enviar`.
 
+En "Select a fallback Path Gateway for generating shareable links for CIDs that exceed the 63-character DNS limit.", donde pone la URL <https://ipfs.io>, probar a poner <https://web3-101-ipfs.open3diy.org> y luego guardar con la opción `Enviar`.
+
+Agrega un documento de prueba, hazle PIN para fijarlo y realizar una prueba... pendiente
 
 ipfs ping 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
-
 
 ## Referencias
 
@@ -248,9 +268,3 @@ ipfs ping 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 - [libp2p relay](https://docs.libp2p.io/concepts/nat/circuit-relay/).
 - [IPFS](https://ipfs.tech/).
 - `chatgpt.com`.
-
-
-ipfs config --json CIDBase "base32"
-ipfs config --json CIDBase "base58btc"
-
-reiniciar servicio

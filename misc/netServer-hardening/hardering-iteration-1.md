@@ -1,12 +1,12 @@
-## Iteración #1 de aplicación de medidas de seguridad
+# Iteración #1 de aplicación de medidas de seguridad
 
-### Desabilitar el acceso `root`:
+## Desabilitar el acceso `root`
 
 ```bash
 sudo passwd -l root
 ```
 
-### Deshabilitar el acceso SSH para root:
+## Deshabilitar el acceso SSH para root
 
 Editar archivo de configuración:
 
@@ -23,7 +23,7 @@ sudo systemctl restart ssh.service
 sudo systemctl daemon-reload
 ```
 
-### Operar sin conexion SSH
+## Operar sin conexion SSH
 
 En momentos iniciales se operará por comidad por SSH e incluso usando el puerto 22, pero una vez se haya acabado, para configuraciones menores, será desactivado y se usará la configuración directa desde el propio servidor o si es un VPS, usando el [KVM](https://es.wikipedia.org/wiki/Switch_KVM) disponible.
 
@@ -33,7 +33,7 @@ Cuando sea necesario, iniciar sesión presencial o KVM y ejecutar:
 sudo systemctl disable ssh
 ```
 
-### Instalar firewall ufw y configuración inicial
+## Instalar firewall ufw y configuración inicial
 
 Instalar:
 
@@ -60,7 +60,7 @@ Activar ufw:
 sudo ufw enable
 ```
 
-### Política de Privilegios Limitados (Limited Privileges Policy)
+## Política de Privilegios Limitados (Limited Privileges Policy)
 
 - Crear un usuario para cada proceso o servicio:
     Asignar cuentas específicas para cada proceso o servicio en lugar de usar cuentas genéricas como `root`.

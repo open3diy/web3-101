@@ -1,11 +1,10 @@
-
 # Control de ancho de banda de red para un servidor de red
 
 Esta es la solucion nombrada como `#netServer-security-network-bandwidth`.
 
 ## Contexto
 
-Este es un tutorial que forma parte de [Web3 - IPFS - Probando un Nodo Público y de Escritorio](../README.md)
+Este es un tutorial que forma parte de [Web3 - IPFS - Probando un Nodo Público y de Escritorio](../../IPFS/README.md)
 
 ## Proposito
 
@@ -14,7 +13,6 @@ Al crear un servidor público, que estará en un VPS, creo necesario controlar e
 El límite de velocidad de bajada y subida configurado es: `50Mbps`.
 
 Se descarta la solución porque simplemente no funciona en docker. Leyendo en foros parece que es un problema común.
-
 
 ## Configuración
 
@@ -36,7 +34,6 @@ sudo apt upgrade -y
 
 > Hacer casos a los avisos, no ignorarlos o luego todo será peor.
 
-
 ## Pasos
 
 Crear una red virtual limitada con tc
@@ -56,7 +53,7 @@ docker network create \
   limited_net
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
        --driver bridge \
@@ -65,7 +62,6 @@ docker network create \
     17e8c2b75b3a18a1e8efdf6c9335198bbbd696115421af0e85ffc44529180b47
     ```
 
-
 Aplicar límites con tc agregando nueva cola de control para la red creada `br-limited-ipfs`:
 
 ```bash
@@ -73,14 +69,14 @@ sudo tc qdisc add dev br-limited-ipfs root tbf rate 50mbit burst 32kbit latency 
 ```
 
 Explicación:
+
 - `root`: define que esta configuración será aplicada en la raíz de la jerarquía de control de tráfico de la interfaz.
 - `tbf`: es el algoritmo de control de tráfico "Token Bucket Filter"
 - `rate 50mbit`: establece la tasa máxima de transferencia a 50 Mbps.
 - `burst 32kbit`: define el tamaño del "balde" (cantidad máxima de datos que pueden enviarse instantáneamente sin esperar nuevos tokens). Según la documentación de tc, para una tasa de 10 Mbit/s, se recomienda un burst de al menos 10 kbytes; La elección de 32kbit es común porque proporciona un equilibrio entre permitir pequeñas ráfagas de datos y mantener un control preciso del ancho de banda
 - `latency 400ms`: indica el tiempo máximo de espera para rellenar el "balde" con tokens. Si la tasa de datos supera los límites definidos, los datos pueden retrasarse hasta 400 ms antes de ser descartados. Un valor de 400 ms permite cierta flexibilidad para ráfagas, pero si se requiere una latencia más baja, se debería reducir este valor
 
-
-Hacerlo persistente
+**Hacerlo persistente**.
 
 Crear script `/etc/network/tc-setup.sh`:
 
@@ -124,7 +120,7 @@ Revisar si está activo:
 systemctl status tc-setup.service
 ```
 
-* **salida:**
+- **salida:**
 
     ```plaintext
     ○ tc-setup.service - Traffic Control Setup

@@ -62,7 +62,7 @@ sudo nsenter -t $IPFS_HOST_ID -n tc qdisc add dev eth0 root tbf rate 500kbit bur
 Accediendo a URLs de prueba: `https://web3-101.open3diy.org/test`
 
 Accediendo a URLs para probar IPFS:
-- CID de prueba: `https://ipfs.web3-101.open3diy.org/ipfs/QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND`
+- CID de prueba: `https://ipfs.web3-101-ipfs.open3diy.org/ipfs/QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND`
 - CID de prueba en sub-dominio: `https://QmfQHHLwiUMTgJ5LupnZgtqFQi2oFnpGo9guPpkjvEMqND.ipfs.web3-101.open3diy.org`
 - WebUi de prueba: `https://ipfs.web3-101.open3diy.org/webui`
 
@@ -74,8 +74,8 @@ https://ipfs.web3-101.open3diy.org/ipfs/QmbsnvRzzyxExqDNhZQcin5CrJJDcuP5GTmsxZ4H
 https://dweb.link/ipfs/QmU1iddVtBKF96CEkazc7hPNeCczreKbg9uk7BK5g6Xod3
 https://QmU1iddVtBKF96CEkazc7hPNeCczreKbg9uk7BK5g6Xod3.dweb.link
 
-https://bafybeiccfclkdtucu6y4yc5cpr6y3yuinr67svmii46v5cfcrkp47ihehy.ipfs.dweb.link/
-https://bafybeiccfclkdtucu6y4yc5cpr6y3yuinr67svmii46v5cfcrkp47ihehy.ipfs.web3-101.open3diy.org
+https://QmU1iddVtBKF96CEkazc7hPNeCczreKbg9uk7BK5g6Xod3.ipfs.dweb.link/
+https://bafybeiccfclkdtucu6y4yc5cpr6y3yuinr67svmii46v5cfcrkp47ihehy.ipfs.web3-101-ipfs.open3diy.org
 
 https://bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi.ipfs.dweb.link/
 https://bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi.ipfs.web3-101.open3diy.org/
@@ -92,3 +92,5 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec ipfs-host ipfs c
 https://bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi.ipfs.infura-ipfs.io
 https://infura-ipfs.io
 
+
+curl -I https://bafybeiccfclkdtucu6y4yc5cpr6y3yuinr67svmii46v5cfcrkp47ihehy.ipfs.web3-101.open3diy.org/
