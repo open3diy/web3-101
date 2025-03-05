@@ -1,6 +1,6 @@
 # Control de ancho de banda de red para un servidor de red
 
-Esta es la solucion nombrada como `#netServer-security-network-bandwidth`.
+Esta es la solución nombrada como `#netServer-security-network-bandwidth`.
 
 ## Contexto
 
@@ -25,7 +25,7 @@ Se descarta la solución porque simplemente no funciona en docker. Leyendo en fo
 
 ## Problemas conocidos que debes saber antes
 
-### No olvidar actualizar e instalar los paquetes debian
+### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -136,7 +136,7 @@ Ejecutar un contenedor con la red limitada para hacer pruebas, como wget
 docker run --rm -it --network limited_net alpine sh
 ```
 
-Mas prubas dentro de un contenedor:
+Mas pruebas dentro de un contenedor:
 
 ```bash
 wget -O /dev/null http://speedtest.tele2.net/100MB.zip --show-progress

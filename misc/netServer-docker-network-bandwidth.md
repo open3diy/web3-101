@@ -1,13 +1,13 @@
 
 # Control de ancho de banda en contenedor docker
 
-Esta es la solucion nombrada como `#netServer-docker-network-bandwidth`.
+Esta es la solución nombrada como `#netServer-docker-network-bandwidth`.
 
 ## Contexto
 
 Este es un tutorial de [Web3 - 101](../README.md) aplicable a cualquier contenedor, pero que usa como ejemplo la [configuración del contenedor de IPFS](../IPFS/ipfs-testing-public-and-desktop-node/publicNode-docker-install.md)
 
-## Proposito
+## Propósito
 
 Par controlar el ancho de banda de la red que se ofrecerá en un servicio docker, se crea esta solución.
 

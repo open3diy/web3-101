@@ -1,10 +1,10 @@
-# Probando un Nodo Público y de Escritorio - configuración del API de IPDS
+# Probando un Nodo Público y de Escritorio - configuración del API de IPFS
 
-Esta es la solucion nombrada como `#web3-ipfs-101-publicNode-docker-traefik_and_API`.
+Esta es la solución nombrada como `#web3-ipfs-101-publicNode-docker-traefik_and_API`.
 
 ## Contexto
 
-Este es un solución anteriomente formaba parte de [Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio](../../IPFS/ipfs-testing-public-and-desktop-node/public-ipfs-node-install.md)
+Este es un solución anteriormente formaba parte de [Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio](../../IPFS/ipfs-testing-public-and-desktop-node/public-ipfs-node-install.md)
 
 ## Propósito
 
@@ -12,7 +12,7 @@ Dentro de la solución, al instalar IPFS, tuve que descartar traefik porque no s
 
 Estos son los pasos que tenía el tutorial, que ahora ya no tienen sentido porque se usa nginx.
 
-Ademas realizando pruebas, publique el API de docker al exterior para usarlo desde internet y tambień describo esos pasos, que también ha sido descartado del tutorial final.
+Ademas realizando pruebas, publique el API de docker al exterior para usarlo desde internet y también describo esos pasos, que también ha sido descartado del tutorial final.
 
 ## Configuración
 
@@ -126,4 +126,4 @@ less +G /var/log/traefik/traefik.log
 
 Siguiendo este ejemplo donde el PEER_ID es `12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex` acceder a `https://vps-a1bdd53d.vps.ovh.net/ipns/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex`
 
-> Verás la paǵina de IPFS inicialmente sin contenido si todo es correcto.
+> Verás la página de IPFS inicialmente sin contenido si todo es correcto.

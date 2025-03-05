@@ -1,6 +1,6 @@
 # Instalación y configuración inicial de `docker` en un servidor de red
 
-Esta es la solucion nombrada como `#netServer-docker-install-configuration`.
+Esta es la solución nombrada como `#netServer-docker-install-configuration`.
 
 ## Contexto
 
@@ -39,7 +39,7 @@ sudo apt upgrade -y
 
 > Hacer casos a los avisos, no ignorarlos o luego todo será peor.
 
-### Contenedores huefanos por hacer pruebas
+### Contenedores huérfanos por hacer pruebas
 
 Si llegas a ver el error:
 
@@ -49,7 +49,7 @@ etc/appserver/docker/docker-compose.yml down
  ! Network docker_default  Resource is still in use
 ```
 
-Apaga removiendo contenedores huefanos:
+Apaga removiendo contenedores huérfanos:
 
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml down --remove-orphans
@@ -82,7 +82,7 @@ Crear carpeta `/etc/appserver/docker`:
 mkdir /etc/appserver/docker
 ```
 
-Crear el archivo de configuracion:
+Crear el archivo de configuración:
 
 ```bash
 touch /etc/appserver/docker/docker-compose.yml
@@ -235,7 +235,7 @@ Entrar en el contenedor:
 docker run -it --entrypoint /bin/sh [nombre_contenedor]
 ```
 
-Hacer limpieza y borrar todas las imagenes de docker:
+Hacer limpieza y borrar todas las imágenes de docker:
 
 ```bash
 docker images -q | xargs -r docker rmi -f

@@ -8,13 +8,13 @@ Este es un tutorial de [Web3 - 101 - IPFS](../../IPFS/README.md).
 
 ## Propósito
 
-Estos son los pasos de configuración e instalación de un proxy inverso para poder publicar en un servidor púiblico aplicaciones Web.
+Estos son los pasos de configuración e instalación de un proxy inverso para poder publicar en un servidor público aplicaciones Web.
 
 Se descarta la solución porque no tiene funciones para enrutar para IPFS.
 
 En IPFS el valor del CID puede viajar como subdominio, no en la ruta, traefik no trae funciones al respecto :/
 
-> Desechar esta solución y repetirlo todo con nginx, fue la mejor opcion, pero todo el tiempo invertido dolio..
+> Desechar esta solución y repetirlo todo con nginx, fue la mejor opción, pero todo el tiempo invertido dolió..
 
 ## Solución
 
@@ -29,7 +29,7 @@ Ver las [Referencias](#referencias).
 
 ## Problemas conocidos que debes saber antes
 
-### No olvidar actualizar e instalar los paquetes debian
+### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -70,7 +70,7 @@ Al reiniciar el contenedor `docker-compose restart` ves en `/var/log/traefik/tra
 2025-01-30T18:00:34Z ERR Error while starting server error="accept tcp [::]:80: use of closed network connection" entryPointName=web
 ```
 
-Parece un error sin sentido de traefik, no sé si lo corregiran en versiones posteriores, lo que está claro es que el contenedor funciona correcamente y que solo ocurre al hacer `restart` al limpiar con `down`.
+Parece un error sin sentido de traefik, no sé si lo corregirán en versiones posteriores, lo que está claro es que el contenedor funciona correctamente y que solo ocurre al hacer `restart` al limpiar con `down`.
 
 ## Pre-requisitos
 
@@ -132,7 +132,7 @@ sudo setfacl -m u:docker-traefik:rX /etc/appserver/traefik
 sudo setfacl -m u:docker-traefik:r /etc/appserver/traefik/traefik.yml
 ```
 
-Crear el archivo de solicitudes certificado `Let's Encrypt` en `/etc/appserver/traefik/resolver/vps-a1bdd53d.vps.ovh.net.json` y darle permiso de lectura y ecritura unicamente al usuario `docker-traefik` porque por requisito de traefik, solo el propietario podrá tener acceso:
+Crear el archivo de solicitudes certificado `Let's Encrypt` en `/etc/appserver/traefik/resolver/vps-a1bdd53d.vps.ovh.net.json` y darle permiso de lectura y escritura unicamente al usuario `docker-traefik` porque por requisito de traefik, solo el propietario podrá tener acceso:
 
 ```bash
 mkdir /etc/appserver/traefik/resolver
@@ -141,8 +141,8 @@ sudo chown docker-traefik:docker-traefik /etc/appserver/traefik/resolver -R
 sudo chmod u-rwx,u+rw,g-rwx,o-rwx -R /etc/appserver/traefik/resolver
 ```
 
-Crear carpeta para configuraciones dnimáicas de `traefic` y asignar permiso al usurio `docker-traefik`:
-> Traefik usará esta carpeta para leer cada archivo `.yml` que contenga de forma automatica para configurar cada servicio.
+Crear carpeta para configuraciones dinámicas de `traefic` y asignar permiso al usuario `docker-traefik`:
+> Traefik usará esta carpeta para leer cada archivo `.yml` que contenga de forma automática para configurar cada servicio.
 
 ```bash
 mkdir /etc/appserver/traefik/dynamic
@@ -188,7 +188,7 @@ Además, busybox necesita que creemos el mismo nombre de carpeta que la ruta ind
 mkdir /srv/www/test
 ```
 
-Dar permiso lectura y ejecución (navegar en capertas) al usuario `docker-busybox` en toda la carpeta y sub-carpetas de forma heredada:
+Dar permiso lectura y ejecución (navegar en carpetas) al usuario `docker-busybox` en toda la carpeta y sub-carpetas de forma heredada:
 
 ```bash
 sudo setfacl -m u:docker-busybox:rX /srv/www
@@ -309,7 +309,7 @@ http:
 providers:
   file:
     directory: "/etc/traefik/dynamic" # Ruta donde estarán los archivos de configuración dinámica.
-    watch: true # Detectar cambios de archivos de configuracion para no hace restart de docker-traefic
+    watch: true # Detectar cambios de archivos de configuración para no hace restart de docker-traefic
 
 log:
   level: ERROR # Nivel de detalle de los logs (ERROR, WARN, INFO, DEBUG).

@@ -1,6 +1,6 @@
 # Configuración en un servidor de red de cuotas de disco por usuario
 
-Esta es la solucion nombrada como `#netServer-security-quotaDisc`.
+Esta es la solución nombrada como `#netServer-security-quotaDisc`.
 
 ## Contexto
 
@@ -12,11 +12,11 @@ Al crear un servidor público, que estará en un VPS, por seguridad se puede cre
 
 Limitar al usuario de ejecución de un contenedor en docker el espacio en disco, debido a que puede acceder a directorios del `host` y ante ataque, el espacio del `host` estaría expuesto.
 
-Este tutorial parte del ejemplo de configuración del servicio de IPFS en docker, limitandolo a `11GB`.
+Este tutorial parte del ejemplo de configuración del servicio de IPFS en docker, limitándolo a `11GB`.
 
 ## Solución
 
-Aunque deprecado, la solución es [debian Linux Disk Quotas](https://www.debian.org/doc/manuals/debian-handbook/sect.quotas.es.html).
+Aunque deprecado, la solución es [Debian Linux Disk Quotas](https://www.debian.org/doc/manuals/debian-handbook/sect.quotas.es.html).
 
 Entiendo que existen mejores soluciones, como simplemente configurar un nuevo disco dedicado a IPFS o usar `Internal Quotas (cuotas internas)`, pero en mí caso, y debido al bajo presupuesto, está solución fue la más fácil y barata.
 
@@ -28,7 +28,7 @@ Entiendo que existen mejores soluciones, como simplemente configurar un nuevo di
 
 ## Problemas conocidos que debes saber antes
 
-### No olvidar actualizar e instalar los paquetes debian
+### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -127,9 +127,9 @@ Edita `/etc/fstab` y agrega las opciones `usrquota` y `grpquota` para la partici
 /dev/sda1  /home  ext4  defaults,usrquota,grpquota  0  2
 ```
 
-> **Aviso**: Probablemte tengas algo diferente, la cuestión es agregar las opciones sea cual sea la partición.
+> **Aviso**: Probablemente tengas algo diferente, la cuestión es agregar las opciones sea cual sea la partición.
 
-### Remonta la partición para aplicar los cambios:
+### Remonta la partición para aplicar los cambios
 
 ```bash
 sudo mount -o remount /
@@ -359,7 +359,7 @@ fallocate -l 1G test1G
     fallocate: fallocate failed: Disk quota exceeded
     ```
 
-> Esto es la prueba exitiosa de la cuota.
+> Esto es la prueba exitosa de la cuota.
 
 Puedes borrar ahora los archivos de test con `rm test*`
 

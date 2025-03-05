@@ -8,26 +8,26 @@ Por favor, revisa que los enlaces directos sean correctos, es normal que se romp
 
 # Instalación de [Por completar]
 
-Esta es la solucion nombrada como `#[Por completar]`.
+Esta es la solución nombrada como `#[Por completar]`.
 
 > ℹ️ El nombre del archivo suele ser la etiqueta de la solución.
 
 ## Contexto
 
 Este es un tutorial que forma parte de [Web3 - IPFS - Probando un Nodo Público y de Escritorio](../README.md)
-> Por favor, cualquier referencia o proposito al respecto, te emplazo a leerlo ahí.
+> Por favor, cualquier referencia o propósito al respecto, te emplazo a leerlo ahí.
 
 Estos son los pasos de configuración e instalación de [Por completar]
 
 ## Propósito
 
-El proposito de la solución es [Por completar].
+El propósito de la solución es [Por completar].
 
 ## Solución
 
 La solución es la instalación de [Por completar]
 
-> ℹ️ Resumir la soluición, sobre todo en lo posible indicar referencias para no hacer muy extenso el apartado.
+> ℹ️ Resumir la solución, sobre todo en lo posible indicar referencias para no hacer muy extenso el apartado.
 
 Igualmente tuve que tener en cuenta muchas cosas que finalmente están en [Referencias](#referencias).
 
@@ -38,7 +38,7 @@ Igualmente tuve que tener en cuenta muchas cosas que finalmente están en [Refer
 
 ## Problemas conocidos que debes saber antes
 
-### No olvidar actualizar e instalar los paquetes debian
+### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -49,9 +49,7 @@ sudo apt upgrade -y
 
 ## Pre-requisitos
 
-- [Configuración inicial del servidor de red](../../misc/initial-netServer-configuration.md).
-- [Instalación y configuración de docker](../../misc/docker-install-configuration.md).
-- [Instalación de proxy inverso traefik](../../misc/inverseProxy-traefik-install.md)
+- [Configuración inicial del servidor de red](./misc/netServer-initial-configuration.md).
 
 > ℹ️ Poner los que corresponda, estos son los habituales
 
@@ -59,7 +57,7 @@ sudo apt upgrade -y
 
 ### Paso [1 a n por completar]
 
-> ℹ️ Indica los pasos que harias de normal
+> ℹ️ Indica los pasos que harías de normal
 
 Comprobar usuario:
 

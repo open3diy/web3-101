@@ -35,7 +35,6 @@ La solución consiste en una serie de prácticas que se enumeran a continuación
 Para más información, visita los siguientes recursos:
 
 - [IPFS Documentation](https://docs.ipfs.tech/) - Guía oficial para instalar, configurar y utilizar IPFS.
-- [Explorador de red IPFS](https://explore.ipld.io/)
 - [Cómo empezar con Filecoin](https://filecoin.io/)
 
 ## Notas Adicionales

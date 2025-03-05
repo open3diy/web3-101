@@ -1,6 +1,6 @@
 # Configuración segura de `docker proxy`
 
-Esta es la solucion errada, nombrada como `#docker-proxy-secureConfiguration`.
+Esta es la solución errada, nombrada como `#docker-proxy-secureConfiguration`.
 
 ## Contexto
 
@@ -12,11 +12,11 @@ Inicialmente al instalar `traefik`, para no dar acceso al socket de docker en el
 
 [`Docker proxy`](https://github.com/Tecnativa/docker-socket-proxy) es un contenedor que actúa como intermediario para acceder al socket de Docker.
 
-En este paso se intentó crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [conifiguración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
+En este paso se intentó crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [configuración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
 
 Después de buscar en foros y ayuda, parece que no es posible que dentro del propio contenedor de `docker-proxy` se pueda iniciar con un usuario que no sea root (ID = 0).
 
-Por este motivo `docker-proxy` está descartado por ser un gran abujero de seguridad, es decir, prefiero no usarlo y configurar manualmente `traefik`.
+Por este motivo `docker-proxy` está descartado por ser un gran agujero de seguridad, es decir, prefiero no usarlo y configurar manualmente `traefik`.
 
 Pero los pasos que quedaron, con errores porque no termine de revisarlo, aquí están..
 
@@ -24,7 +24,7 @@ Pero los pasos que quedaron, con errores porque no termine de revisarlo, aquí e
 
 ### Configuración previa de `docker proxy`
 
-Inicialmente y para ejecutar su contendor, crearemos el usuario especifico `docker-socket-proxy`:
+Inicialmente y para ejecutar su contenedor, crearemos el usuario especifico `docker-socket-proxy`:
 
 ```bash
 sudo useradd -M -s /usr/sbin/nologin docker-socket-proxy
@@ -59,7 +59,7 @@ id docker-socket-proxy
 
 > Copiar valores 1003 y 1004, que son ejemplo en los siguientes ejemplos, pero por favor, revisa estos valores para tú caso concreto.
 
-Crear en `/etc/appserver/docker` directorio `docker-proxy` y archico `Dockerfile` con contenido:
+Crear en `/etc/appserver/docker` directorio `docker-proxy` y archivo `Dockerfile` con contenido:
 
 ```Dockerfile
 FROM tecnativa/docker-socket-proxy:latest
@@ -119,7 +119,7 @@ Verificar la configuración inicial:
 docker-compose -f /etc/appserver/docker/docker-compose.yml config
 ```
 
-> Si falla, evisar desde un editor que todos los elementos están bien tabulados.
+> Si falla, avisará desde un editor que todos los elementos están bien tabulados.
 
 Ejecutar sin detener servicios en ejecución:
 

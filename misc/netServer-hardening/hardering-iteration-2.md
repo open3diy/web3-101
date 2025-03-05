@@ -1,4 +1,4 @@
-# Iteracion #2
+# Iteración #2
 
 ## Instalación inicial de Lynis y primera comprobación
 

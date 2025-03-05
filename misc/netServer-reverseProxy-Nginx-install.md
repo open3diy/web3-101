@@ -1,14 +1,14 @@
 # Instalación proxy inverso Nginx en un servidor de red
 
-Esta es la solucion nombrada como `#netServer-reverseProxy-Nginx-install`.
+Esta es la solución nombrada como `#netServer-reverseProxy-Nginx-install`.
 
 ## Contexto
 
-Este es un tutorial de [Web3 - IPFS](../README.md) aplicable a cualquier servico, pero que usa como ejemplo la [configuración del contenedor de IPFS](../IPFS/ipfs-testing-public-and-desktop-node/publicNode-docker-install.md)
+Este es un tutorial de [Web3 - IPFS](../README.md) aplicable a cualquier servicio, pero que usa como ejemplo la [configuración del contenedor de IPFS](../IPFS/ipfs-testing-public-and-desktop-node/publicNode-docker-install.md)
 
 ## Propósito
 
-Estos son los pasos de configuración e instalación de un proxy inverso para poder publicar en un servidor púiblico aplicaciones Web.
+Estos son los pasos de configuración e instalación de un proxy inverso para poder publicar en un servidor público aplicaciones Web.
 
 ## Solución
 
@@ -23,7 +23,7 @@ Ver las [Referencias](#referencias).
 
 ## Problemas conocidos que debes saber antes
 
-### No olvidar actualizar e instalar los paquetes debian
+### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -118,7 +118,7 @@ sudo setfacl -m u:docker-reverse-proxy:r /etc/appserver/nginx/nginx.conf
 sudo setfacl -d -m u:docker-reverse-proxy:r /etc/appserver/nginx/conf.d
 ```
 
-Crear el archivo `/etc/appserver/nginx/conf.d/default.conf`, que se usa como el sitio web por defecto del servidor,  darle permiso de escritura al usurio porque lo necesitará al iniciar:
+Crear el archivo `/etc/appserver/nginx/conf.d/default.conf`, que se usa como el sitio web por defecto del servidor,  darle permiso de escritura al usuario porque lo necesitará al iniciar:
 
 ```bash
 touch /etc/appserver/nginx/conf.d/default.conf
@@ -146,7 +146,7 @@ sudo setfacl -d -m g::rX /var/log/nginx /var/log/certbot           # Grupo: rX (
 sudo setfacl -d -m o::--- /var/log/nginx /var/log/certbot          # Otros: sin permisos
 ```
 
-Para exponer contenido estático de la web, crear carepta y permisos, para el contenido wwww:
+Para exponer contenido estático de la web, crear carpeta y permisos, para el contenido wwww:
 
 ```bash
 mkdir /srv/www
@@ -164,7 +164,7 @@ Además, busybox necesita que creemos el mismo nombre de directorio que la ruta 
 mkdir /srv/www/test
 ```
 
-Dar permiso lectura y ejecución (navegar en capertas) al usuario del servicio `test-web` en toda la carpeta y sub-carpetas de forma heredada:
+Dar permiso lectura y ejecución (navegar en carpetas) al usuario del servicio `test-web` en toda la carpeta y sub-carpetas de forma heredada:
 
 ```bash
 sudo setfacl -m u:docker-test-web:rX /srv/www
@@ -188,9 +188,9 @@ Crear página simple de prueba para `busybox` en `/srv/www/test/index.html`:
 
 ### Configuración seguridad web TLS con let's encrypt
 
-Para poder usar servicir el servicio seguro, debemos disponer de un certificado y para ello usaremos certbot y let's encrypt.
+Para poder usar el servicio seguro, debemos disponer de un certificado y para ello usaremos certbot y let's encrypt.
 
-En este proposito surgen dos necesidades, acceder a una web normal, con un subdominio, como puede ser a la Web de pruebas <https://test.web3-101.open3diy.org> y el otro caso más complejo para al gateway de IPFS, con subdominio para `*.ipfs.web3-101-ipfs.open3diy.org` / `*.ipns.web3-101-ipds.open3diy.org`.
+En este propósito surgen dos necesidades, acceder a una web normal, con un subdominio, como puede ser a la Web de pruebas <https://test.web3-101.open3diy.org> y el otro caso más complejo para al gateway de IPFS, con subdominio para `*.ipfs.web3-101-ipfs.open3diy.org` / `*.ipns.web3-101-ipds.open3diy.org`.
 
 > Sobre IPFS, tenemos que aclarar, que lo que veremos a continuación son los pasos necesarios para la solución [`#web3-ipfs-101-publicNode-docker-install`](../web3-101-ipfs-testing-public-and-desktop-node/web3-ipfs-101-publicNode-docker-install.md), que están además en este tutorial a modo de ejemplo, para explicar cómo crear una configuración TLS.
 
@@ -206,7 +206,7 @@ Todos los dominios podrían resolverse por el método `DNS-01 Challenge`, pero v
 
 > Es la que usaremos para resolver la URL `https://test.web3-101.open3diy.org`.
 
-Asegurarte que has configurado el DNS para que resuelva el nombre del servidor, en este ejemplo, para mí dominio `open3diy.org` he agreado el subdominio `web3-101`. Hay muchos tutoriales en la web, puedes seguir este de [jesús en dongee.com](https://www.dongee.com/tutoriales/como-crear-un-subdominio-en-cloudflare).
+Asegurarte que has configurado el DNS para que resuelva el nombre del servidor, en este ejemplo, para mí dominio `open3diy.org` he agregado el subdominio `web3-101`. Hay muchos tutoriales en la web, puedes seguir este de [jesús en dongee.com](https://www.dongee.com/tutoriales/como-crear-un-subdominio-en-cloudflare).
 
 Comprueba que es correcto el dominio:
 
@@ -225,7 +225,7 @@ nslookup web3-101.open3diy.org
   Address: 57.129.131.125
   ```
 
-Crear la carpeta de configuración para `certbot` de desafios ACME, configuración y temporales; asignar permisos, propietario y heredarlos:
+Crear la carpeta de configuración para `certbot` de desafíos ACME, configuración y temporales; asignar permisos, propietario y heredarlos:
 
 ```bash
 mkdir -p /etc/appserver/certbot/www/.well-known/acme-challenge /etc/appserver/certbot/conf /etc/appserver/certbot/letsencrypt-lib
@@ -244,7 +244,7 @@ sudo chown docker-reverse-proxy:docker-reverse-proxy /etc/appserver/certbot -R
 
 **Para configuración `DNS-01 Challenge`**
 
-Igualmente, asegurarte que has configurado el DNS para que resuelva el nombre del servidor, en este ejemplo, para mí dominio `open3diy.org` he agreado los subdominios `web3-101-ipfs` e `ipfs.web3-101-ipfs` e `ipns.web3-101-ipfs`. Hay muchos tutoriales en la web, puedes seguir este de [jesús en dongee.com](https://www.dongee.com/tutoriales/como-crear-un-subdominio-en-cloudflare).
+Igualmente, asegurarte que has configurado el DNS para que resuelva el nombre del servidor, en este ejemplo, para mí dominio `open3diy.org` he agregado los subdominios `web3-101-ipfs` e `ipfs.web3-101-ipfs` e `ipns.web3-101-ipfs`. Hay muchos tutoriales en la web, puedes seguir este de [jesús en dongee.com](https://www.dongee.com/tutoriales/como-crear-un-subdominio-en-cloudflare).
 
 > Si te preguntas porque he creado estos subdominios para IPFS, lo explico en [tutorial de IPFS](../web3-101-ipfs-testing-public-and-desktop-node/web3-ipfs-101-publicNode-docker-install.md#propósito)
 
@@ -403,7 +403,7 @@ id docker-reverse-proxy
 
 > En este ejemplo, son los valores 1015:1018.
 
-Crear en `/etc/appserver/docker` directorio `docker-nginx` y archico `Dockerfile` con contenido, teniendo en cuenta que en nuestro ejemplo el id de usuario es 1015 y el de grupo 1018, que obtenimos con anterioridad:
+Crear en `/etc/appserver/docker` directorio `docker-nginx` y archivo `Dockerfile` con contenido, teniendo en cuenta que en nuestro ejemplo el id de usuario es 1015 y el de grupo 1018, que obteníamos con anterioridad:
 
 ```Dockerfile
 FROM nginxinc/nginx-unprivileged:latest
@@ -522,16 +522,16 @@ services:
     restart: unless-stopped
 ```
 
-Explicacion de los servicios:
+Explicación de los servicios:
 
 - `certbot`: Servicio para renovar certificados con Certbot y DNS Cloudflare.
-  - `image: certbot/dns-cloudflare`: usa la imgen de certbot con el plugin de cloudfare.
+  - `image: certbot/dns-cloudflare`: usa la imagen de certbot con el plugin de cloudfare.
   - `user: "1015:1018`: Inicia el contenedor con el usuario especifico creado en configuración. Se debe indicar los identificadores.
   - `entrypoint: /bin/sh -c "while erc..`: Ejecuta un bucle que intenta renovar certificados TLS cada 12h.
   - `restart: unless-stopped`: Significa que el contenedor se reiniciará automáticamente si se detiene inesperadamente, excepto si lo detienes manualmente.
 - `reverse-proxy`: Proxy inverso basado en Nginx.
-  - `image: custom-docker-nginx`: usa la imagen creada con anterioriad con nombre `custom-docker-nginx`.
-  - `ports: 80 y 443`: Expone el puerto 80 para el desafio `webroot`de let's encrypt y el puerto 443 para la comunicación https.
+  - `image: custom-docker-nginx`: usa la imagen creada con anterioridad con nombre `custom-docker-nginx`.
+  - `ports: 80 y 443`: Expone el puerto 80 para el desafío `webroot`de let's encrypt y el puerto 443 para la comunicación https.
 - `test-web`: Servidor web mínimo con busybox.
   - `image: busybox:latest`: Última imagen de busybox.
   - `command: httpd -f -p 80`: Sirve el servicio simple, en segundo plano, en el puerto 80.
@@ -614,7 +614,7 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml logs test-web
 
 > Ninguna salida veremos si no hay errores.
 
-Verificar que la configuración es válida en el contenedo:
+Verificar que la configuración es válida en el contenedor:
 
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -t
@@ -639,7 +639,7 @@ server {
     listen [::]:80;
     server_name test.web3-101.open3diy.org;
 
-    # Para leer archivos de desafio
+    # Para leer archivos de desafío
     location /.well-known/acme-challenge/ {
         root /var/www/certbot;
     }
@@ -650,7 +650,7 @@ server {
 }
 ```
 
-Verificar que la configuración es válida en el contenedo:
+Verificar que la configuración es válida en el contenedor:
 
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -t
@@ -663,7 +663,7 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy ng
   nginx: configuration file /etc/nginx/nginx.conf test is successful
   ```
 
-Recarga configuracion nginx sin reiniciar el contenedor:
+Recarga configuración nginx sin reiniciar el contenedor:
 
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -s reload
@@ -675,15 +675,15 @@ Revisar logs:
 docker-compose -f /etc/appserver/docker/docker-compose.yml logs reverse-proxy
 ```
 
-> Misma salida anterior con `reverse-proxy  | /docker-entrypoint.sh: Configuration complete; ready for start up`. Asegurarse que no hay errores, quizás te has dejado configuración en un archivo `.conf` de nginx que tiene configurado `ssl_certificate` que depende precisamente de este paso previo, en ese caso, simplemente borrala y ya la pondrás luego cuando ya existe los archivos `.pem`.
+> Misma salida anterior con `reverse-proxy  | /docker-entrypoint.sh: Configuration complete; ready for start up`. Asegurarse que no hay errores, quizás te has dejado configuración en un archivo `.conf` de nginx que tiene configurado `ssl_certificate` que depende precisamente de este paso previo, en ese caso, simplemente borrarla y ya la pondrás luego cuando ya existe los archivos `.pem`.
 
-Verificar que se podria guardar el desafio, primero creando un archivo de prueba:
+Verificar que se podría guardar el desafío, primero creando un archivo de prueba:
 
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot sh -c "echo 'test' > /var/www/certbot/.well-known/acme-challenge/testfile"
 ```
 
-Verificar que sería resolver el desafio:
+Verificar que sería resolver el desafío:
 
 ```bash
 curl -I http://test.web3-101.open3diy.org/.well-known/acme-challenge/testfile

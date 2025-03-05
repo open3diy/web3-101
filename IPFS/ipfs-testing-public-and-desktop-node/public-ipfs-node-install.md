@@ -1,11 +1,11 @@
 # Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio - Instalación de IPFS con docker en un nodo público
 
-Esta es la solucion nombrada como `#public-ipfs-node-install`.
+Esta es la solución nombrada como `#public-ipfs-node-install`.
 
 ## Contexto
 
 Este es un tutorial que forma parte de [Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio](../README.md)
-> Por favor, cualquier referencia o proposito al respecto, te emplazo a leerlo ahí.
+> Por favor, cualquier referencia o propósito al respecto, te emplazo a leerlo ahí.
 
 ## Propósito
 
@@ -15,7 +15,7 @@ El servicio ofrece un [gateway](https://docs.ipfs.tech/concepts/how-ipfs-works/#
 
 Como gateway, de tipo por ruta, `Path-based`, en las URLs: <https://ipfs.web3-101-ipfs.open3diy.org/ipfs/{CID}> / <https://web3-101-ipfs.open3diy.org/ipfs/{CID}>.
 
-> Haciendo pruebas, se ha comprobado que como requisito para ser agregado como gateway en la [webui](https://webui.ipfs.io/#/settings), es necesario que resuelva esas URLs. Viendolo en un ejemplo, si configuras el dominio `dominio.tld`, debe resolverse como `{CID}.ipfs.dominio.tld` y `dominio.tld/ipfs/{CID}`.
+> Haciendo pruebas, se ha comprobado que como requisito para ser agregado como gateway en la [webui](https://webui.ipfs.io/#/settings), es necesario que resuelva esas URLs. Viéndolo en un ejemplo, si configuras el dominio `dominio.tld`, debe resolverse como `{CID}.ipfs.dominio.tld` y `dominio.tld/ipfs/{CID}`.
 
 Como gateway de tipo subdominio, `Subdomain-based`, en la URL: <https://{CID}.ipfs.web3-101-ipfs.open3diy.org/>.
 
@@ -27,7 +27,7 @@ Para ser usado como nodo un [peer de nodo persistente](https://docs.ipfs.tech/ho
 
 > De esta forma permite tener mejor funcionamiento a nodos que tienen problemas para salir al exterior, como los que están detrás de un CGNAT.
 
-Como caracteristicas:
+Como características:
 
 - Es un gateway [recursivo](https://docs.ipfs.tech/concepts/ipfs-gateway/#gateway-types).
 - No requiere [autenticación](https://docs.ipfs.tech/concepts/ipfs-gateway/#authenticated-gateways) y es de [solo lectura](https://docs.ipfs.tech/concepts/ipfs-gateway/#read-only-gateways).
@@ -37,12 +37,12 @@ Como caracteristicas:
 
 La solución es la instalación de IPFS con docker teniendo como referencia la documentación [install IPFS Kubo inside Docker](https://docs.ipfs.tech/install/run-ipfs-inside-docker/), pero con configuraciones especificas tras varias pruebas y consultas que verás finalmente en las [referencias](#referencias).
 
-Si estas pensando en crear un servicio público en producción, te recomiendo tener en cuenta que existen ocpiones como:
+Si estas pensando en crear un servicio público en producción, te recomiendo tener en cuenta que existen opciones como:
 
 - [IPFS Infrastructure](https://github.com/ipfs/infra/blob/master/README.md) como solución de la infraestructura de IPFS.
 - [Rainbow](https://github.com/ipfs/rainbow/#readme) implementación especifica de gateway.
 
-Esta solución está pensanda para hacer pruebas en lo que considero mí laboratorio de aprendizaje, como habia intentado explicar en [mí propósito](../README.md#propósito).
+Esta solución está pensada para hacer pruebas en lo que considero mí laboratorio de aprendizaje, como había intentado explicar en [mí propósito](../README.md#propósito).
 
 ## Configuración
 
@@ -62,7 +62,7 @@ sudo apt upgrade -y
 
 ### Permitir a los nodos establecer conexiones directas y autonat
 
-Es importante permitir al nodo realizar conexiones directas cuando se ofrece el servicio relay, para eso la configuracion [`EnableHolePunching`](https://github.com/ipfs/kubo/blob/master/docs/config.md#swarmenableholepunching) indicada a `True` es fundamental. No se indica como paso porque por defecto ya está habilitado, pero por favor, revisa en la configuración que no lo tengas a `False`.
+Es importante permitir al nodo realizar conexiones directas cuando se ofrece el servicio relay, para eso la configuración [`EnableHolePunching`](https://github.com/ipfs/kubo/blob/master/docs/config.md#swarmenableholepunching) indicada a `True` es fundamental. No se indica como paso porque por defecto ya está habilitado, pero por favor, revisa en la configuración que no lo tengas a `False`.
 
 Igualmente, [`Autonat`](https://github.com/ipfs/kubo/blob/master/docs/config.md#autonatservicemode) debe estar establecido a `enabled`, siendo ya la configuración por defecto, motivo por el que no se indica como paso, pero revisa por favor que no lo tengas a `disabled`.
 
@@ -108,7 +108,7 @@ id docker-ipfs
 
     > En este ejemplo copiaremos los valores `1002` y `1002` como usuario y grupo.
 
-Crear la careptas para IPFS, para los datos y staging, para el usuario `docker-ipfs`; asignarle como propietario y dar permisos:
+Crear la carpetas para IPFS, para los datos y staging, para el usuario `docker-ipfs`; asignarle como propietario y dar permisos:
 
 ```bash
 sudo mkdir -p /var/docker-ipfs
@@ -164,10 +164,10 @@ Explicación:
 - `-v ...:/export`: Monta una carpeta local (ipfs_staging) en el contenedor para almacenar archivos que quieras importar/exportar a IPFS.
 - `-v ...:/data/ipfs`: Monta una carpeta local para almacenar los datos persistentes de IPFS (como el almacenamiento de bloques).
 - En `ports` de `4001:4001` y `4001:4001/udp`: Expone el puerto 4001 (TCP y UDP) para conexiones entre nodos en la red IPFS (intercambio de bloques y descubrimiento de peers) para todas las interfaces disponibles para salir al exterior.
-  - Indicamos los puertos, pero es cierto que si hubieramos iniciamos con la opción `--network host` nos habriamos ahorrado todo esto, pero por seguridad, he preferido aplicar esta solución.
+  - Indicamos los puertos, pero es cierto que si hubiéramos iniciamos con la opción `--network host` nos habríamos ahorrado todo esto, pero por seguridad, he preferido aplicar esta solución.
 - En `ports` `127.0.0.1:5001:5001`: Expone el puerto 5001 para la API de control de IPFS, accesible únicamente desde el host (loopback 127.0.0.1).
 
-Aclaracion:
+Aclaración:
 
 - En `ports` podría poner `127.0.0.1:8080:8080`para el gateway HTTP de IPFS, accesible únicamente desde el host (loopback 127.0.0.1), pero irá publicado en el proxy inverso y no es necesario.
 
@@ -250,7 +250,7 @@ Esta es la identidad del nodo (Peer ID), derivada de la clave pública generada.
 - `Swarm listening on 127.0.0.1:4001 (TCP+UDP)` / `Swarm listening on 172.17.0.2:4001 (TCP+UDP)`:
 El nodo escucha conexiones locales en el puerto 4001 mediante TCP y UDP. Esto permite la comunicación con otros nodos.
 
-> Esto en nuesto caso es un problema, porque queriamos que otros nodos lo puedan acceder, pero luego lo revisaremos...
+> Esto en nuestro caso es un problema, porque queríamos que otros nodos lo puedan acceder, pero luego lo revisaremos...
 
 - `Swarm listening on [::1]:4001 (TCP+UDP)`:
 Muestra que el nodo está escuchando en IPv6 localhost ([::1]) en el puerto 4001 en todas las interfaces, saliendo al exterior. Esto es correcto.
@@ -266,7 +266,7 @@ Proporciona la URL para acceder a la interfaz de usuario web (WebUI) del nodo IP
 
 - `Gateway server listening on /ip4/0.0.0.0/tcp/8080`:
 El servidor de gateway HTTP está escuchando en todas las interfaces de red (0.0.0.0), esto es correcto porque está IPFS en un contenedor, no estás exponiendo nada al exterior.
-Además indica que es el puerto 8080, pero no es donde queriamos, luego lo cambiaremos al puerto 8081.
+Además indica que es el puerto 8080, pero no es donde queríamos, luego lo cambiaremos al puerto 8081.
 
 Copiar el valor de `PeerID`, lo usaremos para que otros nodos puedan agregarlo como peer. En este ejemplo, sería el valor `12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex`:
 
@@ -278,7 +278,7 @@ PeerID: 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 
 Dentro de `/var/docker-ipfs/data` del host dejamos contenido de archivos necesarios para IPFS, pero también está la configuración de inicio del servicio IPFS, en el archivo `/var/docker-ipfs/data/config`, que normalmente se modifica con el API; pero en este tutorial, se considera configuración de solo lectura y solo editable por el propio administrador del servidor de red, por lo tanto, seguiremos estos pasos:
 
-Crear carpeta de configuracion:
+Crear carpeta de configuración:
 
 ```bash
 mkdir -p /etc/appserver/ipfs
@@ -336,7 +336,7 @@ getfacl /etc/appserver/ipfs/config
 
 ### Primera varificación de seguridad
 
-Con el objetivo de que sea un servicio seguro, un primer requisito, es que evite ofrezer contenido ilegal.
+Con el objetivo de que sea un servicio seguro, un primer requisito, es que evite ofrecer contenido ilegal.
 
 Como un primer paso, tomamos como referencia la lista de CID denegados dentro del sitio github de infraestructura de IPFS, [ipfs deny list](https://github.com/ipfs/infra/blob/master/ipfs/gateway/denylist.conf). Seguir estos pasos:
 
@@ -356,11 +356,11 @@ wget -O /etc/appserver/nginx/conf.d/gateway-ipfs/denylist.conf https://raw.githu
 
 Previamente, vamos a anunciar nuestro servicio con el DNS `ipfs.web3-101-ipfs.open3diy.org`, paso ya realizado en [la instalación de proxy inverso - configuración TLS](../misc/netServer-reverseProxy-Nginx-install.md#configuración-seguridad-web-tls-con-lets-encrypt).
 
-Como nos indica el issue [Cluster peers in Docker or behind NATs do not advertise their public IP addresses](https://github.com/ipfs-cluster/ipfs-cluster/issues/949), anunciaremos nuestra multiaddr pública para que otros peers puedan acceder, porque al estar en docker no son anunciadas automaticamente.
+Como nos indica el issue [Cluster peers in Docker or behind NATs do not advertise their public IP addresses](https://github.com/ipfs-cluster/ipfs-cluster/issues/949), anunciaremos nuestra multiaddr pública para que otros peers puedan acceder, porque al estar en docker no son anunciadas automáticamente.
 
 Para todo esto, editar la configuración de `IPFS` en `/etc/appserver/ipfs/config` y buscar en `Addresses` la lista de `AppendAnnounce` (que inicialmente está vacío).
 
-Partiendo del ejemplo donde tenemos el dominio público `ipfs.web3-101-ipfs.open3diy.org`, debenos agregar esta lista, quedando finalmente como:
+Partiendo del ejemplo donde tenemos el dominio público `ipfs.web3-101-ipfs.open3diy.org`, debemos agregar esta lista, quedando finalmente como:
 
 ```json
     "AppendAnnounce": [
@@ -423,7 +423,7 @@ En este ejemplo, `web3-101.open3diy.org` es el dominio base para `ipfs.web3-101-
 
 ### Revisar limitaciones de disco y ancho de bada
 
-Por defecto el espacio maximo entre caché, temporales, metadatos o contenido agreagado como PIN, tiene como máximo `10GB` como se indica en el archivo `/etc/appserver/ipfs/config` en `Datastore` en entrada `StorageMax`:
+Por defecto el espacio maximo entre caché, temporales, metadatos o contenido agregado como PIN, tiene como máximo `10GB` como se indica en el archivo `/etc/appserver/ipfs/config` en `Datastore` en entrada `StorageMax`:
 
 ```json
     etc..

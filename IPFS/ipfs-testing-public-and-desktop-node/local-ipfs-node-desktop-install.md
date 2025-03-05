@@ -1,11 +1,11 @@
 # Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio - Instalación de IPFS Desktop en local
 
-Esta es la solucion nombrada como `#local-ipfs-node-desktop-install`.
+Esta es la solución nombrada como `#local-ipfs-node-desktop-install`.
 
 ## Contexto
 
 Este es un tutorial que forma parte de [Web3 - IPFS - Probando un Nodo Público y de Escritorio](../README.md)
-> Por favor, cualquier referencia o proposito al respecto, te emplazo a leerlo ahí.
+> Por favor, cualquier referencia o propósito al respecto, te emplazo a leerlo ahí.
 
 Estos son los pasos de configuración e instalación de IPFS en un entorno local, usando IPFS Desktop cuando tú nodo es inaccesible, bien sea porque tu ISP no te provee una IPv6 de salida o estás detrás de un CGNAT.
 
@@ -22,7 +22,7 @@ Igualmente tuve que tener en cuenta cosas que finalmente están en [Referencias]
 
 ### Problemas conocidos que debes saber antes
 
-#### No olvidar actualizar e instalar los paquetes debian
+#### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -33,7 +33,7 @@ sudo apt upgrade -y
 
 ### Permitir a los nodos establecer conexiones directas y autonat
 
-Es importante permitir al nodo realizar conexiones directas cuando se requiere el servicio relay, para eso la configuracion [`EnableHolePunching`](https://github.com/ipfs/kubo/blob/master/docs/config.md#swarmenableholepunching) indicada a `True` es fundamental. No se indica como paso porque por defecto ya está habilitado, pero por favor, revisa en la configuración que no lo tengas a `False`.
+Es importante permitir al nodo realizar conexiones directas cuando se requiere el servicio relay, para eso la configuración [`EnableHolePunching`](https://github.com/ipfs/kubo/blob/master/docs/config.md#swarmenableholepunching) indicada a `True` es fundamental. No se indica como paso porque por defecto ya está habilitado, pero por favor, revisa en la configuración que no lo tengas a `False`.
 
 Igualmente, [`Autonat`](https://github.com/ipfs/kubo/blob/master/docs/config.md#autonatservicemode) debe estar establecido a `enabled`, siendo ya la configuración por defecto, motivo por el que no se indica como paso, pero revisa por favor que no lo tengas a `disabled`.
 
@@ -43,7 +43,7 @@ Siempre tener como referencia [la referencia configuración `IPFS`](https://gith
 
 #### No aparece en terminal el comando `ipfs`
 
-En ubuntu al instalar el `.deb`, el `CLI` no es facil encontrar el comando `ipfs`, está en `/opt/'IPFS Desktop'/resources/app.asar.unpacked/node_modules/kubo/kubo`
+En ubuntu al instalar el `.deb`, el `CLI` no es fácil encontrar el comando `ipfs`, está en `/opt/'IPFS Desktop'/resources/app.asar.unpacked/node_modules/kubo/kubo`
 
 > Es una ruta complicada de escribir, está en comillas simples el nombre de la ruta: `'IPFS Desktop'`
 
@@ -62,7 +62,7 @@ ipfs --version
 
 #### Generar CID en versión `v1`
 
-Por defecto, en IPFS Desktop, al subir un archivo, el CID que visualizas está en versión 0, que es en base 32
+Por defecto, en IPFS Desktop, al subir un archivo, el CID que visualizas está en versión 0, que es en base 32, pero puedes cambiarlo a `v1`:
 
 ```bash
 ipfs config --json CIDBase "base32"
@@ -78,7 +78,7 @@ En cada cambio, reiniciar la aplicación.
 
 #### Lo mejor ante problemas es salir y entrar
 
-Lo cierto es que muchas veces, al ver que no conecta correctamante al nodo persistente (como veremos más adelante), lo mejor es apagar IPFS Desktop y voler a entrar, no solo reiniciar.
+Lo cierto es que muchas veces, al ver que no conecta correctamente al nodo persistente (como veremos más adelante), lo mejor es apagar IPFS Desktop y volver a entrar, no solo reiniciar.
 
 ## Pre-requisitos
 
@@ -98,7 +98,7 @@ Editar la configuración en `~/.ipfs/config` o abrir la propia app, en apartado 
     },
 ```
 
-Guardar los cambios y reiniciar el servicio. En Ubuntu, verrás el icono arriba a la derecha de IPFS, tienes que ir a `Restart`.
+Guardar los cambios y reiniciar el servicio. En Ubuntu, verás el icono arriba a la derecha de IPFS, tienes que ir a `Restart`.
 
 ### Revisión de los protocolos cargados
 
@@ -153,7 +153,7 @@ Es importante verificar la salida en los siguientes puntos:
 
 Es crucial realizar estas pruebas para asegurarnos que todo es correcto.
 
-Realizaremos las pruebas desde un terminal aunque podrias revisarlo también desde la propia App de escritorio.
+Realizaremos las pruebas desde un terminal aunque podrías revisarlo también desde la propia App de escritorio.
 
 **Pasos**:
 
@@ -185,14 +185,14 @@ Si todo te funciona correctamente, ya puedes acabar aquí, pero sino, sigue leye
 
 Este nodo persistente, que es un relay, te ayudará a poder acceder a tú contenido desde el exterior.
 
-> **Nota**: este nodo `ipfs.open3diy.org` lo hemos creado según los pasos de [`#ipfs-node-public-docker-install` Instalación de IPFS en docker en un VPS público](./web3-ipfs-101-publicNode-docker-install.md).
+> **Nota**: este nodo `web3-101-ipfs.open3diy.org` lo hemos creado según los pasos de [`#ipfs-node-public-docker-install` Instalación de IPFS en docker en un VPS público](./web3-ipfs-101-publicNode-docker-install.md).
 
 **Pasos**:
 
 Verificar que el nodo está disponible para conectarse:
 
 ```bash
-ipfs swarm connect /dnsaddr/ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
+ipfs swarm connect /dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 ```
 
 - **salida:**
@@ -209,7 +209,7 @@ En la configuración en `~/.ipfs/config` o abrir la propia app, en apartado `Con
         "Peers": [
             {
                 "Addrs": [
-                    "/dnsaddr/ipfs.open3diy.org/tcp/4001"
+                    "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001"
                 ],
                 "ID": "12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex"
             }
@@ -229,7 +229,7 @@ ipfs swarm peers | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
     /ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
     ```
 
-> Aunque conectamos por DNS a `ipfs.open3diy.org`, siempre lo tranforma a la IP de `57.129.131.125`.
+> Aunque conectamos por DNS a `web3-101-ipfs.open3diy.org`, siempre lo transforma a la IP de `57.129.131.125`.
 
 Comprobar luego que nos anuncia como relay:
 
@@ -240,16 +240,16 @@ ipfs id | grep 12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex
 - **salida:**
 
     ```plaintext
-    "/dnsaddr/ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-    "/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-    "/dnsaddr/ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiD7qSzudDQme09i0vjsIwzSrAMdU7sFvoEvVVlgWaJP5g/certhash/uEiA2Edv0pkrKpVoqrAM6XvOFIdgf8pcH3EBS8V939U8g4A/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
-    "/dnsaddr/ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiAsCA7PGleuvDGH3mT6L2shLLDHO1cEQLzyfl_zOW-OgA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiD7qSzudDQme09i0vjsIwzSrAMdU7sFvoEvVVlgWaJP5g/certhash/uEiA2Edv0pkrKpVoqrAM6XvOFIdgf8pcH3EBS8V939U8g4A/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiAsCA7PGleuvDGH3mT6L2shLLDHO1cEQLzyfl_zOW-OgA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ",
     "/ip4/57.129.131.125/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWBmvCob83mHZh99XApRmAW6G1WKP2teSFznu3wXe7zDmZ"
     ```
 
-### Configuración en IPFS Desktop y prueba
+### Configuración y prueba en IPFS Desktop
 
-En IPFS Desktop ir a "Configuración", última pestaña del panel izquiero.
+En IPFS Desktop ir a "Configuración", última pestaña del panel izquierdo.
 
 En "Select a default Subdomain Gateway for generating shareable links.", donde pone la URL <https://dweb.link>, probar a poner <https://dweb.link> y luego guardar con la opción `Enviar`.
 

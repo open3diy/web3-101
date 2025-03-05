@@ -1,6 +1,6 @@
 # Conifiguración inicial de un servidor de red
 
-Esta es la solucion nombrada como `#netServer-initial-configuration`.
+Esta es la solución nombrada como `#netServer-initial-configuration`.
 
 ## Contexto
 
@@ -16,7 +16,7 @@ El [servidor](https://es.wikipedia.org/wiki/Servidor) donde se alojaran las apli
 
 ## Problemas conocidos que debes saber antes
 
-### No olvidar actualizar e instalar los paquetes debian
+### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -29,7 +29,7 @@ sudo apt upgrade -y
 
 ### Crear configuración del servidor
 
-El usuario que realizará todos los pasos estará en un grupo llamdo `infrastructure` y necesita tener permiso de `sudo` para crear cuentas de usuario o asignar permisos.
+El usuario que realizará todos los pasos estará en un grupo llamado `infrastructure` y necesita tener permiso de `sudo` para crear cuentas de usuario o asignar permisos.
 > En todos los ejemplos de este tutorial se llamará `jesus`.
 
 Instalar `acl` Access Control list, para afinar los permisos:
@@ -62,7 +62,7 @@ Cambiar el grupo propietario de las carpetas `/etc/appserver` y `/srv`:
 sudo chown nobody:infrastructure /etc/appserver /srv -R
 ```
 
-> Como `/var/log` puede existir con anterioridad, no cambiamos el propietario porque fallarian logs que ya se escriban.
+> Como `/var/log` puede existir con anterioridad, no cambiamos el propietario porque fallarían logs que ya se escriban.
 
 Configurar los permisos base de escritura a las carpetas para el grupo y ninguno para el resto y establecer el bit setgid:
 
@@ -111,7 +111,7 @@ Crear usuario de la aplicación concreta:
 sudo useradd -M -s /usr/sbin/nologin app1
 ```
 
-Según su caso, crear el archivo de configuracion para asignar permiso al usuario `app1`:
+Según su caso, crear el archivo de configuración para asignar permiso al usuario `app1`:
 
 ```bash
 touch /etc/appserver/app1/init.config
@@ -133,15 +133,15 @@ sudo setfacl -d -m d:u:app1:r /srv/www  # permiso por defecto de lectura a cada 
 
 **El propietario es la propia aplicación**.
 
-Cuando es la propia aplicación la que necesita albergar en el host información variable como logs, o guardar su estado por si la aplicación se renicia, o cualquier otro contenido que en realidad concierte a la aplicación, crearemos un usuario al que le asignaremos como propietario, permitiendo al grupo `infrastructure` ver el contenido. Viendolo con un ejemplo, suponiendo que es la carpeta de logs:
+Cuando es la propia aplicación la que necesita albergar en el host información variable como logs, o guardar su estado por si la aplicación se reinicia, o cualquier otro contenido que en realidad concierte a la aplicación, crearemos un usuario al que le asignaremos como propietario, permitiendo al grupo `infrastructure` ver el contenido. Viéndolo con un ejemplo, suponiendo que es la carpeta de logs:
 
-Crearemos una carpeta para la aplicacion:
+Crearemos una carpeta para la aplicación:
 
 ```bash
 sudo mkdir /var/log/app1
 ```
 
-Cambiar el propietario de las carpetas `/var/log/app1` para el usuario `app1` y el grupo `infrastructure` permitiendo herdar estos permisos:
+Cambiar el propietario de las carpetas `/var/log/app1` para el usuario `app1` y el grupo `infrastructure` permitiendo heredar estos permisos:
 
 ```bash
 sudo chown app1:infrastructure /var/log/app1 -R

@@ -1,6 +1,6 @@
-# Iteración #1 de aplicación de medidas de seguridad
+# Iteración #1
 
-## Desabilitar el acceso `root`
+## Deshabilitar el acceso `root`
 
 ```bash
 sudo passwd -l root
@@ -23,9 +23,9 @@ sudo systemctl restart ssh.service
 sudo systemctl daemon-reload
 ```
 
-## Operar sin conexion SSH
+## Operar sin conexión SSH
 
-En momentos iniciales se operará por comidad por SSH e incluso usando el puerto 22, pero una vez se haya acabado, para configuraciones menores, será desactivado y se usará la configuración directa desde el propio servidor o si es un VPS, usando el [KVM](https://es.wikipedia.org/wiki/Switch_KVM) disponible.
+En momentos iniciales se operará por comodidad por SSH e incluso usando el puerto 22, pero una vez se haya acabado, para configuraciones menores, será desactivado y se usará la configuración directa desde el propio servidor o si es un VPS, usando el [KVM](https://es.wikipedia.org/wiki/Switch_KVM) disponible.
 
 Cuando sea necesario, iniciar sesión presencial o KVM y ejecutar:
 
