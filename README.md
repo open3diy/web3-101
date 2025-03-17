@@ -32,13 +32,13 @@ La solución consiste en una serie de prácticas que se enumeran a continuación
 
 - [Probar IPFS como la principal solución descentralizada para compartir contenido](./IPFS/README.md).
 
+## Licencia
+
+Ver la licencia de [open3diy](https://github.com/open3diy/org/blob/main/LICENSE).
+
 ## Referencias
 
-Para más información, visita los siguientes recursos:
-
-- [Ethereum Documentation](https://ethereum.org/en/developers/) - Guía oficial sobre blockchain y contratos inteligentes.
-- [Explorador de la red Ethereum](https://etherscan.io/)
-- [Cómo empezar con dApps](https://docs.alchemy.com/)
+Las referencias las podemos encontrar en [la comunidad](./COMMUNITY.md).
 
 ## Notas Adicionales
 

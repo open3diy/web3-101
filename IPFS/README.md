@@ -34,8 +34,10 @@ La solución consiste en una serie de prácticas que se enumeran a continuación
 
 Para más información, visita los siguientes recursos:
 
+- [Addaquay en hackernoon sobre IPFS](https://hackernoon.com/lang/es/una-guia-para-principiantes-de-ipfs-20673fedd3f) - Artículo de [Addaquay](https://hackernoon.com/u/kojoaddaquay) que te recomiendo acceder y comentar.
 - [IPFS Documentation](https://docs.ipfs.tech/) - Guía oficial para instalar, configurar y utilizar IPFS.
-- [Cómo empezar con Filecoin](https://filecoin.io/)
+- [https://docs.ipfs.tech/how-to/] - Guías y tutoriales de IPFS muy recomendables para practicar y aprender.
+- [Empezar con Filecoin](https://filecoin.io/)
 
 ## Notas Adicionales
 

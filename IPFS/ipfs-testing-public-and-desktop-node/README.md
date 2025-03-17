@@ -26,6 +26,12 @@ Gracias a esto, he llegado a:
 
 Aunque sabrán el ID del nodo, es mí nodo de laboratorio, cualquiera prejuicio será un aprendizaje para mí.
 
+#### Aviso sobre el contenido ilegal
+
+Las instrucciones de instalación, contemplan la agregación de la lista <https://badbits.dwebops.pub/>.
+
+Por favor, señores feudales de la liga o cualquier otro ser de luz..., no necesitan fulminar este sitio si ven algo incorrecto, si detectan contenido ilegal, amoral con copyright, etc, solamente deben escribir a <abuse@ipfs.io> donde serán atendidos muy amablemente por el equipo de protocol labs... gracias :)
+
 ## Solución
 
 La solución para esta practica, fue crear dos nodos: un nodo local `IPFS Desktop` en el que haré las pruebas pertinentes y luego un nodo público en un VPS que permitirá que dicho nodo local pueda ser consultado desde internet.
@@ -44,7 +50,7 @@ Lo llamaremos `#public-ipfs-node`, es un nodo en un VPS, igualmente con `ubuntu 
 
     > Las pruebas me demostraron que tengo más éxito para consultar contenido público que tengo en el nodo local, desde este gateway el cual está añadido de forma persistente.
 
-## Pasos el `#public-ipfs-node`
+## Pasos del `#public-ipfs-node`
 
 - [Configuración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
 - [Instalación y configuración inicial de docker](../../misc/netServer-docker-install-configuration.md).
@@ -64,7 +70,7 @@ Además, existen otras optimizaciones sobre docker que la web de [industry40.sys
 
 > Muy recomendable en cualquier caso, ojear este sitio web y su canal de YouTube.
 
-## Pasos el `#local-ipfs-node-desktop`
+## Pasos del `#local-ipfs-node-desktop`
 
 - [Instalación de IPFS Desktop en local](./local-ipfs-node-desktop-install.md)
 

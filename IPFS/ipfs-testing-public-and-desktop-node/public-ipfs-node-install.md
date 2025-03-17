@@ -13,17 +13,15 @@ Estos son los pasos de configuración e instalación de IPFS en un entorno docke
 
 El servicio ofrece un [gateway](https://docs.ipfs.tech/concepts/how-ipfs-works/#ipfs-http-gateways) e [IPNS](https://docs.ipfs.tech/concepts/ipns/).
 
-Como gateway, de tipo por ruta, `Path-based`, en las URLs: <https://ipfs.web3-101-ipfs.open3diy.org/ipfs/{CID}> / <https://web3-101-ipfs.open3diy.org/ipfs/{CID}>.
-
-> Haciendo pruebas, se ha comprobado que como requisito para ser agregado como gateway en la [webui](https://webui.ipfs.io/#/settings), es necesario que resuelva esas URLs. Viéndolo en un ejemplo, si configuras el dominio `dominio.tld`, debe resolverse como `{CID}.ipfs.dominio.tld` y `dominio.tld/ipfs/{CID}`.
+Como gateway, de tipo por ruta, `Path-based`, en la URL: <https://web3-101-ipfs.open3diy.org/ipfs/{CID}>.
 
 Como gateway de tipo subdominio, `Subdomain-based`, en la URL: <https://{CID}.ipfs.web3-101-ipfs.open3diy.org/>.
 
-> Si quieres saber, accede a [IPFS estilo de resolución](https://docs.ipfs.tech/concepts/ipfs-gateway/#resolution-styles).
+> Haciendo pruebas, se ha comprobado que como requisito para ser agregado como gateway en la [webui](https://webui.ipfs.io/#/settings), es necesario que resuelva esas URLs. Viéndolo en un ejemplo, si configuras el dominio `dominio.tld`, debe resolverse como `{CID}.ipfs.dominio.tld` y `dominio.tld/ipfs/{CID}`.
 
-Como [IPNS](https://docs.ipfs.tech/concepts/ipns) en <https://ipfs.web3-101-ipfs.open3diy.org/ipns/k51qzi5uqu5di56caajjiel546q92pme0hgnh4gofey4tbwlfdr64ur7vu9s9t>.
+Como [IPNS](https://docs.ipfs.tech/concepts/ipns) en <https://web3-101-ipfs.open3diy.org/ipns/k51qzi5uqu5di56caajjiel546q92pme0hgnh4gofey4tbwlfdr64ur7vu9s9t>.
 
-Para ser usado como nodo un [peer de nodo persistente](https://docs.ipfs.tech/how-to/peering-with-content-providers/) para otros nodos en la [multiaddr](https://github.com/multiformats/multiaddr): </dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex>.
+Para ser usado como nodo un [peer de nodo persistente](https://docs.ipfs.tech/how-to/peering-with-content-providers/) para otros nodos en la [multiaddr](https://github.com/multiformats/multiaddr): </dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex>.
 
 > De esta forma permite tener mejor funcionamiento a nodos que tienen problemas para salir al exterior, como los que están detrás de un CGNAT.
 
@@ -33,14 +31,16 @@ Como características:
 - No requiere [autenticación](https://docs.ipfs.tech/concepts/ipfs-gateway/#authenticated-gateways) y es de [solo lectura](https://docs.ipfs.tech/concepts/ipfs-gateway/#read-only-gateways).
 - Como cliente que use el gateway, lo puede usar como [confiable o no confiable](https://docs.ipfs.tech/reference/http/gateway/#trusted-vs-trustless).
 
+> Si quieres saber más, accede a [IPFS estilo de resolución](https://docs.ipfs.tech/concepts/ipfs-gateway/#resolution-styles).
+
 ## Solución
 
 La solución es la instalación de IPFS con docker teniendo como referencia la documentación [install IPFS Kubo inside Docker](https://docs.ipfs.tech/install/run-ipfs-inside-docker/), pero con configuraciones especificas tras varias pruebas y consultas que verás finalmente en las [referencias](#referencias).
 
 Si estas pensando en crear un servicio público en producción, te recomiendo tener en cuenta que existen opciones como:
 
-- [IPFS Infrastructure](https://github.com/ipfs/infra/blob/master/README.md) como solución de la infraestructura de IPFS.
-- [Rainbow](https://github.com/ipfs/rainbow/#readme) implementación especifica de gateway.
+- [Rainbow](https://github.com/ipfs/rainbow/#readme) - Implementación especifica de gateway.
+- [IPFS Infrastructure](https://github.com/ipfs/infra/blob/master/README.md) - Como solución de la infraestructura de IPFS.
 
 Esta solución está pensada para hacer pruebas en lo que considero mí laboratorio de aprendizaje, como había intentado explicar en [mí propósito](../README.md#propósito).
 
@@ -51,7 +51,7 @@ Esta solución está pensada para hacer pruebas en lo que considero mí laborato
 
 ## Problemas conocidos que debes saber antes
 
-### No olvidar actualizar e instalar los paquetes debian
+### No olvidar actualizar e instalar los paquetes Debian
 
 ```bash
 sudo apt update
@@ -69,6 +69,85 @@ Igualmente, [`Autonat`](https://github.com/ipfs/kubo/blob/master/docs/config.md#
 ### La configuración indicada en este tutorial provoca error
 
 Siempre tener como referencia [la referencia configuración `IPFS`](https://github.com/ipfs/kubo/blob/master/docs/config.md) porque puede cambiar y afectar a esta explicación.
+
+### Necesitas resetear nodo IPFS
+
+En el host `/var/docker-ipfs/` están los directorios de datos y staging de IPFS montados para dar soporte al contenedor.
+
+Si necesitamos reiniciar este directorio por cualquier problema, pero no quieres perder la configuración, sobre todo la del PEER_ID o simplemente quieres hacer una copia de seguridad, puedes seguir los pasos de:
+
+Parar y borrar el contenedor:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml stop ipfs-host
+docker-compose -f /etc/appserver/docker/docker-compose.yml rm -f ipfs-host
+```
+
+Archivar configurar en .tar en carpeta backup, por ejemplo, `/etc/appserver/ipfs-backup`:
+
+```bash
+mkdir -p /etc/appserver/ipfs-backup
+sudo tar -cvf /etc/appserver/ipfs-backup/ipfs-backup-$(date +%Y-%m-%d).tar -C /var/docker-ipfs/data config keystore
+```
+
+Borrar carpeta datos y staging (aunque estará vacía):
+
+```bash
+sudo rm /var/docker-ipfs/data/* -rf
+sudo rm /var/docker-ipfs/staging/* -rf
+```
+
+Iniciar el contenedor y ver logs:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml up -d ipfs-host --force-recreate
+docker-compose -f /etc/appserver/docker/docker-compose.yml logs ipfs-host
+```
+
+> El contenedor iniciará IPFS, como si fuera la instrucción `ipfs init` para crear el resto de directorios y archivos necesarios
+
+Parar el contenedor de nuevo:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml stop ipfs-host
+```
+
+Restaurar copia mas reciente:
+
+```bash
+sudo tar -xvf $(ls -t /etc/appserver/ipfs-backup/ipfs-backup-*.tar | head -n 1) -C /var/docker-ipfs/data/
+```
+
+> Puedes elegir también el nombre de archivo concreto si lo prefieres.
+
+Iniciar el contenedor y ver logs:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml start ipfs-host
+docker-compose -f /etc/appserver/docker/docker-compose.yml logs ipfs-host
+```
+
+Enlazar a archivo de configuración:
+
+> Es un paso que se [explicará](#crear-configuración-de-ipfs-en-el-host).
+
+```bash
+[ ! -L /etc/appserver/ipfs/config ] && sudo ln -s /var/docker-ipfs/data/config /etc/appserver/ipfs/config
+```
+
+Dar permiso a usuarios del grupo `infrastructure`:
+
+```bash
+sudo setfacl -m g:infrastructure:rX /var/docker-ipfs
+sudo setfacl -m g:infrastructure:rX /var/docker-ipfs/data
+sudo setfacl -m g:infrastructure:rw /var/docker-ipfs/data/config
+```
+
+Quitar permiso de escritura a `docker-ipfs`:
+
+```bash
+sudo setfacl -m u:docker-ipfs:r-- /var/docker-ipfs/data/config
+```
 
 ## Pre-requisitos
 
@@ -334,40 +413,51 @@ getfacl /etc/appserver/ipfs/config
 
   > Solo se indica lo que destaca revisar.
 
-### Primera varificación de seguridad
+### Primera verificación de seguridad
 
-Con el objetivo de que sea un servicio seguro, un primer requisito, es que evite ofrecer contenido ilegal.
+> ⚠️ Pendiente de completar, error en el plugin. He creado la issue: <https://github.com/ipfs-shipyard/nopfs/issues/45>
 
-Como un primer paso, tomamos como referencia la lista de CID denegados dentro del sitio github de infraestructura de IPFS, [ipfs deny list](https://github.com/ipfs/infra/blob/master/ipfs/gateway/denylist.conf). Seguir estos pasos:
+Con el objetivo de que sea un servicio seguro, un primer requisito, es que evite ofrecer contenido ilegal, usando el plugin [noPFS](https://github.com/ipfs-shipyard/nopfs/) y usando la lista <https://badbits.dwebops.pub/badbits.deny>.
 
-Crear directorio de configuración:
+En sitio de `noPFS` se explican los pasos, siendo en nuestro caso:
 
-```bash
-mkdir -p /etc/appserver/nginx/conf.d/gateway-ipfs
-```
-
-Bajar el contenido:
+Crear el directorio `denylists`:
 
 ```bash
-wget -O /etc/appserver/nginx/conf.d/gateway-ipfs/denylist.conf https://raw.githubusercontent.com/ipfs/infra/master/ipfs/gateway/denylist.conf
+sudo mkdir /var/docker-ipfs/data/denylists
 ```
+
+Descarga la lista inicial:
+
+```bash
+sudo wget -O /var/docker-ipfs/data/denylists/badbits.deny https://badbits.dwebops.pub/badbits.deny
+```
+
+Descargar el plugin:
+
+```bash
+wget https://github.com/ipfs-shipyard/nopfs/releases/download/nopfs-kubo-plugin%2Fv0.23.0/nopfs-kubo-plugin_v0.23.0_linux_amd64.tar.gz
+tar -xvzf nopfs-kubo-plugin_v0.23.0_linux_amd64.tar.gz
+```
+
+Prueba Copyright: <https://web3-101-ipfs.open3diy.org/ipfs/QmV3N9Tsk1pZn8hkbgsWdqZVGsfdFfvRC2GeYc3gw77TpU>
 
 ### Anunciar la multiaddr pública al exterior
 
-Previamente, vamos a anunciar nuestro servicio con el DNS `ipfs.web3-101-ipfs.open3diy.org`, paso ya realizado en [la instalación de proxy inverso - configuración TLS](../misc/netServer-reverseProxy-Nginx-install.md#configuración-seguridad-web-tls-con-lets-encrypt).
+Previamente, vamos a anunciar nuestro servicio con el DNS `web3-101-ipfs.open3diy.org`, paso ya realizado en [la instalación de proxy inverso - configuración TLS](../misc/netServer-reverseProxy-Nginx-install.md#configuración-seguridad-web-tls-con-lets-encrypt).
 
 Como nos indica el issue [Cluster peers in Docker or behind NATs do not advertise their public IP addresses](https://github.com/ipfs-cluster/ipfs-cluster/issues/949), anunciaremos nuestra multiaddr pública para que otros peers puedan acceder, porque al estar en docker no son anunciadas automáticamente.
 
 Para todo esto, editar la configuración de `IPFS` en `/etc/appserver/ipfs/config` y buscar en `Addresses` la lista de `AppendAnnounce` (que inicialmente está vacío).
 
-Partiendo del ejemplo donde tenemos el dominio público `ipfs.web3-101-ipfs.open3diy.org`, debemos agregar esta lista, quedando finalmente como:
+Partiendo del ejemplo donde tenemos el dominio público `web3-101-ipfs.open3diy.org`, debemos agregar esta lista, quedando finalmente como:
 
 ```json
     "AppendAnnounce": [
-        "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001",
-        "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1",
-        "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport",
-        "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/"
+        "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001",
+        "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1",
+        "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport",
+        "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/"
     ],
 ```
 
@@ -379,7 +469,7 @@ Un [relay](https://docs.ipfs.tech/concepts/nodes/#relay) es la forma en la otros
 
 Editar la configuración de `IPFS` en `/etc/appserver/ipfs/config` y buscar en `Addresses` la lista de `AppendAnnounce` (que inicialmente está vacío).
 
-Partiendo de nuestro ejemplo, agregar la multiaddr de relay `/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit`, donde:
+Partiendo de nuestro ejemplo, agregar la multiaddr de relay `/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit`, donde:
 
 - `dnsaddr`: se trata de una dirección en un DNS.
 - `pfs.web3-101-ipfs.open3diy.org`: es el dominio DNS del nodo IPFS donde estamos instalando.
@@ -390,7 +480,7 @@ Debería quedar así:
 ```json
 "AppendAnnounce": [
     Etc...
-    "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit"    
+    "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit"    
 ],
 ```
 
@@ -419,7 +509,11 @@ Para crear el nodo como gateway público, editar la configuración de `IPFS` en 
   },
 ```
 
-En este ejemplo, `web3-101.open3diy.org` es el dominio base para `ipfs.web3-101-ipfs.open3diy.org` e `ipns.web3-101-ipfs.open3diy.org`, pero al configurarlo, debemos agregarlo así.
+En este ejemplo, `web3-101.open3diy.org` es el dominio base para los subdominios `ipfs.web3-101-ipfs.open3diy.org` e `ipns.web3-101-ipfs.open3diy.org`.
+
+Igualmente es el dominio base para las rutas `web3-101.open3diy.org/ipfs/{CID}` o `web3-101.open3diy.org/ipns/{peer_id_or_dnslink}`.
+
+Para entenderlo mejor, puedes ir a las URLs de ejemplo del [propósito enunciado](#propósito).
 
 ### Revisar limitaciones de disco y ancho de bada
 
@@ -447,11 +541,11 @@ Por si queda alguna duda, `/etc/appserver/ipfs/config` debería quedar así fina
     "API": "/ip4/0.0.0.0/tcp/5001",
     "Announce": [],
     "AppendAnnounce": [
-      "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001",
-      "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1",
-      "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport",
-      "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/",
-      "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit"
+      "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001",
+      "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1",
+      "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport",
+      "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/",
+      "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit"
     ],
     "Gateway": "/ip4/0.0.0.0/tcp/8080",
     "NoAnnounce": [],
@@ -552,11 +646,11 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec ipfs-host ipfs i
       "ID": "12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
       "PublicKey": "CAESIAeUPT9UWoCFOOkKUfyt+76Ucu5jZ3OLb23w0p4M9lST",
       "Addresses": [
-              "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-              "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-              "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-              "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiDQvcHyRFvpUhI-_ld7qJcy_LRU0WvoI-ELKH76eLXWMQ/certhash/uEiB8B-v5wmewNjVgNFrMIOICgxV2aFig4vws3xKhRauYXA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-              "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiBZroH3W7SYUiXG8Jbro3s7ui_9yNF_9-2FDGhZX19Dsw/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+              "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+              "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+              "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+              "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiDQvcHyRFvpUhI-_ld7qJcy_LRU0WvoI-ELKH76eLXWMQ/certhash/uEiB8B-v5wmewNjVgNFrMIOICgxV2aFig4vws3xKhRauYXA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+              "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiBZroH3W7SYUiXG8Jbro3s7ui_9yNF_9-2FDGhZX19Dsw/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
               "/ip4/127.0.0.1/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
               "/ip4/127.0.0.1/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
               "/ip4/127.0.0.1/udp/4001/quic-v1/webtransport/certhash/uEiDQvcHyRFvpUhI-_ld7qJcy_LRU0WvoI-ELKH76eLXWMQ/certhash/uEiB8B-v5wmewNjVgNFrMIOICgxV2aFig4vws3xKhRauYXA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
@@ -608,11 +702,11 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec ipfs-host ipfs i
   - Revisar que tenemos los mismos elementos pero para nuestra direción pública, y adicionalmente incluyendo la multiaddr del relay:
 
     ```plaintest
-    "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-    "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-    "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-    "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiDQvcHyRFvpUhI-_ld7qJcy_LRU0WvoI-ELKH76eLXWMQ/certhash/uEiB8B-v5wmewNjVgNFrMIOICgxV2aFig4vws3xKhRauYXA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
-    "/dnsaddr/ipfs.web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiBZroH3W7SYUiXG8Jbro3s7ui_9yNF_9-2FDGhZX19Dsw/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex/p2p-circuit/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/quic-v1/webtransport/certhash/uEiDQvcHyRFvpUhI-_ld7qJcy_LRU0WvoI-ELKH76eLXWMQ/certhash/uEiB8B-v5wmewNjVgNFrMIOICgxV2aFig4vws3xKhRauYXA/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
+    "/dnsaddr/web3-101-ipfs.open3diy.org/udp/4001/webrtc-direct/certhash/uEiBZroH3W7SYUiXG8Jbro3s7ui_9yNF_9-2FDGhZX19Dsw/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex",
     ```
 
   - Veremos como están los elementos comunes `p2p`, `quic-v1/p2p`, `quic-v1/webtransport/` y `webrtc-direct/`, con el añadido del relay que es la dirección que contiene `p2p-circuit/`.
@@ -885,7 +979,7 @@ Prueba el servicio de gateway con la URL <https://ipfs.web3-101.open3diy.org/ipf
 
 > El valor `bafybeiack3rhfn25rzsvi7s7f3m37zvrwprthspsoitekib3orqxa7ycpi` es el CID que creamos anteriormente o uno cualquiera que podamos explorar.
 
-Luego prueba IPNS <https://ipfs.web3-101-ipfs.open3diy.org/ipns/k51qzi5uqu5di56caajjiel546q92pme0hgnh4gofey4tbwlfdr64ur7vu9s9t>.
+Luego prueba IPNS <https://web3-101-ipfs.open3diy.org/ipns/k51qzi5uqu5di56caajjiel546q92pme0hgnh4gofey4tbwlfdr64ur7vu9s9t>.
 
 Revisar los logs de acceso:
 
@@ -896,12 +990,14 @@ less +G /var/log/nginx/access.log
 ## Referencias
 
 - [Install IPFS Kubo inside Docker](https://docs.ipfs.tech/install/run-ipfs-inside-docker/).
+- [Referencia de IPFS HTTP Gateway](https://docs.ipfs.tech/reference/http/gateway/).
 - [Referencia configuración `IPFS`](https://github.com/ipfs/kubo/blob/master/docs/config.md)
 - [Configure NAT and port forwarding](https://docs.ipfs.tech/how-to/nat-configuration/#background).
 - [Nat traversal](https://docs.libp2p.io/concepts/nat/).
 - [libp2p relay](https://docs.libp2p.io/concepts/nat/circuit-relay/).
-- [Issue cluster peers in Docker or behind NATs do not advertise their public IP addresses ](https://github.com/ipfs-cluster/ipfs-cluster/issues/949),
+- [Issue cluster peers in Docker or behind NATs do not advertise their public IP addresses](https://github.com/ipfs-cluster/ipfs-cluster/issues/949),
 - [IPFS](https://ipfs.tech/).
 - [IPFS Infrastructure nginx](https://github.com/ipfs/infra/blob/master/ipfs/gateway/nginx.conf).
 - [PFS Infrastructure](https://github.com/ipfs/infra/blob/master/README.md).
+- [IPFS Content Blocking in Kubo](https://github.com/ipfs/kubo/blob/master/docs/content-blocking.md).
 - <chatgpt.com>.

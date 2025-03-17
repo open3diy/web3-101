@@ -37,6 +37,12 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml rm -f ipfs-host
 docker-compose -f /etc/appserver/docker/docker-compose.yml up -d ipfs-host --force-recreate
 ```
 
+Reiniciar todos los contenedores:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml restart
+```
+
 Solo reiniciar los servicios de docker `ipfs-host` y `reverse-proxy`:
 
 ```bash
@@ -100,11 +106,22 @@ Accediendo a URLs de prueba: <https://test.web3-101.open3diy.org>.
 
 Accediendo a URLs para probar IPFS:
 
-- Acceder a contenido en base a CID de ejemplo, en la URL de subdominio ipfs: <https://ipfs.web3-101-ipfs.open3diy.org/ipfs/afybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
+- Acceder a contenido CID de prueba en base a la ruta: <https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
+- Acceder a contenido CID de prueba en base al subdominio: <https://bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m.ipfs.web3-101-ipfs.open3diy.org>.
 
-- Acceder a contenido en base a CID de ejemplo, en la URL principal: <https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
 
-- Acceder a contenido en base a CID de pruebas en el subdominio: <https://bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m.ipfs.web3-101-ipfs.open3diy.org>.
+https://bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m.ipfs.web3-101-ipfs.open3diy.org/
 
-https://web3-101-ipfs.open3diy.org/ipns/k51qzi5uqu5di56caajjiel546q92pme0hgnh4gofey4tbwlfdr64ur7vu9s9t
-https://ipfs.web3-101-ipfs.open3diy.org/ipns/k51qzi5uqu5di56caajjiel546q92pme0hgnh4gofey4tbwlfdr64ur7vu9s9t
+OK:
+https://ipfs.io/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m
+https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m
+
+Copyrig
+https://ipfs.io/ipfs/QmcvyefkqQX3PpjpY5L8B2yMd47XrVwAipr6cxUt2zvYU8
+https://web3-101-ipfs.open3diy.org/ipfs/QmcvyefkqQX3PpjpY5L8B2yMd47XrVwAipr6cxUt2zvYU8
+
+
+RAndom creado nadie conoce
+https://ipfs.io/ipfs/QmVWQvwMJvYsTY9kuYabWKjZQjRAuamdx1RY9SxEhUSbER
+https://web3-101-ipfs.open3diy.org/ipfs/QmVWQvwMJvYsTY9kuYabWKjZQjRAuamdx1RY9SxEhUSbER
+

@@ -8,6 +8,8 @@ Aquí comparto algunos sitios web y autores que me gustan y que pueden ser útil
 
 - [bit2me Academy](https://academy.bit2me.com/).
 - [Platzi - Blockchain y Web3](https://platzi.com/escuela/blockchain/).
+- [alchemy tutoriales](https://docs.alchemy.com/docs/tutorials-overview).
+- [web3 university](https://www.web3.university/).
 
 ## Sitios de Interés
 
@@ -26,5 +28,6 @@ Aquí comparto algunos sitios web y autores que me gustan y que pueden ser útil
 - [Canal de YouTube Ramon Soto C](https://www.youtube.com/@rsotoc/videos) - Formación sobre la Web3.
 - [WhiteboardCrypto](https://whiteboardcrypto.com/) - Atlas del ecosistema crypto.
   - Disfruta su [canal de YouTube Whiteboard Crypto en Español](https://www.youtube.com/@whiteboardcryptoenespanol2505).
+- [Hackernoon - Web3](https://hackernoon.com/c/web3) - Comunidad abierta para que tecnólogos lean, escriban y publiquen
 
 Si tienes alguna sugerencia de otros sitios interesantes, ¡no dudes en compartirla!

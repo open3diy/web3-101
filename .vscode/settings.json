@@ -4,6 +4,7 @@
         "autonat",
         "certbot",
         "certonly",
+        "CGNAT",
         "compartición",
         "configurarlo",
         "descomentar",
@@ -15,13 +16,19 @@
         "Interoperabilidad",
         "ipfs",
         "IPFS",
+        "IPNS",
+        "Kubo",
         "letsencrypt",
         "limitándolo",
         "Monitoreo",
         "nginx",
         "plaintest",
         "programáticamente",
+        "resetear",
         "segurizado",
-        "Tokenización"
+        "setfacl",
+        "tecnólogos",
+        "Tokenización",
+        "webui"
     ]
 }
