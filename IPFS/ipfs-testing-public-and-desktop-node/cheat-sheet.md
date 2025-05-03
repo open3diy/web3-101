@@ -82,6 +82,14 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy ng
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -s reload
 ```
 
+Revisar la configuración de IPFS:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml exec ipfs-host ipfs id
+```
+
+Configuración de IPFS Kubo: <https://github.com/ipfs/kubo/blob/master/docs/config.md>.
+
 Revisar el estado del servicio `monitor-docker` encargado de aplicar configuraciones al iniciar y parar contenedores:
 
 ```bash
@@ -109,19 +117,12 @@ Accediendo a URLs para probar IPFS:
 - Acceder a contenido CID de prueba en base a la ruta: <https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
 - Acceder a contenido CID de prueba en base al subdominio: <https://bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m.ipfs.web3-101-ipfs.open3diy.org>.
 
+Pruebas de acceso a contenido:
 
-https://bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m.ipfs.web3-101-ipfs.open3diy.org/
+- Válidos:
+  - <https://ipfs.io/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
+  - <https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
 
-OK:
-https://ipfs.io/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m
-https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m
-
-Copyrig
-https://ipfs.io/ipfs/QmcvyefkqQX3PpjpY5L8B2yMd47XrVwAipr6cxUt2zvYU8
-https://web3-101-ipfs.open3diy.org/ipfs/QmcvyefkqQX3PpjpY5L8B2yMd47XrVwAipr6cxUt2zvYU8
-
-
-RAndom creado nadie conoce
-https://ipfs.io/ipfs/QmVWQvwMJvYsTY9kuYabWKjZQjRAuamdx1RY9SxEhUSbER
-https://web3-101-ipfs.open3diy.org/ipfs/QmVWQvwMJvYsTY9kuYabWKjZQjRAuamdx1RY9SxEhUSbER
-
+- Copyright:
+  - <https://ipfs.io/ipfs/QmcvyefkqQX3PpjpY5L8B2yMd47XrVwAipr6cxUt2zvYU8>.
+  - <https://web3-101-ipfs.open3diy.org/ipfs/QmcvyefkqQX3PpjpY5L8B2yMd47XrVwAipr6cxUt2zvYU8>.
