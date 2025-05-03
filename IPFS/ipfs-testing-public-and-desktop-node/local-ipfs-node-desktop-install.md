@@ -62,17 +62,9 @@ ipfs --version
 
 #### Generar CID en versión `v1`
 
-Por defecto, en IPFS Desktop, al subir un archivo, el CID que visualizas está en versión 0, que es en base 32, pero puedes cambiarlo a `v1`:
+Por defecto, en IPFS Desktop, al subir un archivo, el CID que visualizas está en versión 0, que es en base 32, pero puedes cambiarlo a `v1` en base 58 si lo prefieres.
 
-```bash
-ipfs config --json CIDBase "base32"
-```
-
-Si quieres re-establecer a `v0`:
-
-```bash
-ipfs config --json CIDBase "base58btc"
-```
+Editar la configuración en `~/.ipfs/config` o abrir la propia app, en apartado `Configuración` y busca `"CidVersion"`, puedes poner el valor 0 o 1.
 
 En cada cambio, reiniciar la aplicación.
 
