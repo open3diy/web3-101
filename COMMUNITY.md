@@ -12,6 +12,11 @@ Aquí comparto algunos sitios web y autores que me gustan y que pueden ser útil
 - [web3 university](https://www.web3.university/).
 - [Horizen Academy](https://www.horizen.io/academy/).
 
+## Formación en habilidades como developer
+
+- [freecodecamp.org](https://www.freecodecamp.org/).
+- [midudev](https://midu.dev/).
+
 ## Sitios de interés con el mismo propósito
 
 - [Stories from the Web3](https://www.linkedin.com/comm/newsletters/6959082428879507456) - Newsletter de Beatriz Infanzón sobre noticias semanales de la Web3.

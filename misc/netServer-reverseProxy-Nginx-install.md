@@ -60,21 +60,21 @@ docker inspect test-web | grep NetworkMode
 Verifica manualmente cuándo expiran los certificados:
 
 ```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot certificates
+docker-compose -f /etc/appserver/docker/docker-compose.yml run certbot certificates
 ```
 
 > Si faltan pocos días para la expiración y no se ha renovado, hay un problema.
 
-Si quieres ver si Certbot intentó renovar certificados, usa:
+Si quieres simular si Certbot renueva certificados correctamente, usa:
 
 ```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot renew --dry-run
+docker-compose -f /etc/appserver/docker/docker-compose.yml run certbot renew --dry-run
 ```
 
 Si quieres forzar renovar el certificado Certbot, usa:
 
 ```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot renew --force-renewal
+docker-compose -f /etc/appserver/docker/docker-compose.yml run certbot renew --force-renewal
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -s reload
 ```
 
@@ -134,16 +134,28 @@ touch /etc/appserver/nginx/conf.d/test-web.conf
 Crear carpeta de logs de certbot y nginx, asignar propietario y permisos:
 
 ```bash
-sudo mkdir /var/log/nginx /var/log/certbot
+sudo mkdir -p /var/log/nginx /var/log/certbot
+
+# el logo renovar lo lanzar el operador en el host, por eso se le asigna como propietario
+sudo mkdir -p /var/log/renew-certbot
+sudo chown "$USER":infrastructure /var/log/renew-certbot
+
 sudo chown docker-reverse-proxy:infrastructure /var/log/nginx -R
 sudo chown docker-reverse-proxy:infrastructure /var/log/certbot -R
 
 sudo chmod u=rwx,g=rx,o=--- /var/log/nginx /var/log/certbot
-sudo chmod g+s /var/log/nginx /var/log/certbot
+sudo chmod u=rwx,g=rxw,o=--- /var/log/renew-certbot # porque lo ejecutará un servicio
+sudo chmod g+s /var/log/nginx /var/log/certbot /var/log/renew-certbot
 
-sudo setfacl -d -m u::rwX /var/log/nginx /var/log/certbot          # Propietario: rwx
-sudo setfacl -d -m g::rX /var/log/nginx /var/log/certbot           # Grupo: rX (navegar)
-sudo setfacl -d -m o::--- /var/log/nginx /var/log/certbot          # Otros: sin permisos
+# Permisos por defecto al crear nuevos directorios o archivos
+sudo setfacl -d -m u::rwX /var/log/nginx /var/log/certbot  # Propietario: rwx
+sudo setfacl -d -m g::rX /var/log/nginx /var/log/certbot   # Grupo: rX (navegar)
+sudo setfacl -d -m o::--- /var/log/nginx /var/log/certbot  # Otros: sin permisos
+
+sudo setfacl -d -m u::rwX /var/log/renew-certbot # Propietario: rwx
+sudo setfacl -d -m g::rwX /var/log/renew-certbot # Grupo: rwX (navegar)
+sudo setfacl -d -m o::--- /var/log/renew-certbot # Otros: sin permisos
+
 ```
 
 Para exponer contenido estático de la web, crear carpeta y permisos, para el contenido wwww:
@@ -198,7 +210,7 @@ Para el primer caso tenemos una resolución normal `webroot`, para el segundo ut
 
 > No tengo un apego especial a `cloudfare`, pero es el que se usa normalmente en IPFS y además no hay tantas opciones gratuitas, o por lo menos no las conozco, que ofrezcan tanta facilidades para un subdominio wildcard, pero si sabes otra opción, estaré encantado que me lo hagas saber.
 
-Todos los dominios podrían resolverse por el método `DNS-01 Challenge`, pero voy a usar `webroot` para la URL de pruebas `https://test.web3-101.open3diy.org`, principalmente para no perder la perspectiva didactica de este tutorial y asi mostrar las dos opciones.
+Todos los dominios podrían resolverse por el método `DNS-01 Challenge`, pero voy a usar `webroot` para la URL de pruebas `https://test.web3-101.open3diy.org`, principalmente para no perder la perspectiva didáctica de este tutorial y asi mostrar las dos opciones.
 
 > Asi además vemos que se pueden usar las dos formas a la vez.
 
@@ -211,7 +223,7 @@ Asegurarte que has configurado el DNS para que resuelva el nombre del servidor, 
 Comprueba que es correcto el dominio:
 
 ```bash
-nslookup web3-101.open3diy.org
+nslookup test.web3-101.open3diy.org
 ```
 
 - **salida:**
@@ -221,7 +233,7 @@ nslookup web3-101.open3diy.org
   Address:        127.0.0.53#53
 
   Non-authoritative answer:
-  Name:   web3-101.open3diy.org
+  Name:   test.web3-101.open3diy.org
   Address: 57.129.131.125
   ```
 
@@ -240,7 +252,7 @@ Daremos permiso:
 sudo chown docker-reverse-proxy:docker-reverse-proxy /etc/appserver/certbot -R
 ```
 
-> ¿por qué no es propietario el grupo `infraestructure`? por seguridad, es contenido de certbot que nadie debería poder ver, a excepción de un usuario con permisos elevados.
+> ¿por qué no es propietario el grupo `infrastructure`? por seguridad, es contenido de certbot que nadie debería poder ver, a excepción de un usuario con permisos elevados.
 
 **Para configuración `DNS-01 Challenge`**
 
@@ -253,7 +265,7 @@ Necesitas un token para el dominio segurizado, y en nuestro caso, para eso, pued
 Comprueba que es correcto el dominio:
 
 ```bash
-nslookup hola.ipfs.web3-101.open3diy.org
+nslookup hola.ipfs.web3-101-ipfs.open3diy.org
 ```
 
 - **salida:**
@@ -263,12 +275,12 @@ nslookup hola.ipfs.web3-101.open3diy.org
   Address:        127.0.0.53#53
 
   Non-authoritative answer:
-  Name:   hola.ipfs.web3-101.open3diy.org
+  Name:   hola.ipfs.web3-101-ipfs.open3diy.org
   Address: 57.129.131.125
   ```
 
 ```bash
-nslookup hola.ipns.web3-101.open3diy.org
+nslookup hola.ipns.web3-101-ipfs.open3diy.org
 ```
 
 - **salida:**
@@ -278,7 +290,7 @@ nslookup hola.ipns.web3-101.open3diy.org
   Address:        127.0.0.53#53
 
   Non-authoritative answer:
-  Name:   hola.ipns.web3-101.open3diy.org
+  Name:   hola.ipns.web3-101-ipfs.open3diy.org
   Address: 57.129.131.125
   ```
 
@@ -487,17 +499,12 @@ services:
   certbot:
     image: certbot/dns-cloudflare
     user: "1015:1018"
-    entrypoint: /bin/sh -c "while :; do 
-      certbot renew --quiet --webroot -w /var/www/certbot \
-      --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini;
-      sleep 12h; done"
     volumes:
       - /etc/appserver/certbot/www:/var/www/certbot/:rw
       - /etc/appserver/certbot/conf/:/etc/letsencrypt/:rw
       - /etc/appserver/certbot/letsencrypt-lib/:/var/lib/letsencrypt/:rw
       - /var/log/certbot:/var/log/letsencrypt:rw
       - /etc/appserver/certbot-cloudfare/cloudflare.ini:/cloudflare.ini:ro
-    restart: unless-stopped
   reverse-proxy:
     image: custom-docker-nginx
     user: "1015:1018"
@@ -527,8 +534,10 @@ Explicación de los servicios:
 - `certbot`: Servicio para renovar certificados con Certbot y DNS Cloudflare.
   - `image: certbot/dns-cloudflare`: usa la imagen de certbot con el plugin de cloudfare.
   - `user: "1015:1018`: Inicia el contenedor con el usuario especifico creado en configuración. Se debe indicar los identificadores.
-  - `entrypoint: /bin/sh -c "while erc..`: Ejecuta un bucle que intenta renovar certificados TLS cada 12h.
+  - `entrypoint: /bin/sh -c "while ...`: Ejecuta un bucle que intenta renovar los certificados TLS cada 12 horas. Realiza dos renovaciones: una usando el método dns-01 y otra usando webroot.
   - `restart: unless-stopped`: Significa que el contenedor se reiniciará automáticamente si se detiene inesperadamente, excepto si lo detienes manualmente.
+  - `/cloudflare.ini`: Son las credenciales de cloudfare que se ha mapeado en la imagen que está en `/etc/appserver/certbot-cloudfare/cloudflare.ini`.
+  - No se usa `unless-stopped` porque certbot se ejecutará puntualmente para crear o renovar certificados, no como un servicio persistente.
 - `reverse-proxy`: Proxy inverso basado en Nginx.
   - `image: custom-docker-nginx`: usa la imagen creada con anterioridad con nombre `custom-docker-nginx`.
   - `ports: 80 y 443`: Expone el puerto 80 para el desafío `webroot`de let's encrypt y el puerto 443 para la comunicación https.
@@ -562,10 +571,9 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml ps
 - **salida:**
 
   ```plaintext
-  NAME               IMAGE                                COMMAND                  SERVICE         CREATED         STATUS         PORTS
-  docker-certbot-1   certbot/certbot:latest               "/bin/sh -c 'while :…"   certbot         5 minutes ago   Up 5 minutes   80/tcp, 443/tcp
-  reverse-proxy      custom-docker-nginx                  "/docker-entrypoint.…"   reverse-proxy   5 minutes ago   Up 5 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp, 8080/tcp
-  test-web           busybox:latest                       "httpd -f -p 80"         test-web        5 minutes ago   Up 5 minutes   
+  NAME               IMAGE                                COMMAND                  SERVICE         CREATED              STATUS             PORTS
+  reverse-proxy      custom-docker-nginx                  "/docker-entrypoint.…"   reverse-proxy   5 minutes ago        Up 5 minutes       0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp, 8080/tcp
+  test-web           busybox:latest                       "httpd -f -p 80"         test-web        5 minutes ago        Up 5 minutes   
   ```
 
 Revisar logs en docker de nginx:
@@ -631,7 +639,7 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy ng
 
 En `/etc/appserver/nginx/conf.d/default.conf`, configuramos Nginx para permitir que Certbot resuelva los desafíos `webroot`. Debemos incluir cada dominio o subdominio que necesitemos validar.
 
-Inicialmente, para nuestro dominio de pruebas `web3-101.open3diy.org`, agregamos:
+Inicialmente, para nuestro dominio de pruebas `test.web3-101.open3diy.org`, agregamos:
 
 ```nginx
 server {
@@ -683,7 +691,7 @@ Verificar que se podría guardar el desafío, primero creando un archivo de prue
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot sh -c "echo 'test' > /var/www/certbot/.well-known/acme-challenge/testfile"
 ```
 
-Verificar que sería resolver el desafío:
+Verificar que se puede resolver el desafío:
 
 ```bash
 curl -I http://test.web3-101.open3diy.org/.well-known/acme-challenge/testfile
@@ -697,25 +705,27 @@ curl -I http://test.web3-101.open3diy.org/.well-known/acme-challenge/testfile
   ```
 
 Ejecutar certbot como `webroot` para el sitio web:
-> Esto solo lo haremos una vez por cada dominio o subdominio que se tenga que resolver, el resto de veces se renovará antes de la caducidad del certificado.
+
+  > Esto solo lo haremos una vez por cada dominio o subdominio que se tenga que resolver, el resto de veces se renovará antes de la caducidad del certificado.
 
 ```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot certonly --webroot -w /var/www/certbot -d test.web3-101.open3diy.org --email demovoidgan@gmail.com --agree-tos --non-interactive --force-renewal --debug
+docker-compose -f /etc/appserver/docker/docker-compose.yml run certbot certonly --webroot -w /var/www/certbot -d test.web3-101.open3diy.org --email demovoidgan@gmail.com --agree-tos --non-interactive --force-renewal --debug
 ```
 
-> `exec certbot` es ejecutar el contenedor con nombre `certbot`, luego ejecutamos el comando `certonly --webroot ...`.
-> En este ejemplo `web3-101.open3diy.org` es el dominio propio, con el email relacionado `demovoidgan@gmail.com`. Por favor, revisa esto para tú caso...
+  > `exec certbot` es ejecutar el contenedor con nombre `certbot`, luego ejecutamos el comando `certonly --webroot ...`.
+
+En este ejemplo `test.web3-101.open3diy.org` es el dominio propio, con el email relacionado `demovoidgan@gmail.com`. Por favor, revisa esto para tú caso...
 
 - **salida:**
 
   ```plaintext
   Saving debug log to /var/log/letsencrypt/letsencrypt.log
   Account registered.
-  Requesting a certificate for web3-101.open3diy.org
+  Requesting a certificate for test.web3-101.open3diy.org
 
   Successfully received certificate.
-  Certificate is saved at: /etc/letsencrypt/live/web3-101.open3diy.org/fullchain.pem
-  Key is saved at:         /etc/letsencrypt/live/web3-101.open3diy.org/privkey.pem
+  Certificate is saved at: /etc/letsencrypt/live/test.web3-101.open3diy.org/fullchain.pem
+  Key is saved at:         /etc/letsencrypt/live/test.web3-101.open3diy.org/privkey.pem
   This certificate expires on 2025-05-16.
   These files will be updated when the certificate renews.
   ```
@@ -726,21 +736,21 @@ Revisar logs:
 less -G /var/log/certbot/letsencrypt.log
 ```
 
-Esto genera los certificados en `/etc/letsencrypt/live/web3-101.open3diy.org/`, revisarlo:
+Esto genera los certificados en `/etc/letsencrypt/live/test.web3-101.open3diy.org/`, revisarlo:
 
 ```bash
-sudo ls -all /etc/appserver/certbot/conf/live/web3-101.open3diy.org
+sudo ls -all /etc/appserver/certbot/conf/live/test.web3-101.open3diy.org
 ```
 
 ### Configuración de Nginx par IPFS para validación de Let's Encrypt método `DNS-01 Challenge`
 
 Como otro ejemplo, tenemos los dominios de IPFS que usaremos más adelante...
 
-Para generar los cerificados del sitio, ejecutar certbot como con el plugin de cloudfare para el método `DNS-01 Challenge` para los dominios `ipfs.web3-101-ipfs.open3diy.org`, `*.ipfs.web3-101-ipfs.open3diy.org` y `*.ipns.web3-101-ipfs.open3diy.org`:
+Para generar los certificados del sitio, ejecutar certbot con el plugin de cloudfare para el método `DNS-01 Challenge` para los dominios `ipfs.web3-101-ipfs.open3diy.org`, `*.ipfs.web3-101-ipfs.open3diy.org` y `*.ipns.web3-101-ipfs.open3diy.org`:
 > Esto solo lo haremos la primera vez, luego se renovará para la caducidad del certificado.
 
 ```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini --dns-cloudflare-propagation-seconds 30 -d "web3-101-ipfs.open3diy.org" -d "ipfs.web3-101-ipfs.open3diy.org" -d "*.ipfs.web3-101-ipfs.open3diy.org" -d "*.ipns.web3-101-ipfs.open3diy.org" --email demovoidgan@gmail.com --agree-tos --non-interactive --force-renewal --debug
+docker-compose -f /etc/appserver/docker/docker-compose.yml run certbot certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini --dns-cloudflare-propagation-seconds 30 -d "web3-101-ipfs.open3diy.org" -d "ipfs.web3-101-ipfs.open3diy.org" -d "*.ipfs.web3-101-ipfs.open3diy.org" -d "*.ipns.web3-101-ipfs.open3diy.org" --email demovoidgan@gmail.com --agree-tos --non-interactive --force-renewal --debug
 ```
 
 > En este ejemplo son los dominios de nuestro ejemplo, con el email relacionado `demovoidgan@gmail.com`. Por favor, revisa esto para tú caso...
@@ -748,12 +758,12 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot 
 - **salida:**
 
   ```plaintextSaving debug log to /var/log/letsencrypt/letsencrypt.log
-  Requesting a certificate for ipfs.web3-101.open3diy.org and *.ipfs.web3-101.open3diy.org
+  Requesting a certificate for web3-101-ipfs.open3diy.org and 3 more domains
   Waiting 30 seconds for DNS changes to propagate
 
   Successfully received certificate.
-  Certificate is saved at: /etc/letsencrypt/live/ipfs.web3-101.open3diy.org/fullchain.pem
-  Key is saved at:         /etc/letsencrypt/live/ipfs.web3-101.open3diy.org/privkey.pem
+  Certificate is saved at: /etc/letsencrypt/live/ipfs.web3-101-ipfs.open3diy.org/fullchain.pem
+  Key is saved at:         /etc/letsencrypt/live/ipfs.web3-101-ipfs.open3diy.org/privkey.pem
   This certificate expires on 2025-05-20.
   These files will be updated when the certificate renews.
   ```
@@ -764,17 +774,17 @@ Revisar logs:
 less -G /var/log/certbot/letsencrypt.log
 ```
 
-Esto genera los certificados en `/etc/letsencrypt/live/web3-101.open3diy.org/`, revisarlo:
+Esto genera los certificados en `/etc/appserver/certbot/conf/live/web3-101-ipfs.open3diy.org`, revisarlo:
 
 ```bash
-sudo ls -all /etc/appserver/certbot/conf/live/ipfs.web3-101.open3diy.org
+sudo ls -all /etc/appserver/certbot/conf/live/web3-101-ipfs.open3diy.org
 ```
 
 ### Crear configuración de la aplicación de pruebas `test-web`
 
 La configuración de cada aplicación, está en a `/etc/appserver/nginx/conf.d` y es una forma de organizar mejor la configuración de cada servicio.
 
-Crearemos en primer lugar la configuración de la app de prueba `test-web` de `busybox` que lo  veremos en la URL `https://web3-101.open3diy.org/test`.
+Crearemos en primer lugar la configuración de la app de prueba `test-web` de `busybox` que lo  veremos en la URL `https://test.web3-101.open3diy.org/`.
 
 Crear el contenido de `/etc/appserver/nginx/conf.d/test-web.conf`:
 
@@ -796,7 +806,7 @@ server {
 
 > Recuerda revisar `test.web3-101.open3diy.org` indicando el dominio que corresponda a tú caso.
 
-Verificar que la configuración es válida en el contenedo:
+Verificar que la configuración es válida en el contenedor:
 
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -t
@@ -809,7 +819,7 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy ng
   nginx: configuration file /etc/nginx/nginx.conf test is successful
   ```
 
-Recarga configuracion nginx sin reiniciar el contenedor:
+Recarga configuración nginx sin reiniciar el contenedor:
 
 ```bash
 docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -s reload
@@ -830,6 +840,111 @@ Revisar los logs de acceso:
 ```bash
 less +G /var/log/nginx/access.log
 ```
+
+### Crear tarea periódica systemd.timer para renovar certificado
+
+Para comprobar la renovación de certificados y recargar Nginx (si fuera necesario), todo los días a las 03:00 AM (o la hora o frecuencia que quieras) se crearan lo siguientes scripts y un timer de systemd.
+
+> Teniendo en cuenta la solución general y evitando usar el socket de Docker, al no ser posible usar el parámetro `--deploy-hook` al ejecutar Certbot, se ha optado aplicar la siguiente solución.
+
+Crea el script para comprobar renovación `/etc/appserver/docker/renew-certbot.sh` con el siguiente contenido:
+
+```bash
+#!/bin/bash
+NOW="$(date '+%Y-%m-%d-%H-%M-%S')"
+RENEWED_FILE="renewed-$NOW"
+RENEWED_PATH_HOST="/var/log/certbot/$RENEWED_FILE"
+RENEWED_PATH_CERTBOT="/var/log/letsencrypt/$RENEWED_FILE"
+LOGFILE="/var/log/renew-certbot/renew-certbot-$NOW.log"
+{
+  echo "=== Comprobar renovación ${NOW//-/ } ==="
+
+  # Ejecutar renovación y crear archivo con fecha si se renueva
+  echo "Ejecutando renovación de certificados..."
+  docker-compose -f /etc/appserver/docker/docker-compose.yml run --rm certbot renew --deploy-hook "touch $RENEWED_PATH_CERTBOT"
+  exitcode=$?
+
+  if [ "$exitcode" -eq 0 ]; then
+    echo "Comprobación de renovación correcta..."
+  else
+    echo "Error durante la renovación. Código: $exitcode"
+  fi
+
+  # Comprobar si existe el archivo de renovación exacto
+  if [ -f "$RENEWED_PATH_HOST" ]; then
+    echo "Archivo de renovación encontrado: $RENEWED_PATH_HOST"
+    echo "Recargando Nginx..."
+    docker-compose -f /etc/appserver/docker/docker-compose.yml exec reverse-proxy nginx -s reload
+    echo "Eliminando archivo de renovación: $RENEWED_PATH_HOST"
+    rm -f "$RENEWED_PATH_HOST"
+  else
+    echo "No se encontró archivo de renovación, no se recarga Nginx."
+  fi
+
+  echo ""
+} >> "$LOGFILE" 2>&1
+```
+
+Dar permisos de ejecución:
+
+```bash
+chmod +x /etc/appserver/docker/renew-certbot.sh
+```
+
+Para systemd, crea el archivo `/etc/systemd/system/renew-certbot.service`, como sudo (`sudo nano /etc/systemd/system/renew-certbot.service`):
+
+```ini
+[Unit]
+Description=Renovar certificados Let's Encrypt y recargar Nginx
+
+[Service]
+Type=oneshot
+Group=infrastructure
+ExecStart=/etc/appserver/docker/renew-certbot.sh
+```
+
+Para el timer systemd para ejecutar cada madrugada a las 03:00, crea el archivo `/etc/systemd/system/renew-certbot.timer`, como sudo (`sudo nano /etc/systemd/system/renew-certbot.timer`):
+
+```ini
+[Unit]
+Description=Ejecutar renovación de certificados diariamente a las 03:00
+
+[Timer]
+OnCalendar=*-*-* 03:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+Habilitar y arrancar el timer
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now renew-certbot.timer
+```
+
+Puedes verificar el estado:
+
+```bash
+systemctl status renew-certbot.timer
+```
+
+Verifica que el servicio funciona ejecutando puntualmente
+
+```bash
+sudo systemctl start renew-certbot.service
+sudo systemctl status renew-certbot.service
+```
+
+Puedes verificar el log:
+
+```bash
+less +G /var/log/certbot/renew-certbot.log
+sudo journalctl -u renew-certbot.service
+```
+
+**Nota**: si haciendo pruebas ves que el certificado no se renovó, recuerda que puede ser tú navegador el que ha cacheado. Simplemente prueba en privado o prueba con `curl`.
 
 ### Crear configuración para IPFS
 

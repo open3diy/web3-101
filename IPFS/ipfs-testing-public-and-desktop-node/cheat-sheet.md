@@ -29,6 +29,8 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml down --remove-orphans
 docker-compose -f /etc/appserver/docker/docker-compose.yml up -d --force-recreate
 ```
 
+  > **Nota:** Muchos errores o problemas inesperados suelen deberse a cachés persistentes. Utiliza estos comandos para detener y eliminar completamente los contenedores, y luego recrearlos desde cero, asegurando que no queden restos de configuraciones o datos antiguos.
+
 Igualmente que la instrucción anterior, pero para un servicio concreto como `ipfs-host`:
 
 ```bash
@@ -61,18 +63,27 @@ docker-compose -f /etc/appserver/docker/docker-compose.yml logs ipfs-host
 docker-compose -f /etc/appserver/docker/docker-compose.yml logs reverse-proxy
 ```
 
-Generar certificados con certbot para el sitio `web3-101.open3diy.org`:
-
-```bash
-docker-compose -f /etc/appserver/docker/docker-compose.yml exec certbot certbot certonly --webroot -w /var/www/certbot -d web3-101.open3diy.org --email demovoidgan@gmail.com --agree-tos --non-interactive --force-renewal --debug
-```
-
-Verificar los logs de certbot:
+Verificar los logs generados por los servicios en `/var/log`:
 
 ```bash
 less +G /var/log/nginx/nginx.log
 less +G /var/log/certbot/letsencrypt.log
 less +G /var/log/docker/docker-events.log
+```
+
+Abrir una terminal interactiva dentro del contenedor:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml run -it --entrypoint /bin/sh certbot
+docker-compose -f /etc/appserver/docker/docker-compose.yml run -it --entrypoint /bin/sh test-web
+docker-compose -f /etc/appserver/docker/docker-compose.yml run -it --entrypoint /bin/sh ipfs-host
+docker-compose -f /etc/appserver/docker/docker-compose.yml run -it --entrypoint /bin/sh reverse-proxy
+```
+
+Simular generación con certbot certificados para ver que nada fallaría:
+
+```bash
+docker-compose -f /etc/appserver/docker/docker-compose.yml run certbot renew --dry-run
 ```
 
 Después de cambiar la configuración de nginx, verificar si es correcto y re-cargarlo:
