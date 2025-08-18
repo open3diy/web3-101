@@ -1,6 +1,6 @@
-# Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio - Instalación de IPFS con docker en un nodo público
+# Web3 - 101 - IPFS - Instalación de IPFS con docker en un nodo público
 
-Esta es la solución nombrada como `#public-ipfs-node-install`.
+Esta es la solución nombrada como `#web3-101-ipfs-public-ipfs-node-install`.
 
 ## Contexto
 
@@ -24,6 +24,8 @@ Como [IPNS](https://docs.ipfs.tech/concepts/ipns) en <https://web3-101-ipfs.open
 Para ser usado como nodo un [peer de nodo persistente](https://docs.ipfs.tech/how-to/peering-with-content-providers/) para otros nodos en la [multiaddr](https://github.com/multiformats/multiaddr): </dnsaddr/web3-101-ipfs.open3diy.org/tcp/4001/p2p/12D3KooWF7TUbY8NWCcLsPUhWMFVCGGvB9mKdEmU4bQaWy9Wkqex>.
 
 > De esta forma permite tener mejor funcionamiento a nodos que tienen problemas para salir al exterior, como los que están detrás de un CGNAT.
+
+Como dirección DNSLink, vinculando un CID a un dominio, dispones de la URL: <https:/web3-101-ipfs.open3diy.org>
 
 Como características:
 
@@ -52,9 +54,9 @@ Esta solución está pensada para hacer pruebas en lo que considero mí laborato
 
 ## Pre-requisitos
 
-- [Configuración inicial del servidor de red](../../misc/initial-netServer-configuration.md).
-- [Instalación y configuración de docker](../../misc/docker-install-configuration.md).
-- [Instalación de proxy inverso traefik](../../misc/inverseProxy-traefik-install.md)
+- [Configuración inicial del servidor de red](../../misc/netServer-docker-install-configuration.md).
+- [Instalación y configuración de docker](../../misc/netServer-docker-install-configuration.md).
+- [Instalación de proxy inverso nginx](../../misc/netServer-reverseProxy-Nginx-install.md)
 
 ## Pasos
 

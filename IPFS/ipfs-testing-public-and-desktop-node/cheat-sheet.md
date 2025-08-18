@@ -121,12 +121,14 @@ Con 500Kbs:
 sudo nsenter -t $IPFS_HOST_ID -n tc qdisc add dev eth0 root tbf rate 500kbit burst 32kbit latency 400ms
 ```
 
-Accediendo a URLs de prueba: <https://test.web3-101.open3diy.org>.
+Accediendo a URLs de aplicación de pruebas: <https://test.web3-101.open3diy.org>.
 
-Accediendo a URLs para probar IPFS:
+Accediendo a URLs para probar nodo IPFS público:
 
-- Acceder a contenido CID de prueba en base a la ruta: <https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
-- Acceder a contenido CID de prueba en base al subdominio: <https://bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m.ipfs.web3-101-ipfs.open3diy.org>.
+- Acceder a contenido CID de prueba en base a la URL de web3-101-ipfs: <https://web3-101-ipfs.open3diy.org/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m>.
+- Acceder a contenido CID de prueba en base al subdominio de web3-101-ipfs: <https://bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m.ipfs.web3-101-ipfs.open3diy.org>.
+- Acceder al COD vinculado en DNSLink: <https:/web3-101-ipfs.open3diy.org>
+- Acceder al IPNS por defecto del nodo: <https:/web3-101-ipfs.open3diy.org/ipns/k51qzi5uqu5di56caajjiel546q92pme0hgnh4gofey4tbwlfdr64ur7vu9s9t>.
 
 Pruebas de acceso a contenido:
 

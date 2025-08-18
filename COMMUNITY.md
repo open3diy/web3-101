@@ -6,20 +6,24 @@ Aquí comparto algunos sitios web y autores que me gustan y que pueden ser útil
 
 ## Formación Web3
 
-- [bit2me Academy](https://academy.bit2me.com/).
-- [Platzi - Blockchain y Web3](https://platzi.com/escuela/blockchain/).
-- [alchemy tutoriales](https://docs.alchemy.com/docs/tutorials-overview).
-- [web3 university](https://www.web3.university/).
-- [Horizen Academy](https://www.horizen.io/academy/).
+- [bit2me Academy](https://academy.bit2me.com/) - Plataforma educativa gratuita sobre blockchain y criptomonedas en español.
+- [DeveloperDAO Academy](https://academy.developerdao.com/) - Cursos y recursos gratuitos para desarrolladores Web3.
+- [Consensys Academy](https://consensys.io/academy/online-programs) - Programas online de formación sobre blockchain y Ethereum, desde nivel introductorio hasta avanzado.
+- [Platzi - Blockchain y Web3](https://platzi.com/escuela/blockchain/) - Escuela online de pago con rutas de aprendizaje en blockchain y Web3.
+- [Alchemy University](https://www.alchemy.com/university) - Formación gratuita para desarrolladores Web3, desde nivel básico hasta avanzado.
+- [Web3 University](https://www.web3.university/) - Recursos y tutoriales para aprender desarrollo Web3.
+- [Horizen Academy](https://www.horizen.io/academy/) - Academia con cursos sobre blockchain, privacidad y criptografía.
 
 ## Formación en habilidades como developer
 
 - [freecodecamp.org](https://www.freecodecamp.org/).
 - [midudev](https://midu.dev/).
+- [EDTeam](https://ed.team/).
 
 ## Sitios de interés con el mismo propósito
 
 - [Stories from the Web3](https://www.linkedin.com/comm/newsletters/6959082428879507456) - Newsletter de Beatriz Infanzón sobre noticias semanales de la Web3.
+- [DeveloperDAO](https://www.developerdao.com/) - Comunidad global de desarrolladores centrada en la construcción y educación sobre tecnologías Web3.
 - [Newsletter Blockchain & Web3](https://www.linkedin.com/newsletters/blockchain-web3-7166849064406396928/) de [Metlabs](https://www.linkedin.com/company/metlabs-desarrollo-blockchain/).
 - [Industry40.systems](https://industry40.systems/) - Sitio especializada en la industria 4.0 con gran cantidad de tutoriales.
   - Puedes ir a su [canal de YouTube industry4.0 Systems](https://www.youtube.com/@i40sys).

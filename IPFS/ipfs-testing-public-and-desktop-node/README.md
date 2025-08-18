@@ -1,6 +1,6 @@
 # Web3 - IPFS - 101 - Probando un Nodo Público y de Escritorio
 
-Esta es la solución nombrada como `#web3-ipfs-testing-public-and-desktop-node`.
+Esta es la solución nombrada como `#web3-ipfs-101-testing-public-and-desktop-node`.
 
 ## Contexto
 
@@ -46,7 +46,7 @@ Lo llamaremos `#public-ipfs-node`, es un nodo en un VPS, igualmente con `ubuntu 
 
 - `#local-ipfs-node-desktop` se conecta de [forma persistente](https://docs.ipfs.tech/how-to/peering-with-content-providers/) con el nodo público IPFS `#public-ipfs-node`, de esta forma se garantiza la conectividad.
 - El nodo público `#public-ipfs-node` está configurado para ofrecer servicio [relay](https://docs.ipfs.tech/concepts/nodes/#relay) a cualquier nodo, incluido a nuestro nodo local.
-- El nodo público `#public-ipfs-node` ofrece un [gateway](https://docs.ipfs.tech/concepts/how-ipfs-works/#ipfs-http-gateways) en la URL <https://ipfs.web3-101-ipfs.open3diy.org> existiendo más éxito para ofrecer el contenido.
+- El nodo público `#public-ipfs-node` ofrece un [gateway](https://docs.ipfs.tech/concepts/how-ipfs-works/#ipfs-http-gateways) en la URL <https://web3-101-ipfs.open3diy.org/> existiendo más éxito para ofrecer el contenido.
 
     > Las pruebas me demostraron que tengo más éxito para consultar contenido público que tengo en el nodo local, desde este gateway el cual está añadido de forma persistente.
 
@@ -56,6 +56,10 @@ Lo llamaremos `#public-ipfs-node`, es un nodo en un VPS, igualmente con `ubuntu 
 - [Instalación y configuración inicial de docker](../../misc/netServer-docker-install-configuration.md).
 - [Instalación proxy inverso Nginx](../../misc/netServer-reverseProxy-Nginx-install.md).
 - [Instalación de IPFS con docker en un nodo público](./public-ipfs-node-install.md)
+
+## Mantenimiento de `#public-ipfs-node`
+
+- [Actualizar nueva versión del contenedor IPFS Kubo](./migration-guide.md).
 
 ### Adicionalmente
 
