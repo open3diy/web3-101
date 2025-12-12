@@ -4,7 +4,7 @@ Esta es la solución errada, nombrada como `#docker-proxy-secureConfiguration`.
 
 ## Contexto
 
-Este es un paso de configuración de [Web3 - Instalación inicial de `docker` y su configuración inicial](../../misc/netServer-docker-install-configuration.md).
+Este es un paso de configuración de [Web3 - Instalación inicial de `docker` y su configuración inicial](.././misc/net-server/net-server-docker-install-configuration.md).
 
 ## Propósito
 
@@ -12,7 +12,7 @@ Inicialmente al instalar `traefik`, para no dar acceso al socket de docker en el
 
 [`Docker proxy`](https://github.com/Tecnativa/docker-socket-proxy) es un contenedor que actúa como intermediario para acceder al socket de Docker.
 
-En este paso se intentó crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [configuración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
+En este paso se intentó crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [configuración inicial de un servidor de red](.././misc/net-server/net-server-initial-configuration.md).
 
 Después de buscar en foros y ayuda, parece que no es posible que dentro del propio contenedor de `docker-proxy` se pueda iniciar con un usuario que no sea root (ID = 0).
 

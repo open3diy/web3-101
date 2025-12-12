@@ -1,7 +1,7 @@
 
 # Control de ancho de banda en contenedor docker
 
-Esta es la solución nombrada como `#netServer-docker-network-bandwidth`.
+Esta es la solución nombrada como `#net-server-docker-network-bandwidth`.
 
 ## Contexto
 

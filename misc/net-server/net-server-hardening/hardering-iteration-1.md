@@ -1,5 +1,7 @@
 # Iteración #1
 
+Esta es la solución nombrada como `#net-server-hardening-iteration-1`.
+
 ## Deshabilitar el acceso `root`
 
 ```bash

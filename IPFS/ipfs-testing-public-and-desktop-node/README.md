@@ -52,9 +52,9 @@ Lo llamaremos `#public-ipfs-node`, es un nodo en un VPS, igualmente con `ubuntu 
 
 ## Pasos del `#public-ipfs-node`
 
-- [Configuración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
-- [Instalación y configuración inicial de docker](../../misc/netServer-docker-install-configuration.md).
-- [Instalación proxy inverso Nginx](../../misc/netServer-reverseProxy-Nginx-install.md).
+- [Configuración inicial de un servidor de red](.././misc/net-server/net-server-initial-configuration.md).
+- [Instalación y configuración inicial de docker](.././misc/net-server/net-server-docker-install-configuration.md).
+- [Instalación proxy inverso Nginx](.././misc/net-server/net-server-reverseProxy-Nginx-install.md).
 - [Instalación de IPFS con docker en un nodo público](./public-ipfs-node-install.md)
 
 ## Mantenimiento de `#public-ipfs-node`
@@ -65,9 +65,9 @@ Lo llamaremos `#public-ipfs-node`, es un nodo en un VPS, igualmente con `ubuntu 
 
 Podemos optimizar la instalación con:
 
-- [Controlar el ancho de banda de red en contenedor IPFS](../../misc/netServer-docker-network-bandwidth.md)
+- [Controlar el ancho de banda de red en contenedor IPFS](.././misc/net-server/net-server-docker-network-bandwidth.md)
     > De esta forma, podremos evitar que el servicio IPFS consuma todo el ancho de banda de la red.
-- [Configurar una cuota en disco para el servicio de IPFS](../../misc/netServer-security-quotaDisc.md)
+- [Configurar una cuota en disco para el servicio de IPFS](.././misc/net-server/net-server-security-quotaDisc.md)
     > Por seguridad, si el servicio de IPFS en docker fuera comprometido, podríamos evitar que nos consuma todo el disco.
 
 Además, existen otras optimizaciones sobre docker que la web de [industry40.systems](https://industry40.systems/docker,-limitar-los-recursos-de-sistema-de-un-contenedor-368a57b81561427f8b79fb018b18f76d) indica.

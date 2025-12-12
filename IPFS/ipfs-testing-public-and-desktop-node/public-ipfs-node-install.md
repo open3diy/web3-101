@@ -54,9 +54,9 @@ Esta solución está pensada para hacer pruebas en lo que considero mí laborato
 
 ## Pre-requisitos
 
-- [Configuración inicial del servidor de red](../../misc/netServer-docker-install-configuration.md).
-- [Instalación y configuración de docker](../../misc/netServer-docker-install-configuration.md).
-- [Instalación de proxy inverso nginx](../../misc/netServer-reverseProxy-Nginx-install.md)
+- [Configuración inicial del servidor de red](.././misc/net-server/net-server-docker-install-configuration.md).
+- [Instalación y configuración de docker](.././misc/net-server/net-server-docker-install-configuration.md).
+- [Instalación de proxy inverso nginx](.././misc/net-server/net-server-reverseProxy-Nginx-install.md)
 
 ## Pasos
 
@@ -263,7 +263,7 @@ Prueba Copyright: <https://web3-101-ipfs.open3diy.org/ipfs/QmV3N9Tsk1pZn8hkbgsWd
 
 ### Anunciar la multiaddr pública al exterior
 
-Previamente, vamos a anunciar nuestro servicio con el DNS `web3-101-ipfs.open3diy.org`, paso ya realizado en [la instalación de proxy inverso - configuración TLS](../misc/netServer-reverseProxy-Nginx-install.md#configuración-seguridad-web-tls-con-lets-encrypt).
+Previamente, vamos a anunciar nuestro servicio con el DNS `web3-101-ipfs.open3diy.org`, paso ya realizado en [la instalación de proxy inverso - configuración TLS](./misc/net-server/net-server-reverseProxy-Nginx-install.md#configuración-seguridad-web-tls-con-lets-encrypt).
 
 Como nos indica el issue [Cluster peers in Docker or behind NATs do not advertise their public IP addresses](https://github.com/ipfs-cluster/ipfs-cluster/issues/949), anunciaremos nuestra multiaddr pública para que otros peers puedan acceder, porque al estar en docker no son anunciadas automáticamente.
 

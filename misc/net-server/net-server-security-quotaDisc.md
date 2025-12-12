@@ -1,6 +1,6 @@
 # Configuración en un servidor de red de cuotas de disco por usuario
 
-Esta es la solución nombrada como `#netServer-security-quotaDisc`.
+Esta es la solución nombrada como `#net-server-security-quotaDisc`.
 
 ## Contexto
 
@@ -8,7 +8,7 @@ Este es un tutorial que forma parte de [Web3 - 101](../README.md)
 
 Al crear un servidor público, que estará en un VPS, por seguridad se puede crear una cuota maxima de espacio en disco para el usuario que ejecutará un servicio.
 
-## Proposito
+## Propósito
 
 Limitar al usuario de ejecución de un contenedor en docker el espacio en disco, debido a que puede acceder a directorios del `host` y ante ataque, el espacio del `host` estaría expuesto.
 

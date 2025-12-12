@@ -4,13 +4,13 @@ Esta es la solucion errada, nombrada como `#docker-userns-remap-configuration`.
 
 ## Contexto
 
-Este es un paso de configuración de [Web3 - Instalación inicial de `docker` y su configuración inicial](../../misc/netServer-docker-install-configuration.md).
+Este es un paso de configuración de [Web3 - Instalación inicial de `docker` y su configuración inicial](.././misc/net-server/net-server-docker-install-configuration.md).
 
 ## Propósito
 
 [userns-remap](https://docs.docker.com/engine/security/userns-remap/) es una configuración que mejora la seguridad al remapear los IDs de usuario y grupo dentro de los contenedores (como root, UID 0) a IDs no privilegiados en el host. Esto asegura que los contenedores no tengan permisos de root en el sistema subyacente, incluso si son comprometidos.
 
-En este paso se intenta crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [configuración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
+En este paso se intenta crear un contenedor con privilegios de usuario limitados para cumplir con el compliance descrito en la [configuración inicial de un servidor de red](.././misc/net-server/net-server-initial-configuration.md).
 
 El problema y motivo de descartarlo, es que no permite granularidad, sólo un usuario puede ser usado para todos los contenedores y lo que puede ver uno lo ven todos, así que al considerarlo un problema de seguridad lo descarto.
 

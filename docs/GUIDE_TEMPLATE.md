@@ -1,11 +1,11 @@
-ℹ️ Esta es la plantilla para completar soluciones. A patir de aquí, es un caso de ejemplo de plantilla, usalo como guía.
-
+---
+ℹ️ Esta es la plantilla para completar soluciones. A partir de aquí, es un caso de ejemplo de plantilla, úsalo como guía.
 Cuando veas ℹ️ no es de la plantilla, son aclaraciones.
 
 Cuando veas [Por completar] es para poner en concreto lo que corresponda.
 
 Por favor, revisa que los enlaces directos sean correctos, es normal que se rompan.
-
+---
 # Instalación de [Por completar]
 
 Esta es la solución nombrada como `#[Por completar]`.
@@ -49,7 +49,7 @@ sudo apt upgrade -y
 
 ## Pre-requisitos
 
-- [Configuración inicial del servidor de red](./misc/netServer-initial-configuration.md).
+- [Configuración inicial del servidor de red](/misc/net-server/net-server-initial-configuration.md).
 
 > ℹ️ Poner los que corresponda, estos son los habituales
 
