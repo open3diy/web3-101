@@ -50,5 +50,10 @@
         {
             "text": "Always use Conventional Commits format: <type>[optional scope]: <description>. Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert. Use imperative mood ('add' not 'added'). Max 72 chars. Output only the subject line, no body, no bullet points, no extra lines."
         }
+    ],
+    "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
+        {
+            "text": "Generate the pull request title following Conventional Commits format: <type>[optional scope]: <description>. Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert. Use imperative mood. Max 72 chars. Title only, no body, no bullet points."
+        }
     ]
 }
