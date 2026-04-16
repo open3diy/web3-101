@@ -1,6 +1,6 @@
 # Web3 - 101 - IPFS - Probando un Nodo Público y de Escritorio - Instalación de IPFS Desktop en local
 
-Esta es la solución nombrada como `#local-ipfs-node-desktop-install`.
+Esta es la solución nombrada como `#web3-101-ipfs-local-ipfs-node-desktop-install`.
 
 ## Contexto
 

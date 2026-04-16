@@ -1,6 +1,6 @@
 # Web3 - IPFS - 101 - Probando un Nodo Público y de Escritorio
 
-Esta es la solución nombrada como `#web3-ipfs-testing-public-and-desktop-node`.
+Esta es la solución nombrada como `#web3-ipfs-101-testing-public-and-desktop-node`.
 
 ## Contexto
 
@@ -46,24 +46,28 @@ Lo llamaremos `#public-ipfs-node`, es un nodo en un VPS, igualmente con `ubuntu 
 
 - `#local-ipfs-node-desktop` se conecta de [forma persistente](https://docs.ipfs.tech/how-to/peering-with-content-providers/) con el nodo público IPFS `#public-ipfs-node`, de esta forma se garantiza la conectividad.
 - El nodo público `#public-ipfs-node` está configurado para ofrecer servicio [relay](https://docs.ipfs.tech/concepts/nodes/#relay) a cualquier nodo, incluido a nuestro nodo local.
-- El nodo público `#public-ipfs-node` ofrece un [gateway](https://docs.ipfs.tech/concepts/how-ipfs-works/#ipfs-http-gateways) en la URL <https://ipfs.web3-101-ipfs.open3diy.org> existiendo más éxito para ofrecer el contenido.
+- El nodo público `#public-ipfs-node` ofrece un [gateway](https://docs.ipfs.tech/concepts/how-ipfs-works/#ipfs-http-gateways) en la URL <https://web3-101-ipfs.open3diy.org/> existiendo más éxito para ofrecer el contenido.
 
     > Las pruebas me demostraron que tengo más éxito para consultar contenido público que tengo en el nodo local, desde este gateway el cual está añadido de forma persistente.
 
 ## Pasos del `#public-ipfs-node`
 
-- [Configuración inicial de un servidor de red](../../misc/netServer-initial-configuration.md).
-- [Instalación y configuración inicial de docker](../../misc/netServer-docker-install-configuration.md).
-- [Instalación proxy inverso Nginx](../../misc/netServer-reverseProxy-Nginx-install.md).
+- [Configuración inicial de un servidor de red](.././misc/net-server/net-server-initial-configuration.md).
+- [Instalación y configuración inicial de docker](.././misc/net-server/net-server-docker-install-configuration.md).
+- [Instalación proxy inverso Nginx](.././misc/net-server/net-server-reverseProxy-Nginx-install.md).
 - [Instalación de IPFS con docker en un nodo público](./public-ipfs-node-install.md)
+
+## Mantenimiento de `#public-ipfs-node`
+
+- [Actualizar nueva versión del contenedor IPFS Kubo](./migration-guide.md).
 
 ### Adicionalmente
 
 Podemos optimizar la instalación con:
 
-- [Controlar el ancho de banda de red en contenedor IPFS](../../misc/netServer-docker-network-bandwidth.md)
+- [Controlar el ancho de banda de red en contenedor IPFS](.././misc/net-server/net-server-docker-network-bandwidth.md)
     > De esta forma, podremos evitar que el servicio IPFS consuma todo el ancho de banda de la red.
-- [Configurar una cuota en disco para el servicio de IPFS](../../misc/netServer-security-quotaDisc.md)
+- [Configurar una cuota en disco para el servicio de IPFS](.././misc/net-server/net-server-security-quotaDisc.md)
     > Por seguridad, si el servicio de IPFS en docker fuera comprometido, podríamos evitar que nos consuma todo el disco.
 
 Además, existen otras optimizaciones sobre docker que la web de [industry40.systems](https://industry40.systems/docker,-limitar-los-recursos-de-sistema-de-un-contenedor-368a57b81561427f8b79fb018b18f76d) indica.

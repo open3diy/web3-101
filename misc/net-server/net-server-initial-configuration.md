@@ -1,6 +1,6 @@
-# Conifiguración inicial de un servidor de red
+# Configuración inicial de un servidor de red
 
-Esta es la solución nombrada como `#netServer-initial-configuration`.
+Esta es la solución nombrada como `#net-server-initial-configuration`.
 
 ## Contexto
 
@@ -86,7 +86,7 @@ sudo setfacl -d -m o::--- /etc/appserver /srv     # Otros: sin permisos
 Cuando debemos crear configuración de un servicio, dicha configuración es propietario el grupo `infrastructure`.
 Además, debemos crear el usuario que iniciará el servicio para darle los permisos mínimos.
 
-Viendolo en un ejemplo para un servicio llamado `app1`:
+Viéndolo en un ejemplo para un servicio llamado `app1`:
 
 Crear configuración:
 
@@ -152,7 +152,7 @@ sudo setfacl -d -m g::rX /var/log/app1            # Grupo: rX (navegar)
 sudo setfacl -d -m o::--- /var/log/app1           # Otros: sin permisos
 ```
 
-### Establecer zona horara UTC en el servidor
+### Establecer zona horaria UTC en el servidor
 
 Se sigue la recomendación de establecer la zona de referencia UTC, con los pasos:
 
@@ -223,8 +223,9 @@ Es más que una simple checklist: es un proceso continuo y adaptativo que consta
 
 Estas medidas de seguridad se aplicarán mediante las siguientes iteraciones:
 
-- [iteración #1](./netServer-hardening/hardering-iteration-1.md).
-- [iteración #2](./netServer-hardening/hardering-iteration-2.md).
+- [iteración #1](./net-server-hardening/hardering-iteration-1.md).
+- [iteración #2](./net-server-hardening/hardering-iteration-2.md).
+- [iteración #3](./net-server-hardening/hardering-iteration-3.md).
 
 ## Referencias
 

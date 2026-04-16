@@ -1,6 +1,6 @@
 # Instalación proxy inverso Nginx en un servidor de red
 
-Esta es la solución nombrada como `#netServer-reverseProxy-Nginx-install`.
+Esta es la solución nombrada como `#ne-server-reverseProxy-Nginx-install`.
 
 ## Contexto
 

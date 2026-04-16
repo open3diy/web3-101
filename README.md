@@ -2,9 +2,9 @@
 
 ## Contexto
 
-Este es un tutorial dentro de [Open3DIY.org](https://github.com/open3diy/org/blob/main/README.md).
+Este es un tutorial de [Open3DIY.org](https://github.com/open3diy/org/blob/main/README.md).
 
-Este proyecto tiene un enfoque educativo, dirigido a explorar el potencial de la Web3 en contextos reales y superar barreras técnicas comunes.
+Este repositorio tiene un enfoque educativo, dirigido a explorar el potencial de la Web3 en contextos reales y superar barreras técnicas comunes.
 
 Web3 representa la evolución de internet hacia un modelo descentralizado basado en tecnologías como blockchain, contratos inteligentes y redes peer-to-peer. Su propósito es devolver a los usuarios el control sobre sus datos y transacciones sin intermediarios centralizados. Esto tiene aplicaciones en identidades digitales, economías descentralizadas, almacenamiento distribuido y dApps.
 
@@ -24,13 +24,26 @@ Web3 representa la evolución de internet hacia un modelo descentralizado basado
 
 ## Propósito
 
-**Mi propósito aquí** es experimentar con Web3 como un modelo descentralizado para la próxima generación de internet.  
+**Mi propósito aquí** es experimentar con Web3, el modelo descentralizado que representa la próxima generación de internet, para crear una guía divulgativa, práctica y completa que pueda ser compartida y utilizada por cualquiera de forma abierta. Pero, sobre todo, si te preguntas: ¿por qué tanto esfuerzo? Es para estar presente, formar parte del crecimiento de la Web3 y, especialmente, para crear algo que posibilite nuevos modelos de negocio y oportunidades. Se puede decir que si hay algo que realmente no te gusta, es mejor construirlo antes que quejarse: eso es este web3-101.
+
+Siendo más pragmáticos, este repositorio puede considerarse un laboratorio de ideas y pruebas de concepto sobre Web3 que comparto con la comunidad.
+
+Este es el repositorio principal; sin embargo, para experimentar específicamente con aplicaciones descentralizadas y contratos inteligentes, he creado el repositorio de extensión `web3-101-dapp-playground`: <https://github.com/open3diy/web3-101-dapp-playground>.
+
+Las conclusiones que obtengo, en un ámbito más formativo y divulgativo, están reflejadas en `web3-101-edu-projects`: <https://github.com/open3diy/web3-101-edu-projects>.
 
 ## Solución
 
-La solución consiste en una serie de prácticas que se enumeran a continuación:
+La solución consiste en una serie de prácticas que siguen un propósito definido, que se enumeran a continuación como:
 
 - [Probar IPFS como la principal solución descentralizada para compartir contenido](./IPFS/README.md).
+
+## Índice de contenido
+
+Además de las prácticas, podemos enumerar una serie de lecciones aprendidas que se pueden estudiar individualmente como:
+
+- [Configuración inicial de un servidor de red VPS](misc/net-server/net-server-initial-configuration.md)
+- Iteraciones de [hardening del servidor](https://es.wikipedia.org/wiki/Endurecimiento_(inform%C3%A1tica)), con la [iteración 1](misc/net-server/net-server-hardening/hardering-iteration-1.md).
 
 ## Licencia
 
@@ -42,6 +55,8 @@ Las referencias las podemos encontrar en [la comunidad](./COMMUNITY.md).
 
 ## Notas Adicionales
 
-Web3 es una pieza fundamental para la evolución de internet y redefine cómo interactuamos con la tecnología y la economía digital.
+Web3 es una pieza fundamental para la evolución de internet y redefine cómo interactuamos con la tecnología y la economía digital, es un cambio de paradigma, por lo tanto, es um proceso, un viaje, y deben tomar este repositorio como tal, como un diario de aprendizaje.
 
-Este proyecto está en constante evolución, y los resultados documentados aquí reflejan un proceso de aprendizaje activo.
+Consideren entonces, que este proyecto está en constante evolución, y los resultados documentados aquí reflejan un proceso de aprendizaje continuo, basado en [kayzen](https://es.wikipedia.org/wiki/Kaizen).
+
+---

@@ -1,6 +1,6 @@
 # Instalación y configuración inicial de `docker` en un servidor de red
 
-Esta es la solución nombrada como `#netServer-docker-install-configuration`.
+Esta es la solución nombrada como `#net-server-docker-install-configuration`.
 
 ## Contexto
 
