@@ -2,7 +2,7 @@
 
 Aquí encontrarás una selección de sitios web y autores que considero valiosos para adquirir conocimientos y desarrollar proyectos relacionados con `web3`.
 
-> **Nadie patrocina esta repositorio**, por lo tanto, los enlaces propuestas son realmente los sitios que considero válidos, independientemente de que en algunos, existan empresas detrás con intereses económicos, sean de pago.o simplemente fue un error elegirlos.
+> **Nadie patrocina esta repositorio**, por lo tanto, los enlaces propuestas son realmente los sitios que considero válidos, independientemente de que en algunos, existan empresas detrás con intereses económicos, sean de pago o simplemente sean incorrectos y fue un error elegirlos.
 
 ## Formación Web3
 
@@ -13,7 +13,9 @@ Aquí encontrarás una selección de sitios web y autores que considero valiosos
 - [Alchemy University](https://www.alchemy.com/university) - Formación gratuita para desarrolladores Web3, desde nivel básico hasta avanzado, con cursos prácticos y certificaciones.
 - [OpenZeppelin Learn](https://docs.openzeppelin.com/learn/) - Plataforma interactiva para aprender sobre seguridad y desarrollo de contratos inteligentes con OpenZeppelin.
 - [Ethereum Book](https://github.com/ethereumbook/ethereumbook?tab=readme-ov-file) - Libro abierto sobre Ethereum y contratos inteligentes, ideal para desarrolladores y entusiastas.
+- [Token Economy (2ª edición, español)](https://github.com/Token-Economy-Book/2ndEdition-Spanish/wiki) - Traducción al español del libro de Shermin Voshmgir, disponible como wiki abierta, sobre cómo la Web3 reinventa internet: tokens, criptoeconomía, DAOs, DeFi y NFTs.
 - [Web3Citizen](https://www.web3citizen.xyz/) - Plataforma de investigación colaborativa y recursos educativos sobre el ecosistema Ethereum, con guías técnicas sobre ZK proofs, Layer 2, DAOs y rollups.
+- [L2 Learn](https://l2learn.io/) - Plataforma de aprendizaje especializada en Layer 2, con cursos sobre fundamentos, rollups, ZK-Rollups, Optimistic Rollups y bridges, desde nivel principiante hasta avanzado.
 - [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/4.x/) (implementaciones seguras y auditadas de los principales estándares)
 - [bit2me Academy](https://academy.bit2me.com/) - Plataforma educativa gratuita sobre blockchain y criptomonedas en español.
 - [Binance Academy](https://www.binance.com/es/academy) - Plataforma educativa gratuita de Binance con artículos, cursos y videos sobre blockchain, criptomonedas, trading y conceptos fundamentales del ecosistema crypto, disponible en español.
@@ -30,6 +32,7 @@ Aquí encontrarás una selección de sitios web y autores que considero valiosos
 - [Inevitable Ethereum](https://inevitableeth.com/) - Guía completa y visual sobre Ethereum, sus conceptos fundamentales y el ecosistema descentralizado.
 - [Coinbase Learn - Conceptos básicos de cripto](https://www.coinbase.com/es-la/learn/crypto-basics) - Guía introductoria de Coinbase sobre los fundamentos de las criptomonedas y blockchain, en español.
 - [CoinMarketCap Academy](https://coinmarketcap.com/academy) - Plataforma educativa sobre criptomonedas, blockchain y conceptos fundamentales del ecosistema crypto.
+- [Gate Learn](https://www.gate.com/es/learn/course) - Plataforma educativa del exchange Gate con más de 300 cursos sobre criptomonedas, trading, Web3, DeFi, TradFi e IA, disponible en español con niveles desde principiante hasta avanzado.
 - [Cointelegraph Explicado](https://es.cointelegraph.com/explained) - Artículos educativos en español que explican conceptos fundamentales de blockchain, criptomonedas y tecnologías Web3.
 - [RareSkills](https://rareskills.io/web3-blockchain-bootcamps) - Bootcamps avanzados de Solidity y ZK muy centrados en seguridad y profundidad técnica, orientados a desarrolladores con base previa.
 - [Horizen Academy](https://www.horizen.io/academy/) - Academia con cursos sobre blockchain, privacidad y criptografía.
@@ -79,6 +82,7 @@ Autores, investigadores y pensadores que publican contenido técnico, análisis 
   > El primero de la lista y no es casualidad, tiene la visión y está alineado al 100% con el emprendimiento, con un lenguaje fresco, práctico y directo, se deja de "memeces" y simplemente hace... y eso es increíble.
 
 - [ishtarspring](https://www.youtube.com/@ishtarspring) - Canal de YouTube dedicado a la exploración de proyectos Web3, NFTs y el ecosistema descentralizado.
+- [La CryptoGuía](https://lacryptoguia.com/) - Guía completa en español sobre criptomonedas para principiantes, con tutoriales paso a paso, Cryptopedia (más de 1.100 términos), herramientas de cálculo y recursos de seguridad.
 - [Stories from the Web3](https://www.linkedin.com/comm/newsletters/6959082428879507456) - Newsletter de Beatriz Infanzón sobre noticias semanales de la Web3.
 - [MetaMask News for Developers](https://metamask.io/en-GB/news/developers#latest) - Noticias y actualizaciones para desarrolladores de MetaMask.
 - [Newsletter Blockchain & Web3](https://www.linkedin.com/newsletters/blockchain-web3-7166849064406396928/) de [Metlabs](https://www.linkedin.com/company/metlabs-desarrollo-blockchain/).
@@ -98,6 +102,7 @@ Autores, investigadores y pensadores que publican contenido técnico, análisis 
 - [Canal de YouTube Ramon Soto C](https://www.youtube.com/@rsotoc/videos) - Formación sobre la Web3.
 - [Dinero Tonto](https://www.youtube.com/@DineroTonto) - Canal de YouTube sobre finanzas, inversión y educación financiera con perspectiva crítica.
 - [Observatorio Blockchain](https://observatorioblockchain.com/) - Medio digital en español dedicado a noticias, análisis y recursos sobre blockchain, Web3, criptomonedas y tendencias tecnológicas.
+- [Value Index](https://www.youtube.com/@ValueIndex) - Canal de YouTube sobre inversión, finanzas y análisis del ecosistema cripto y Web3.
 - [WhiteboardCrypto](https://whiteboardcrypto.com/) - Atlas del ecosistema crypto.
   - Disfruta su [canal de YouTube Whiteboard Crypto en Español](https://www.youtube.com/@whiteboardcryptoenespanol2505).
 - [Hackernoon - Web3](https://hackernoon.com/c/web3) - Comunidad abierta para que tecnólogos lean, escriban y publiquen.
@@ -149,6 +154,7 @@ Los hackathons son espacios de creación y colaboración donde personas con obje
 
 ## Herramientas de análisis y datos
 
+- [DeFi Prime](https://defiprime.com/) - Portal de referencia sobre finanzas descentralizadas con directorio categorizado de proyectos DeFi, artículos de análisis y cobertura del ecosistema en múltiples blockchains.
 - [DeFi Llama](https://defillama.com/) - Dashboard con datos en tiempo real sobre TVL, fees, volumen y métricas de protocolos DeFi en múltiples blockchains.
 - [L2Beat](https://l2beat.com/) - Análisis exhaustivo de Layer 2s de Ethereum con datos de TVL, riesgos, actividad y costos.
 - [Dune Analytics](https://dune.com/) - Plataforma de analítica onchain que permite crear dashboards, consultar datos y acceder a métricas de blockchain mediante SQL.

@@ -2,7 +2,7 @@
 
 ## Contexto
 
-Este es un tutorial de [Open3DIY.org](https://github.com/open3diy/org/blob/main/README.md).
+Este es un repositorio de [Open3DIY.org](https://github.com/open3diy/org/blob/main/README.md).
 
 Este repositorio tiene un enfoque educativo, dirigido a explorar el potencial de la Web3 en contextos reales y superar barreras técnicas comunes.
 
@@ -14,6 +14,7 @@ Web3 representa la evolución de internet hacia un modelo descentralizado basado
 - **Propiedad de los datos**: Los usuarios tienen control total sobre su identidad y activos digitales.
 - **Interoperabilidad**: Facilita la conexión entre diversas plataformas y protocolos descentralizados.
 - **Automatización**: Mediante contratos inteligentes, permite la ejecución automática de acuerdos sin intervención humana.
+- **Soberanía digital**: Capacidad de los usuarios para controlar su propia identidad, datos y activos sin depender de terceros centralizados.
 
 ### Aplicaciones prácticas
 
@@ -21,10 +22,14 @@ Web3 representa la evolución de internet hacia un modelo descentralizado basado
 - **Identidad digital**: Gestión de credenciales personales sin depender de servicios centralizados.
 - **dApps**: Aplicaciones sin servidores que operan directamente en blockchain.
 - **Propiedad digital**: Tokenización de activos, NFTs y economías descentralizadas.
+- **Economía de tokens**: Diseño de incentivos económicos mediante tokens de utilidad, gobernanza y valor que coordinan comunidades y protocolos sin intermediarios.
+- **Organizaciones autónomas descentralizadas (DAOs)**: Modelos de gobernanza colectiva en internet donde las reglas y decisiones se gestionan mediante contratos inteligentes y votación on-chain.
+- **Almacenamiento distribuido**: Redes como IPFS o Filecoin que permiten almacenar y compartir datos sin depender de servidores centralizados.
+- **Redes sociales descentralizadas**: Plataformas donde los usuarios son dueños de su contenido e identidad, sin censura ni control corporativo.
 
 ## Propósito
 
-**Mi propósito aquí** es experimentar con Web3, el modelo descentralizado que representa la próxima generación de internet, para crear una guía divulgativa, práctica y completa que pueda ser compartida y utilizada por cualquiera de forma abierta. Pero, sobre todo, si te preguntas: ¿por qué tanto esfuerzo? Es para estar presente, formar parte del crecimiento de la Web3 y, especialmente, para crear algo que posibilite nuevos modelos de negocio y oportunidades. Se puede decir que si hay algo que realmente no te gusta, es mejor construirlo antes que quejarse: eso es este web3-101.
+**Mi propósito aquí** es experimentar con Web3, el modelo descentralizado que representa la próxima generación de internet, para crear una guía divulgativa, práctica y completa que pueda ser compartida y utilizada por cualquiera de forma abierta. Pero, sobre todo, si te preguntas: ¿por qué tanto esfuerzo? Es para estar presente, formar parte del crecimiento de la Web3 y, especialmente, para crear algo que posibilite nuevos modelos de negocio y oportunidades. Se puede decir que si hay algo que realmente no te gusta, es mejor construirlo antes que quejarse: eso es para mi web3-101.
 
 Siendo más pragmáticos, este repositorio puede considerarse un laboratorio de ideas y pruebas de concepto sobre Web3 que comparto con la comunidad.
 
